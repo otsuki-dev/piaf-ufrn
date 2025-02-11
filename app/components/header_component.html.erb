@@ -1,0 +1,33 @@
+<header class="navbar navbar-expand-md navbar-light d-print-none">
+    <div class="container-xl">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+            <%= link_to 'PIAF', root_path, class: 'navbar-brand' %>
+        </h1>
+        <div class="navbar-nav flex-row order-md-last">
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown">
+                    <!-- <span class="avatar" style="background-image: url(<%# helpers.current_user.avatar_url %>)"></span> -->
+                    <div class="d-none d-xl-block ps-2 text-center">
+                        <% if helpers.current_user.present? %>
+                            <%= image_tag helpers.current_user.avatar, class: "avatar avatar-sm" %>
+                            <div><%= helpers.current_user.username %></div>
+                            <div class="mt-1 small text-muted"><%= helpers.current_user.email %></div>
+                        <% else %>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="text-decoration-underline me-2 align-self-center"><%= link_to 'Criar conta', new_user_registration_path %></div>
+                                <%= link_to 'Entrar', new_user_session_path, class: 'btn btn-primary' %>
+                            </div>
+                        <% end %>
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <%= link_to 'Perfil', edit_user_registration_path, class: 'dropdown-item' %>
+                    <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

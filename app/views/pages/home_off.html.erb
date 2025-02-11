@@ -1,6 +1,24 @@
+<div class="page">
+    <!-- Header -->
+    <%= render(HeaderComponent.new(current_user: "")) %>
+    <!-- Content -->
+    <div class="content">
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                    </div>
+                    <div class="container">
+                        <h1 class="text-center">Bem Vindo a PIAF</h1>
+                        <p>Transforme sua rotina com atividades físicas na UFRN. Inscreva-se e comece hoje mesmo!</p>
+                        <%= link_to "Criar conta agora", new_user_registration_path, class: "btn btn-primary" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="container">
-  <h1 class="text-center">Bem Vindo a PIAF</h1>
-  <p>Transforme sua rotina com atividades físicas na UFRN. Inscreva-se e comece hoje mesmo!</p>
-  <%= link_to "Criar conta agora", new_user_registration_path, class: "btn btn-primary" %>
+
+<!-- Footer -->
+<%= render(FooterComponent.new) %>
 </div>

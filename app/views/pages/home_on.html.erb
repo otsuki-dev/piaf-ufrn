@@ -1,69 +1,26 @@
 <!-- app/views/home/index.html.erb -->
 <div class="page">
-  <!-- Header -->
-  <header class="navbar navbar-expand-md navbar-light d-print-none">
-    <div class="container-xl">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-        <%= link_to 'Minha Aplicação', root_path, class: 'navbar-brand' %>
-      </h1>
-      <div class="navbar-nav flex-row order-md-last">
-        <div class="nav-item dropdown">
-          <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown">
-            <!-- <span class="avatar" style="background-image: url(<%# current_user.avatar_url %>)"></span> -->
-            <div class="d-none d-xl-block ps-2">
-              <div><%= current_user.username %></div>
-              <div class="mt-1 small text-muted"><%= current_user.email %></div>
+    <!-- Header -->
+    <%= render(HeaderComponent.new(current_user: current_user)) %>
+    <!-- Content -->
+    <div class="content">
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><%=@greeting %>, <%= current_user.username %>!</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Você está logado na aplicação.</p>
+                            <p>Aqui você pode adicionar mais conteúdo, como gráficos, tabelas, etc.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end">
-            <%= link_to 'Perfil', edit_user_registration_path, class: 'dropdown-item' %>
-            <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-          </div>
         </div>
-      </div>
     </div>
-  </header>
 
-  <!-- Content -->
-  <div class="content">
-    <div class="container-xl">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Bem-vindo, <%= current_user.username %>!</h3>
-            </div>
-            <div class="card-body">
-              <p>Você está logado na aplicação.</p>
-              <p>Aqui você pode adicionar mais conteúdo, como gráficos, tabelas, etc.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer footer-transparent d-print-none">
-    <div class="container-xl">
-      <div class="row text-center align-items-center flex-row-reverse">
-        <div class="col-lg-auto ms-lg-auto">
-          <ul class="list-inline list-inline-dots mb-0">
-            <li class="list-inline-item"><a href="#" class="link-secondary">Documentação</a></li>
-            <li class="list-inline-item"><a href="#" class="link-secondary">Suporte</a></li>
-          </ul>
-        </div>
-        <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-          <ul class="list-inline list-inline-dots mb-0">
-            <li class="list-inline-item">
-              &copy; <%= Time.current.year %> Minha Aplicação
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
+    <!-- Footer -->
+    <%= render(FooterComponent.new) %>
 </div>
