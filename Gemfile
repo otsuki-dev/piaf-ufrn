@@ -18,8 +18,7 @@ gem "stimulus-rails"
 gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-# View components for Rails [https://github.com/viewcomponent/view_component]
-gem "view_component", require: "view_component/engine"
+
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -67,3 +66,8 @@ end
 
 
 gem "devise", "~> 4.9"
+
+gem "view_component", "~> 3.21"
+gem 'bootstrap', '~> 5.3.0'
+gem 'jquery-rails'
+gem "importmap-rails", "~> 2.1"
