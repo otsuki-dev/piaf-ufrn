@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get "/sobre" => "pages#about"
 
+  get "pages/home_on"
+
   root "pages#home_off"
 
   devise_for :users
