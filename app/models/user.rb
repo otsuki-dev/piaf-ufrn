@@ -8,4 +8,8 @@ class User < ApplicationRecord
   validates :cpf, presence: true, uniqueness: true, format: { with: /\A\d{11}\z/, message: "deve ter 11 dígitos" }
   validates :birthdate, presence: true
   validates :ufrn_registration_number, presence: true, if: -> { ufrn_student? }
+
+  def admin?
+    self.admin
+  end
 end

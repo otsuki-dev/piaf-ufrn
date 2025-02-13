@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get "pages/home_on"
 
-  devise_for :users
+  devise_for :users, controllers: { sessions: 'users/sessions' }
 
   authenticated :user do
     root 'pages#home_on', as: :home 
@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   unauthenticated do
     root 'pages#home_off' 
+  end
+
+  namespace :admin do
+    get 'dashboard', to: 'dashboard#index'
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
