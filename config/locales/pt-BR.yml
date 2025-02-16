@@ -1,0 +1,38 @@
+pt-BR:
+  activerecord:
+    attributes:
+      user:
+        email: "E-mail"
+        password: "Senha"
+        username: "Nome de usuário"
+        cpf: "CPF"
+        birthdate: "Data de nascimento"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "O campo e-mail não pode ficar em branco."
+              invalid: "O e-mail informado é inválido."
+              taken: "Este e-mail já está em uso."
+            password:
+              blank: "O campo senha não pode ficar em branco."
+              too_short: "A senha deve ter no mínimo %{count} caracteres."
+              confirmation: "A confirmação de senha não coincide."
+            username:
+              blank: "O campo nome de usuário não pode ficar em branco."
+              taken: "Este nome de usuário já está em uso."
+            cpf:
+              blank: "O campo CPF não pode ficar em branco."
+              length: "O CPF deve ter exatamente 11 dígitos."
+              invalid: "O CPF informado é inválido."
+            birthdate:
+              blank: "O campo data de nascimento não pode ficar em branco."
+              invalid: "A data de nascimento informada é inválida."
+  errors:
+    messages:
+      blank: "não pode ficar em branco."
+      taken: "já está em uso."
+      invalid: "não é válido."
+      too_short: "é muito curto (mínimo: %{count} caracteres)."
+      confirmation: "não coincide com a confirmação."
