@@ -3,6 +3,7 @@ class Admin::DashboardController < ApplicationController
     before_action :require_admin
   
     def index
+      @courses = Course.all
     end
   
     private

@@ -1,0 +1,11 @@
+<h1>Cursos Disponíveis</h1>
+<% @courses.each do |course| %>
+  <div class="course-card">
+    <h2><%= course.modality %></h2>
+    <p>Início das inscrições: <%= course.start_date %></p>
+    <p>Término das inscrições: <%= course.end_date %></p>
+    <p>Dia e horário das aulas: <%= course.class_time %></p>
+    <p>Vagas disponíveis: <%= course.slots %></p>
+    <%= link_to "Inscrever-se", new_course_enrollment_path(course) %>
+  </div>
+<% end %>

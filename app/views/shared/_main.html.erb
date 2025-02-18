@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <h1 class="text-center mb-4">📚 Cursos Disponíveis</h1>
+
+  <div class="row">
+    <% @courses.each do |course| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title fw-bold"><%= course.modality %></h5>
+            <p class="card-text"><strong>📅 Início:</strong> <%= course.start_date %></p>
+            <p class="card-text"><strong>⏳ Término:</strong> <%= course.end_date %></p>
+            <p class="card-text"><strong>🕒 Horário:</strong> <%= course.class_time %></p>
+            <p class="card-text"><strong>🎟️ Vagas:</strong> <%= course.slots %></p>
+            <a href="<%= new_course_enrollment_path(course) %>" class="btn btn-primary w-100">
+              ✍️ Inscrever-se
+            </a>
+          </div>
+          <% if current_user.admin? %>
+            <a href="<%= enrolled_users_course_path(course) %>" class="btn btn-primary w-100">
+              Ver andamento
+            </a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

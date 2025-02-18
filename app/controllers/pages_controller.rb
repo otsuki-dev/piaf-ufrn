@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
 
   def home_on
+    @courses = Course.all
     @greeting = case Time.current.hour
     when 5..11
       "Bom dia"

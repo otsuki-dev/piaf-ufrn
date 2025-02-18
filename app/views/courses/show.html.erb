@@ -1,0 +1,37 @@
+<h1>Detalhes do Curso</h1>
+
+<p>
+  <strong>Modalidade:</strong>
+  <%= @course.modality %>
+  <% if @course.custom_modality.present? %>
+    (<%= @course.custom_modality %>)
+  <% end %>
+</p>
+
+<p>
+  <strong>Início das inscrições:</strong>
+  <%= @course.start_date %>
+</p>
+
+<p>
+  <strong>Término das inscrições:</strong>
+  <%= @course.end_date %>
+</p>
+
+<p>
+  <strong>Dia e horário das aulas:</strong>
+  <%= @course.class_time %>
+</p>
+
+<p>
+  <strong>Vagas disponíveis:</strong>
+  <%= @course.slots %>
+</p>
+
+<% if current_user.admin? %>
+  <%= link_to 'Ver Inscritos', enrolled_users_course_path(@course) %>
+<% else %>
+  <%= link_to 'Inscrever-se', new_course_enrollment_path(@course) %>
+<% end %>
+
+<%= link_to 'Voltar', courses_path %>

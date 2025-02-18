@@ -17,6 +17,11 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboard#index'
   end
 
+  resources :courses do
+    resources :enrollments, only: [:new, :create]
+    get 'enrolled_users', on: :member
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest

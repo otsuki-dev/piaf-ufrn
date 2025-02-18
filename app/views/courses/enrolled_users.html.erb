@@ -1,0 +1,26 @@
+<h1 class="mb-4 text-center">Inscritos no Curso: <%= @course.modality %></h1>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover shadow-sm">
+    <thead class="table-primary text-center">
+      <tr>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Data de Nascimento</th>
+        <th>E-mail</th>
+        <th>CPF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @enrollments.each do |enrollment| %>
+        <tr>
+          <td><%= enrollment.user.username %></td>
+          <td><%= enrollment.user.phone_number %></td>
+          <td><%= enrollment.user.birthdate %></td>
+          <td><%= enrollment.user.email %></td>
+          <td><%= enrollment.user.cpf %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
