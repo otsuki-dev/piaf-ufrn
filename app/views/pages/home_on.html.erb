@@ -18,3 +18,13 @@
     <%= render "shared/main" %>
   </div>
 </div>
+
+<h1>Nome Aleatório</h1>
+
+<p>O nome escolhido aleatoriamente é: <strong><%= @random_name %></strong></p>
+
+<%= form_with url: names_path, method: :get do |form| %>
+  <%= form.label :new_name, "Escolha um novo nome:" %>
+  <%= form.select :new_name, @names, include_blank: true %>
+  <%= form.submit "Atualizar Nome" %>
+<% end %>
