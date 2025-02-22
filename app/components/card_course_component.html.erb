@@ -1,0 +1,21 @@
+<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="card">
+    <% if @course.modality == "Musculação"%>
+    <img class="card-img-top" src="https://s2-oglobo.glbimg.com/tCi4YPIy6K0HBPMLGnt00WSvbrQ=/0x0:4000x2667/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2023/c/a/O7y1EGRAelLLVURwHeqQ/strong-man-training-gym.jpg" alt="Card image cap" />
+    <% elsif @course.modality == "Karate" %>
+    <img class="card-img-top" src="https://jkabrasil.com.br/wp-content/uploads/2023/01/jka-brasil-karate-graduacao-1.jpg" alt="Card image cap" />
+    <% end %>
+    <div class="card-body">
+        <h5 class="card-title"><%= @course.modality %></h5>
+        <p class="card-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Doloremque possimus fuga quae ipsam culpa at ipsa dolor
+        placeat vel, recusandae eligendi expedita labore quod
+        in, illo tempore! Ad, aliquam earum?
+        </p>
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">Termina dia tal do tal</small>
+    </div>
+    </div>
+</div>
