@@ -16,7 +16,7 @@
         <tr>
           <td><%= enrollment.user.username %></td>
           <td><%= enrollment.user.phone_number %></td>
-          <td><%= enrollment.user.birthdate %></td>
+          <td><%= enrollment.user.birthdate.strftime("%d/%m/%Y") %></td>
           <td><%= enrollment.user.email %></td>
           <td><%= enrollment.user.cpf %></td>
         </tr>

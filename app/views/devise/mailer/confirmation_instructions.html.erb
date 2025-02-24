@@ -1,8 +1,8 @@
-<p>Bem-vindo(a) a PIAF <%= @email %>!</p>
+<p>Bem-vindo(a) a PIAF <%= @user.username %>!</p>
 
 <p>Para concluir a criação da sua conta, é necessário confirmar seu e-mail através do linka abaixo:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= link_to 'Confirmar minha conta', confirmation_url(@resource, confirmation_token: @token) %></p>
 
 <p>Se você não se cadastrou no PIAF, por favor, ignore este e-mail.</p>
 

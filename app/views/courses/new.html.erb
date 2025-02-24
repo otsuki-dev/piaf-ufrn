@@ -5,17 +5,17 @@
     <%= form_with model: @course, local: true, html: { class: "needs-validation", novalidate: true } do |f| %>
       <div class="mb-3">
         <%= f.label :start_date, "📅 Data de início das inscrições", class: "form-label" %>
-        <%= f.date_field :start_date, required: true, class: "form-control" %>
+        <%= f.datetime_field :start_date, required: true, class: "form-control" %>
       </div>
 
       <div class="mb-3">
         <%= f.label :end_date, "⏳ Data de término das inscrições", class: "form-label" %>
-        <%= f.date_field :end_date, required: true, class: "form-control" %>
+        <%= f.datetime_field :end_date, required: true, class: "form-control" %>
       </div>
 
       <div class="mb-3">
         <%= f.label :class_time, "🕒 Dia e horário das aulas", class: "form-label" %>
-        <%= f.datetime_field :class_time, required: true, class: "form-control" %>
+        <%= f.text_field :class_time, required: true, class: "form-control" %>
       </div>
 
       <div class="mb-3">
