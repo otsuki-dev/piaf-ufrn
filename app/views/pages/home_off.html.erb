@@ -1,18 +1,112 @@
 <div class="page">
+    <div class="background-image"></div>
     <div class="content">
         <div class="container-xl">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                    </div>
-                    <div class="container">
-                        <h1 class="text-center">Bem Vindo a PIAF</h1>
-                        <p>Transforme sua rotina com atividades físicas na UFRN. Inscreva-se e comece hoje mesmo!</p>
-                        <%= link_to "Criar conta agora", new_user_registration_path, class: "btn btn-primary" %>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="card shadow-sm sticky-card">
+                        <div class="card-body text-center">
+                            <h3 class="display-6">Deixe a energia fluir em cada movimento.</h3>
+                            <p class="lead">Transforme sua rotina com atividades físicas na UFRN. Inscreva-se e comece hoje mesmo!</p>
+                            <%= link_to "Criar conta agora", new_user_registration_path, class: "btn btn-primary btn-lg mt-3" %>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="features py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <h3 class="h3">Atividades Diversas</h3>
+                <p>Oferecemos uma variedade de atividades físicas para todos os gostos e níveis.</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <h3 class="h3">Instrutores Qualificados</h3>
+                <p>Nossos instrutores são altamente qualificados e prontos para ajudar você a alcançar seus objetivos.</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <h3 class="h3">Infraestrutura Completa</h3>
+                <p>Contamos com uma infraestrutura completa para proporcionar a melhor experiência possível.</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="how-it-works py-5 bg-light">
+    <div class="container">
+        <h2 class="h2 text-center mb-4">Como funciona a PIAF?</h2>
+        <p class="lead text-center">A PIAF funciona de uma maneira bastante simples. É basicamente um formulário de inscrição para as modalidades que os administradores liberaram. Para realizar inscrições basta clicar apenas um botão. Você não precisará inserir diversas informações todas as vezes que for se inscrever, basta apenas criar a sua conta e aproveitar. E também, os Bolsistas têm um trabalho mais facilitado, e sem burocracias.</p>
+    </div>
+</div>
+
+<style>
+    .page {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        overflow: hidden;
+        padding: 2rem;
+    }
+
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('<%= asset_path('background-pexels.webp') %>') no-repeat center center;
+        background-size: cover;
+        z-index: -1;
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .card {
+        background: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 2rem;
+        max-width: 100%;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .sticky-card {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    @media (max-width: 767.98px) {
+        .page {
+            justify-content: center;
+        }
+
+        .content {
+            justify-content: center;
+        }
+    }
+</style>

@@ -18,7 +18,7 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Piaf
+module PIAF
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
@@ -40,7 +40,7 @@ module Piaf
     config.generators.system_tests = nil
 
     config.i18n.default_locale = :'pt-BR'
-    config.time_zone = 'Brasilia'
+    config.time_zone = "Brasilia"
 
     config.active_record.default_timezone = :local
   end
