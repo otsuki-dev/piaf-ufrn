@@ -8,13 +8,9 @@
     <div class="card-body">
         <h5 class="card-title"><%= @course.modality %></h5>
         <p class="card-text">
-        📅Inicio das inscrições: <%= @course.start_date.strftime("%d/%m/%Y as %H:%M") %>
-        <br>
-        ⏳Final das inscrições: <%= @course.end_date.strftime("%d/%m/%Y as %H:%M") %>
-        <br>
-        🎟️<%= @course.slots %> Vagas
-        <br>
-        Informações sobre a Turma: <br> <%= @course.class_time %>
+        As inscrições começam dia <strong> <%= @course.start_date.strftime("%d/%m/%Y às %H:%M") %> </strong> e terminam dia <strong><%= @course.end_date.strftime("%d/%m/%Y às %H:%M") %></strong>.
+        Com o Total de <strong> <%= @course.slots %> Vagas </strong>, restando apenas <strong><%= @course.slots - @course.enrollments.count %> Vagas</strong>.
+        Horario das aulas: <strong> <%= @course.class_time %> </strong>
         </p>
     </div>
     <div class="card-footer">

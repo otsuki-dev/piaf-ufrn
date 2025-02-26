@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <h1 class="text-center mb-4">📌 Novo Curso</h1>
+
+  <div class="card shadow-sm p-4">
+    <%= form_with model: @course, local: true, html: { class: "needs-validation", novalidate: true } do |f| %>
+      <div class="mb-3">
+        <%= f.label :start_date, "📅 Data de início das inscrições", class: "form-label" %>
+        <%= f.datetime_field :start_date, required: true, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :end_date, "⏳ Data de término das inscrições", class: "form-label" %>
+        <%= f.datetime_field :end_date, required: true, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :class_time, "🕒 Dia e horário das aulas", class: "form-label" %>
+        <%= f.text_field :class_time, required: true, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :slots, "🎟️ Quantidade de vagas", class: "form-label" %>
+        <%= f.number_field :slots, required: true, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :modality, "🏆 Modalidade", class: "form-label" %>
+        <%= f.select :modality, options_for_select([
+          "Musculação", "Natação Iniciante", "Natação Avançado", "Vôlei de Quadra Iniciante",
+          "Vôlei de Quadra Avançado", "Taekwondo", "Cross Training", "Kung Fu", "Sanda",
+          "Deep Running", "Funcionágua", "Badminton Coespe", "Ginástica Rítmica",
+          "Ginástica Aeróbica", "Xadrez", "Aikido", "Capoeira", "Karate", "Kendo", "Outros"
+        ]), {}, id: 'modality-select', class: "form-select" %>
+      </div>
+
+      <div id="custom-modality-field" class="mb-3" style="display: none;">
+        <%= f.label :custom_modality, "✍️ Especifique a modalidade", class: "form-label" %>
+        <%= f.text_field :custom_modality, class: "form-control" %>
+      </div>
+
+      <div class="text-center">
+        <%= f.submit "✅ Atualizar", class: "btn btn-primary w-100" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  document.getElementById('modality-select').addEventListener('change', function() {
+    const customField = document.getElementById('custom-modality-field');
+    customField.style.display = (this.value === 'Outros') ? 'block' : 'none';
+  });
+
+  // Bootstrap Validation (opcional)
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      var forms = document.getElementsByClassName('needs-validation');
+      Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>

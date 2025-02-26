@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :enrollments, only: [:destroy]
+
   resources :courses do
     resources :enrollments, only: [ :new, :create ]
     get "enrolled_users", on: :member

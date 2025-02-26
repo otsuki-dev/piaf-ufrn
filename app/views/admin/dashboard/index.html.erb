@@ -11,18 +11,6 @@
     <p>Nenhum curso com inscrições abertas no momento.</p>
   <% end %>
   </div>
-   <div class="row mt-5">
-    <div class="col-12">
-      <h1>Finalizadas</h1>
-    </div>
-  <% if @past_courses.any? %>
-    <% @past_courses.each do |course| %>
-      <%= render CardCourseComponent.new(course: course) %>
-    <% end %>
-  <% else %>
-    <p>Nenhum curso com inscrições encerradas.</p>
-  <% end %>
-  </div>
   <div class="row mt-5">
     <div class="col-12">
       <h1>Próximas Turmas</h1>
@@ -34,5 +22,17 @@
     <% else %>
       <p>Nenhum curso com inscrições futuras.</p>
     <% end %>
+</div>
+<div class="row mt-5">
+  <div class="col-12">
+    <h1>Finalizadas</h1>
+  </div>
+<% if @past_courses.any? %>
+  <% @past_courses.each do |course| %>
+    <%= render CardCourseComponent.new(course: course) %>
+  <% end %>
+<% else %>
+  <p>Nenhum curso com inscrições encerradas.</p>
+<% end %>
 </div>
 

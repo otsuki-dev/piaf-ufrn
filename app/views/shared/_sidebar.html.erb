@@ -1,6 +1,6 @@
 <div id="sidebar" class="d-flex flex-column p-3 collapsed">
-    <% @seed = SecureRandom.hex(4) %>
-    <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=<%= @seed %>" class="rounded-3" style="width: 50px;" alt="Avatar" />
+    <% @seed = rand(1..20) %>
+    <img src="https://api.dicebear.com/7.x/thumbs/png?seed=<%= @seed %>" class="rounded-3" style="width: 50px;" alt="Avatar" />
     <div id="sidebar-toggler">
         <i class="fas fa-bars"></i>
     </div>

@@ -30,8 +30,10 @@
 
 <% if current_user.admin? %>
   <%= link_to 'Ver Inscritos', enrolled_users_course_path(@course) %>
+  <%= link_to "Editar", edit_course_path(@course), class: 'btn btn-warning' %>
+  <%= button_to "Deletar", course_path(@course), method: :delete, class: 'btn btn-danger' %>
 <% else %>
   <%= link_to 'Inscrever-se', new_course_enrollment_path(@course) %>
 <% end %>
 
-<%= link_to 'Voltar', admin_dashboard_path %>
+<%= link_to 'Voltar', root_path %>
