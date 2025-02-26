@@ -1,27 +1,76 @@
 <div class="container mt-4">
-  <h1 class="text-center mb-4">📚 Cursos Disponíveis</h1>
+    <h1 class="mb-4">Cursos Disponíveis</h1>
 
-  <div class="row">
-    <% @courses.each do |course| %>
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body">
-            <h5 class="card-title fw-bold"><%= course.modality %></h5>
-            <p class="card-text"><strong>📅 Início:</strong> <%= course.start_date %></p>
-            <p class="card-text"><strong>⏳ Término:</strong> <%= course.end_date %></p>
-            <p class="card-text"><strong>🕒 Horário:</strong> <%= course.class_time %></p>
-            <p class="card-text"><strong>🎟️ Vagas:</strong> <%= course.slots %></p>
-            <a href="<%= new_course_enrollment_path(course) %>" class="btn btn-primary w-100">
-              ✍️ Inscrever-se
-            </a>
-          </div>
-          <% if current_user.admin? %>
-            <a href="<%= enrolled_users_course_path(course) %>" class="btn btn-primary w-100">
-              Ver andamento
-            </a>
-          <% end %>
+    <!-- Cursos com inscrições abertas -->
+    <h2 class="text-success">Inscrições Abertas</h2>
+    <% if @open_courses.any? %>
+        <div class="row">
+            <% @open_courses.each do |course| %>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-success">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= course.modality %></h5>
+                            <p class="card-text">Início: <%= course.start_date %></p>
+                            <p class="card-text">Término: <%= course.end_date %></p>
+                            <p class="card-text">Horário: <%= course.class_time %></p>
+                            <p class="card-text">Vagas disponíveis: <%= course.slots - course.enrollments.count %></p>
+                            <% if current_user.enrollments.where(course_id: course.id).exists? %>
+                                <p class="text-warning">Você já está inscrito.</p>
+                            <% else %>
+                                <a href="<%= new_course_enrollment_path(course) %>" class="btn btn-success">Inscrever-se</a>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
         </div>
-      </div>
+    <% else %>
+        <p class="text-muted">Nenhum curso com inscrições abertas no momento.</p>
     <% end %>
-  </div>
+
+    <!-- Cursos com inscrições encerradas -->
+    <h2 class="text-danger mt-4">Inscrições Encerradas</h2>
+    <% if @past_courses.any? %>
+        <div class="row">
+            <% @past_courses.each do |course| %>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-danger">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= course.modality %></h5>
+                            <p class="card-text">Início: <%= course.start_date %></p>
+                            <p class="card-text">Término: <%= course.end_date %></p>
+                            <p class="card-text">Horário: <%= course.class_time %></p>
+                            <p class="card-text">Vagas disponíveis: <%= course.slots - course.enrollments.count %></p>
+                            <p class="text-danger"><strong>Inscrições encerradas.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    <% else %>
+        <p class="text-muted">Nenhum curso com inscrições encerradas.</p>
+    <% end %>
+
+    <!-- Cursos que ainda vão abrir -->
+    <h2 class="text-primary mt-4">Inscrições Futuras</h2>
+    <% if @future_courses.any? %>
+        <div class="row">
+            <% @future_courses.each do |course| %>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= course.modality %></h5>
+                            <p class="card-text">Início: <%= course.start_date %></p>
+                            <p class="card-text">Término: <%= course.end_date %></p>
+                            <p class="card-text">Horário: <%= course.class_time %></p>
+                            <p class="card-text">Vagas disponíveis: <%= course.slots - course.enrollments.count %></p>
+                            <p class="text-primary"><strong>Inscrições começam em breve.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    <% else %>
+        <p class="text-muted">Nenhum curso com inscrições futuras.</p>
+    <% end %>
 </div>

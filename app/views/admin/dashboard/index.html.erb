@@ -1,66 +1,38 @@
-<div class="main-content">
-  <!-- Barra lateral -->
-  <%= render "barra_lateral" %>
-
-  <!-- Conteúdo principal -->
-  <div class="content-area">
-    <div class="row">
-      <div class="col">
-        <h4>Olá, <%= current_user.username %>!</h4>
-        <h5 class="text-secondary">
-          Este é um resumo do que está acontecendo na PIAF:
-        </h5>
-        <hr />
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Em Andamento</h1>
     </div>
-
-    <!-- Área dos Cards de processos seletivos mais recentes -->
-    <div id="carouselExampleIndicators" class="carousel slide bg-dark" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="row">
-            <% @courses.each do |course| %>
-              <%= render CardCourseComponent.new(course: course) %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Anterior</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Próximo</span>
-      </a>
-    </div>
-
-    <hr>
-    <!-- Mostrar modalidades que já geraram o resultado -->
-    <div>
-      <div class="content-area">
-        <div class="row">
-          <div class="col">
-            <h5 class="text-secondary">
-              Inscrições que já encerraram:
-            </h5>
-            <hr />
-          </div>
-        </div>
-      </div>
-
-      <div>
-
-      </div>
-    </div>
+  <% if @open_courses.any? %>
+    <% @open_courses.each do |course| %>
+      <%= render CardCourseComponent.new(course: course) %>
+    <% end %>
+  <% else %>
+    <p>Nenhum curso com inscrições abertas no momento.</p>
+  <% end %>
   </div>
+   <div class="row mt-5">
+    <div class="col-12">
+      <h1>Finalizadas</h1>
+    </div>
+  <% if @past_courses.any? %>
+    <% @past_courses.each do |course| %>
+      <%= render CardCourseComponent.new(course: course) %>
+    <% end %>
+  <% else %>
+    <p>Nenhum curso com inscrições encerradas.</p>
+  <% end %>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <h1>Próximas Turmas</h1>
+    </div>
+    <% if @future_courses.any? %>
+      <% @future_courses.each do |course| %>
+        <%= render CardCourseComponent.new(course: course) %>
+      <% end %>
+    <% else %>
+      <p>Nenhum curso com inscrições futuras.</p>
+    <% end %>
 </div>
 
-<%# @courses.each do |course| %>
-  <%#= render CardCourseComponent.new(course: course) %>
-<%# end %>

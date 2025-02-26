@@ -27,14 +27,20 @@
   </head>
 
   <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
+  <div style="display: flex;">
+  <% if user_signed_in? %>
+  <%= render "shared/sidebar" %>
+  <% end %>
+    <main class="container m-3">
+     <% if notice %>
+      <div class="alert alert-success" id="alert-alert"><%= notice %></div>
     <% end %>
     <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
+      <div class="alert alert-danger" id="alert-alert"><%= alert %></div>
     <% end %>
-    <%= render "shared/header" %>
     <%= yield %>
+    </main>
+  </div>
     <%= render "shared/footer" %>
   </body>
 </html>

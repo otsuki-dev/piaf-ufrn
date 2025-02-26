@@ -17,6 +17,12 @@ Rails.application.routes.draw do
     get "dashboard", to: "dashboard#index"
   end
 
+  devise_scope :user do
+    authenticated :user do
+      get 'meus-cursos', to: 'users/sessions#enrolled_courses', as: :user_enrolled_courses
+    end
+  end
+
   resources :courses do
     resources :enrollments, only: [ :new, :create ]
     get "enrolled_users", on: :member

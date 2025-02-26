@@ -4,6 +4,11 @@ class Admin::DashboardController < ApplicationController
   
     def index
       @courses = Course.all
+
+      now = Time.current
+      @open_courses = Course.where('start_date <= ? AND end_date >= ?', now, now).order(:start_date)
+      @past_courses = Course.where('end_date < ?', now).order(end_date: :desc)
+      @future_courses = Course.where('start_date > ?', now).order(:start_date)
     end
   
     private

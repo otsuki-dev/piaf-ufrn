@@ -4,4 +4,9 @@ class Course < ApplicationRecord
     has_many :users, through: :enrollments
 
     validates :start_date, :end_date, :class_time, :slots, :modality, presence: true
+
+    def registration_period_open?
+        now = Time.current
+        start_date <= now && end_date >= now
+    end
 end

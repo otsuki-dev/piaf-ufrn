@@ -1,0 +1,22 @@
+<div class="container mt-4">
+    <h1 class="mb-4">Meus Cursos Inscritos</h1>
+
+    <% if @enrollments.any? %>
+        <div class="row">
+            <% @enrollments.each do |enrollment| %>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-info">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= enrollment.course.modality %></h5>
+                            <p class="card-text">Início das inscrições: <%= enrollment.course.start_date %></p>
+                            <p class="card-text">Término das inscrições: <%= enrollment.course.end_date %></p>
+                            <p class="card-text">Dia e horário das aulas: <%= enrollment.course.class_time %></p>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    <% else %>
+        <p class="text-muted">Você ainda não se inscreveu em nenhum curso.</p>
+    <% end %>
+</div>
