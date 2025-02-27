@@ -1,0 +1,25 @@
+<div class="container m-2">
+    <div class="row mt-3">
+    <div class="col-12">
+        <h1>Resultados</h1>
+    </div>
+    <% if @past_courses.any? %>
+    <% @past_courses.each do |course| %>
+        <%= link_to results_course_path(course, format: :pdf) do %>
+            <div class="card mb-4">
+                <div class="card-body">
+                <h5 class="card-title">
+                    <%= course.modality %> | Horário:
+                    <%= course.class_time %> |
+                    Data de início: <%= course.start_date.strftime("%d/%m/%Y") %> |
+                    Data de término: <%= course.end_date.strftime("%d/%m/%Y") %> 
+                </h5>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+    <% else %>
+    <p>Nenhum curso com inscrições encerradas.</p>
+    <% end %>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   layout false, only: [:home_off]
-  def about
+  def results
+    @past_courses = Course.where('end_date < ?', Time.current).order(end_date: :desc)
   end
 
   def home_off

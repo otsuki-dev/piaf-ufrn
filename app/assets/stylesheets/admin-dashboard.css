@@ -41,7 +41,7 @@ background: linear-gradient(to right, #9c0010, #d31705);
 /* Botão hambúrguer */
 #sidebar-toggler {
 position: absolute;
-top: 500px;
+top: 550px;
 left: 100%;
 transform: translate(-50%, -50%);
 cursor: pointer;

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "/sobre" => "pages#about"
+  get "/resultados" => "pages#results", as: :results
 
   get "pages/home_on", to: "pages#home_on"
 
@@ -26,8 +26,11 @@ Rails.application.routes.draw do
   resources :enrollments, only: [:destroy]
 
   resources :courses do
-    resources :enrollments, only: [ :new, :create ]
-    get "enrolled_users", on: :member
+    member do
+      get 'results' => 'courses#results' 
+    end
+    resources :enrollments, only: [:new, :create]
+    get 'enrolled_users', on: :member
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
