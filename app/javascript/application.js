@@ -3,10 +3,14 @@
 //= require jquery_ujs
 
 
-setTimeout(() => {
-document.querySelectorAll('.alert').forEach(alert => {
-    alert.style.transition = "opacity 0.5s";
-    alert.style.opacity = "0";
-    setTimeout(() => alert.remove(), 500);
-});
-}, 3000);
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      let flash = document.getElementById("flash-message");
+      if (flash) {
+        flash.style.transition = "opacity 1s";
+        flash.style.opacity = "0";
+        setTimeout(() => flash.remove(), 1000);
+      }
+    }, 3000); // Remove após 3s
+  });
+  

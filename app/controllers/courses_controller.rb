@@ -53,25 +53,29 @@ class CoursesController < ApplicationController
         format.html
         format.pdf do
           pdf = Prawn::Document.new
-          pdf.text "Resultados do Curso: #{@course.modality}", size: 18, style: :bold
+          pdf.image "app/assets/images/piaf-bw.webp", width: 100, position: :center
           pdf.move_down 20
-    
+          pdf.text "Resultados do Curso: #{@course.modality}", size: 18, style: :bold
           # Cabeçalho da tabela
           headers = ["Nome", "CPF"]
           data = @enrollments.map do |enrollment|
             [
               enrollment.user.username,
-              enrollment.user.cpf
+              enrollment.user.cpf.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
             ]
           end
     
           # Adicionar tabela ao PDF
+          pdf.text "Lista de Aprovados", size: 24, align: :center
+          pdf.move_down 20
           pdf.table([headers] + data, header: true, width: pdf.bounds.width * 0.9, cell_style: { padding: 5 }) do
             row(0).font_style = :bold
             row(0).background_color = "DDDDDD"
             self.row_colors = ["FFFFFF", "F0F0F0"]
             self.header = true
+            cells.borders = [:top, :bottom, :left, :right] 
           end
+          pdf.number_pages "Página <page> de <total>", at: [pdf.bounds.right - 150, 0]
     
           # Enviar o PDF como resposta
           send_data pdf.render, filename: "resultados_curso_#{@course.modality.parameterize}.pdf",

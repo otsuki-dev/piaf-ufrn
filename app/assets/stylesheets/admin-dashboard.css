@@ -74,3 +74,11 @@ transition: left 0.3s;
   width: 180px;
 }
 }
+
+.swiper-slide {
+  min-width: 250px; /* Evita que os cards fiquem muito estreitos */
+}
+main {
+  flex-grow: 1;
+  min-width: 0; /* Evita que o flex cause bugs */
+}
