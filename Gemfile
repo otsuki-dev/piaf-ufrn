@@ -64,12 +64,10 @@ group :development do
   # but it doesn't worked well, and I removed. :-)
 end
 
-
 gem "devise", "~> 4.9"
-
 gem "view_component", "~> 3.21"
-gem 'bootstrap', '~> 5.3.0'
-gem 'jquery-rails'
+gem "bootstrap", "~> 5.3.0"
+gem "jquery-rails"
 gem "importmap-rails", "~> 2.1"
-gem 'prawn'
-gem 'prawn-table'
+gem "prawn"
+gem "prawn-table"

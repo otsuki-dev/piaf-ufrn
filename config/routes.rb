@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "/resultados" => "pages#results", as: :results
 
-  get "pages/home_on", to: "pages#home_on"
+  get "/policy" => "pages#policy", as: :policy
 
   devise_for :users, controllers: { sessions: "users/sessions" }
 
@@ -19,18 +19,18 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      get 'meus-cursos', to: 'users/sessions#enrolled_courses', as: :user_enrolled_courses
+      get "meus-cursos", to: "users/sessions#enrolled_courses", as: :user_enrolled_courses
     end
   end
 
-  resources :enrollments, only: [:destroy]
+  resources :enrollments, only: [ :destroy ]
 
   resources :courses do
     member do
-      get 'results' => 'courses#results' 
+      get "results" => "courses#results"
     end
-    resources :enrollments, only: [:new, :create]
-    get 'enrolled_users', on: :member
+    resources :enrollments, only: [ :new, :create ]
+    get "enrolled_users", on: :member
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

@@ -23,6 +23,7 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 </head>
+
 <div class="page">
     <div class="background-image"></div>
     <div class="content">
@@ -42,29 +43,84 @@
     </div>
 </div>
 
-<div class="features py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 text-center mb-4">
-                <h3 class="h3">Atividades Diversas</h3>
-                <p>Oferecemos uma variedade de atividades físicas para todos os gostos e níveis.</p>
-            </div>
-            <div class="col-md-4 text-center mb-4">
-                <h3 class="h3">Instrutores Qualificados</h3>
-                <p>Nossos instrutores são altamente qualificados e prontos para ajudar você a alcançar seus objetivos.</p>
-            </div>
-            <div class="col-md-4 text-center mb-4">
-                <h3 class="h3">Infraestrutura Completa</h3>
-                <p>Contamos com uma infraestrutura completa para proporcionar a melhor experiência possível.</p>
+<div class="body">
+    <div class="features py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center mb-4">
+                    <i class="fas fa-dumbbell fa-3x mb-3"></i>
+                    <h3 class="h3">Atividades Diversas</h3>
+                    <p>Oferecemos uma variedade de atividades físicas para todos os gostos e níveis.</p>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <i class="fas fa-chalkboard-teacher fa-3x mb-3"></i>
+                    <h3 class="h3">Instrutores Qualificados</h3>
+                    <p>Nossos instrutores são altamente qualificados e prontos para ajudar você a alcançar seus objetivos.</p>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <i class="fas fa-building fa-3x mb-3"></i>
+                    <h3 class="h3">Infraestrutura Completa</h3>
+                    <p>Contamos com uma infraestrutura completa para proporcionar a melhor experiência possível.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="how-it-works py-5 bg-light">
-    <div class="container">
-        <h2 class="h2 text-center mb-4">Como funciona a PIAF?</h2>
-        <p class="lead text-center">A PIAF funciona de uma maneira bastante simples. É basicamente um formulário de inscrição para as modalidades que os administradores liberaram. Para realizar inscrições basta clicar apenas um botão. Você não precisará inserir diversas informações todas as vezes que for se inscrever, basta apenas criar a sua conta e aproveitar. E também, os Bolsistas têm um trabalho mais facilitado, e sem burocracias.</p>
+    <div class="how-it-works py-5 bg-light">
+        <div class="container">
+            <h2 class="h2 text-center mb-4 body">Como funciona a PIAF?</h2>
+            <p class="lead text-center body">A PIAF funciona de uma maneira bastante simples. É basicamente um formulário de inscrição para as modalidades que os administradores liberaram. Para realizar inscrições basta clicar apenas um botão. Você não precisará inserir diversas informações todas as vezes que for se inscrever, basta apenas criar a sua conta e aproveitar. E também, os Bolsistas têm um trabalho mais facilitado, e sem burocracias.</p>
+        </div>
+    </div>
+
+    <div class="faq py-5">
+        <div class="container">
+            <h2 class="h2 text-center mb-4">Perguntas Frequentes</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                O que é a PIAF?
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            A PIAF é o Portal de Inscrições de Atividades Físicas da UFRN, onde você pode se inscrever em diversas atividades físicas oferecidas pela universidade.
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Como faço para me inscrever?
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            Para se inscrever, basta criar uma conta no portal e escolher a atividade física desejada. Clique no botão de inscrição e pronto!
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Quais são os benefícios de participar das atividades?
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            Participar das atividades físicas oferecidas pela PIAF traz diversos benefícios para a saúde física e mental, além de proporcionar momentos de lazer e socialização.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -125,6 +181,32 @@
         top: 20px;
     }
 
+    .features .fa-3x {
+        color: #007bff;
+    }
+
+    .faq .card-header {
+        background-color: #f8f9fa;
+    }
+
+    .faq .btn-link {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .faq .btn-link:hover {
+        text-decoration: underline;
+    }
+
+    .container-xl,
+    .container {
+        max-width: 1000px;
+    }
+
+    .body {
+        font-size: 1.2rem;
+    }
+
     @media (max-width: 767.98px) {
         .page {
             justify-content: center;
@@ -135,3 +217,18 @@
         }
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var faqAccordion = document.getElementById('faqAccordion');
+        faqAccordion.addEventListener('show.bs.collapse', function(event) {
+            var openItems = faqAccordion.querySelectorAll('.collapse.show');
+            openItems.forEach(function(item) {
+                if (item !== event.target) {
+                    var collapseInstance = bootstrap.Collapse.getInstance(item);
+                    collapseInstance.hide();
+                }
+            });
+        });
+    });
+</script>
