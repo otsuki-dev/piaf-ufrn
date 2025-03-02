@@ -34,12 +34,12 @@
         </li>
         <li class="nav-item mb-3">
         <%= link_to new_course_path, class: "nav-link" do %>
-            <i class="fas fa-plus"></i> <span>Nova Turma</span>
+            <i class="fas fa-plus"></i> <span> Nova Turma</span>
         <% end %>
         </li>
         <% end %>
         <li class="nav-item mb-3">
-            <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "nav-link", style: 'border: none; background: none;' do %>
+            <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "nav-link", style: 'border: none; background: none; margin: auto;' do %>
                 <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
             <% end %>
         </li>
