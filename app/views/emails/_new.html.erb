@@ -1,0 +1,42 @@
+<h1>Enviar E-mail</h1>
+
+<%= form_with url: emails_path, method: :post do |f| %>
+  <div>
+    <%= f.label :recipient_type, "Destinatários" %>
+    <%= f.select :recipient_type, options_for_select([
+      ['Todos os usuários', 'all'],
+      ['Curso em andamento', 'active_course'],
+      ['Curso finalizado', 'finished_course']
+    ]), {}, id: 'recipient-type-select' %>
+  </div>
+
+  <div id="course-select-field" style="display: none;">
+    <%= f.label :course_id, "Selecione o curso" %>
+    <%= f.select :course_id, options_for_select(@courses.map { |c| [c.modality, c.id] }), {} %>
+  </div>
+
+  <div>
+    <%= f.label :subject, "Assunto" %>
+    <%= f.text_field :subject, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :message, "Mensagem" %>
+    <%= f.text_area :message, required: true %>
+  </div>
+
+  <div>
+    <%= f.submit "Enviar E-mail" %>
+  </div>
+<% end %>
+
+<script>
+  document.getElementById('recipient-type-select').addEventListener('change', function() {
+    const courseField = document.getElementById('course-select-field');
+    if (this.value === 'active_course' || this.value === 'finished_course') {
+      courseField.style.display = 'block';
+    } else {
+      courseField.style.display = 'none';
+    }
+  });
+</script>

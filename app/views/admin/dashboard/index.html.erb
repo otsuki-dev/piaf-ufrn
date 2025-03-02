@@ -1,76 +1,46 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>Em Andamento</h1>
-    </div>
-    <% if @open_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @open_courses.each do |course| %>
-            <%= render CardCourseComponent.new(course: course) %>
-          <% end %>
-        </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições abertas no momento.</p>
-    <% end %>
-  </div>
+<h1 class="mb-4">Painel do Administrador</h1>
 
-  <div class="row mt-5">
-    <div class="col-12">
-      <h1>Próximas Turmas</h1>
-    </div>
-    <% if @future_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @future_courses.each do |course| %>
-            <%= render CardCourseComponent.new(course: course) %>
-          <% end %>
-        </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições futuras.</p>
-    <% end %>
-  </div>
+<div class="card p-4 shadow-sm">
+  <h2 class="mb-3">Enviar E-mail</h2>
 
-  <div class="row mt-5">
-    <div class="col-12">
-      <h1>Finalizadas</h1>
+  <%= form_with url: emails_path, method: :post, class: "needs-validation" do |f| %>
+    <div class="mb-3">
+      <%= f.label :recipient_type, "Destinatários", class: "form-label" %>
+      <%= f.select :recipient_type, options_for_select([
+        ['Todos os usuários', 'all'],
+        ['Curso em andamento', 'active_course'],
+        ['Curso finalizado', 'finished_course']
+      ]), {}, class: "form-select", id: 'recipient-type-select' %>
     </div>
-    <% if @past_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @past_courses.each do |course| %>
-              <%= render CardCourseComponent.new(course: course) %>
-          <% end %>
-        </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições encerradas.</p>
-    <% end %>
-  </div>
+
+    <div id="course-select-field" class="mb-3" style="display: none;">
+      <%= f.label :course_id, "Selecione o curso", class: "form-label" %>
+      <%= f.select :course_id, options_for_select(Course.all.map { |c| [c.modality, c.id] }), {}, class: "form-select" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :subject, "Assunto", class: "form-label" %>
+      <%= f.text_field :subject, required: true, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :message, "Mensagem", class: "form-label" %>
+      <%= f.text_area :message, required: true, class: "form-control", rows: 5 %>
+    </div>
+
+    <div class="d-grid gap-2">
+      <%= f.submit "Enviar E-mail", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 </div>
 
+<%= render "shared/main" %>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    new Swiper(".mySwiper", {
-      slidesPerView: "auto",
-      spaceBetween: 20,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      },
-      breakpoints: {
-        640: { slidesPerView: 2 },
-        768: { slidesPerView: 3 },
-        1024: { slidesPerView: 4 }
-      }
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('recipient-type-select').addEventListener('change', function() {
+      const courseField = document.getElementById('course-select-field');
+      courseField.style.display = (this.value === 'active_course' || this.value === 'finished_course') ? 'block' : 'none';
     });
   });
 </script>
