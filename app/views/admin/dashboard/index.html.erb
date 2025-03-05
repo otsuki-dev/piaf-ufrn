@@ -59,12 +59,22 @@
 <%= render "shared/main" %>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const recipientTypeSelect = document.getElementById('recipient-type-select');
+  document.getElementById('recipient-type-select').addEventListener('change', function() {
     const courseField = document.getElementById('course-select-field');
-    
-    recipientTypeSelect.addEventListener('change', function() {
-      courseField.style.display = (this.value === 'outros') ? 'block' : 'none';
-    });
+    if (this.value === 'outros') {
+      courseField.style.display = 'block';
+    } else {
+      courseField.style.display = 'none';
+    }
+  });
+
+  document.querySelector('form').addEventListener('submit', function(event) {
+    const recipientType = document.getElementById('recipient-type-select').value;
+    const courseCheckboxes = document.querySelectorAll('input[name="course_ids[]"]:checked');
+
+    if (recipientType === 'outros' && courseCheckboxes.length === 0) {
+      alert('Selecione pelo menos um curso.');
+      event.preventDefault();
+    }
   });
 </script>

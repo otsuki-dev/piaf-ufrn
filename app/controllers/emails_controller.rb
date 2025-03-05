@@ -6,21 +6,18 @@ class EmailsController < ApplicationController
     recipients = case params[:recipient_type]
                 when 'all'
                   User.all
-                when 'active_course'
-                  Course.where(id: params[:course_ids]).map(&:enrollments).flatten.map(&:user)
-                when 'finished_course'
-                  Course.where(id: params[:course_ids]).map(&:enrollments).flatten.map(&:user)
+                when 'outros'
+                  if params[:course_ids].present?
+                    Course.where(id: params[:course_ids]).map(&:enrollments).flatten.map(&:user)
+                  else
+                    []
+                  end
                 else
                   []
                 end
-    
-    if params[:recipient_type].in?(%w[active_course finished_course]) && params[:course_ids].blank?
-      redirect_to admin_dashboard_path, alert: 'Selecione pelo menos um curso.'
-      return
-    end
 
     if recipients.any?
-      recipients.uniq.each do |user|
+      recipients.uniq.each do |user| # Evita envio duplicado para o mesmo usuário
         UserMailer.send_email(user, params[:subject], params[:message]).deliver_now
       end
       redirect_to admin_dashboard_path, notice: 'E-mails enviados com sucesso!'
