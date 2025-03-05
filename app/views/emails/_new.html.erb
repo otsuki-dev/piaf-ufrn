@@ -5,8 +5,7 @@
     <%= f.label :recipient_type, "Destinatários" %>
     <%= f.select :recipient_type, options_for_select([
       ['Todos os usuários', 'all'],
-      ['Curso em andamento', 'active_course'],
-      ['Curso finalizado', 'finished_course']
+      ['Curso em andamento']
     ]), {}, id: 'recipient-type-select' %>
   </div>
 

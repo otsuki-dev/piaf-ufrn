@@ -1,6 +1,6 @@
 <h1 class="mb-4">Painel do Administrador</h1>
 
-<div class="card p-4 shadow-sm">
+<div class="card p-4">
   <h2 class="mb-3">Enviar E-mail</h2>
 
   <%= form_with url: emails_path, method: :post, class: "needs-validation" do |f| %>
@@ -8,14 +8,36 @@
       <%= f.label :recipient_type, "Destinatários", class: "form-label" %>
       <%= f.select :recipient_type, options_for_select([
         ['Todos os usuários', 'all'],
-        ['Curso em andamento', 'active_course'],
-        ['Curso finalizado', 'finished_course']
-      ]), {}, class: "form-select", id: 'recipient-type-select' %>
+        ['Cursos', 'outros']
+      ]), {}, class: "form-select", id: "recipient-type-select" %>
     </div>
 
     <div id="course-select-field" class="mb-3" style="display: none;">
-      <%= f.label :course_id, "Selecione o curso", class: "form-label" %>
-      <%= f.select :course_id, options_for_select(Course.all.map { |c| [c.modality, c.id] }), {}, class: "form-select" %>
+      <%= f.label :course_ids, "Selecione os cursos", class: "form-label" %>
+      
+      <% if Course.active.any? %>
+        <h5 class="mt-2">Cursos em andamento</h5>
+        <div class="form-check">
+          <% Course.active.each do |course| %>
+            <div>
+              <%= check_box_tag "course_ids[]", course.id, false, class: "form-check-input", id: "course-#{course.id}" %>
+              <%= label_tag "course-#{course.id}", course.modality, class: "form-check-label" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      
+      <% if Course.finished.any? %>
+        <h5 class="mt-3">Cursos finalizados</h5>
+        <div class="form-check">
+          <% Course.finished.each do |course| %>
+            <div>
+              <%= check_box_tag "course_ids[]", course.id, false, class: "form-check-input", id: "course-#{course.id}" %>
+              <%= label_tag "course-#{course.id}", course.modality, class: "form-check-label" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
     <div class="mb-3">
@@ -28,8 +50,8 @@
       <%= f.text_area :message, required: true, class: "form-control", rows: 5 %>
     </div>
 
-    <div class="d-grid gap-2">
-      <%= f.submit "Enviar E-mail", class: 'btn btn-primary' %>
+    <div class="d-grid">
+      <%= f.submit "Enviar E-mail", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
@@ -38,9 +60,11 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('recipient-type-select').addEventListener('change', function() {
-      const courseField = document.getElementById('course-select-field');
-      courseField.style.display = (this.value === 'active_course' || this.value === 'finished_course') ? 'block' : 'none';
+    const recipientTypeSelect = document.getElementById('recipient-type-select');
+    const courseField = document.getElementById('course-select-field');
+    
+    recipientTypeSelect.addEventListener('change', function() {
+      courseField.style.display = (this.value === 'outros') ? 'block' : 'none';
     });
   });
 </script>
