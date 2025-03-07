@@ -2,6 +2,7 @@ class CardCourseComponent < ViewComponent::Base
     def initialize(course:)
         @course = course
     end
+    
     def time_left_in_words
         time_left = @course.end_date - Time.current
         case
@@ -11,8 +12,10 @@ class CardCourseComponent < ViewComponent::Base
           "#{(time_left / 1.hour).to_i} horas restantes"
         when time_left > 1.minute
           "#{(time_left / 1.minute).to_i} minutos restantes"
+        when time_left > 1.seconds
+          "#{(time_left / 1.seconds).to_i} Segundos restantes restantes"
         else
-          "Finalizado"
+          "Processo finalizado"
         end
       end
     

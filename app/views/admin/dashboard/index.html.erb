@@ -1,76 +1,80 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>Em Andamento</h1>
-    </div>
-    <% if @open_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @open_courses.each do |course| %>
-            <%= render CardCourseComponent.new(course: course) %>
-          <% end %>
-        </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições abertas no momento.</p>
-    <% end %>
-  </div>
+<h1 class="mb-4">Painel do Administrador</h1>
 
-  <div class="row mt-5">
-    <div class="col-12">
-      <h1>Próximas Turmas</h1>
-    </div>
-    <% if @future_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @future_courses.each do |course| %>
-            <%= render CardCourseComponent.new(course: course) %>
-          <% end %>
-        </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições futuras.</p>
-    <% end %>
-  </div>
+<div class="card p-4">
+  <h2 class="mb-3">Enviar E-mail</h2>
 
-  <div class="row mt-5">
-    <div class="col-12">
-      <h1>Finalizadas</h1>
+  <%= form_with url: emails_path, method: :post, class: "needs-validation" do |f| %>
+    <div class="mb-3">
+      <%= f.label :recipient_type, "Destinatários", class: "form-label" %>
+      <%= f.select :recipient_type, options_for_select([
+        ['Todos os usuários', 'all'],
+        ['Cursos', 'outros']
+      ]), {}, class: "form-select", id: "recipient-type-select" %>
     </div>
-    <% if @past_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @past_courses.each do |course| %>
-              <%= render CardCourseComponent.new(course: course) %>
+
+    <div id="course-select-field" class="mb-3" style="display: none;">
+      <%= f.label :course_ids, "Selecione os cursos", class: "form-label" %>
+      
+      <% if Course.active.any? %>
+        <h5 class="mt-2">Cursos em andamento</h5>
+        <div class="form-check">
+          <% Course.active.each do |course| %>
+            <div>
+              <%= check_box_tag "course_ids[]", course.id, false, class: "form-check-input", id: "course-#{course.id}" %>
+              <%= label_tag "course-#{course.id}", course.modality, class: "form-check-label" %>
+            </div>
           <% end %>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições encerradas.</p>
-    <% end %>
-  </div>
+      <% end %>
+      
+      <% if Course.finished.any? %>
+        <h5 class="mt-3">Cursos finalizados</h5>
+        <div class="form-check">
+          <% Course.finished.each do |course| %>
+            <div>
+              <%= check_box_tag "course_ids[]", course.id, false, class: "form-check-input", id: "course-#{course.id}" %>
+              <%= label_tag "course-#{course.id}", course.modality, class: "form-check-label" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :subject, "Assunto", class: "form-label" %>
+      <%= f.text_field :subject, required: true, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :message, "Mensagem", class: "form-label" %>
+      <%= f.text_area :message, required: true, class: "form-control", rows: 5 %>
+    </div>
+
+    <div class="d-grid">
+      <%= f.submit "Enviar E-mail", class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </div>
 
+<%= render "shared/main" %>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    new Swiper(".mySwiper", {
-      slidesPerView: "auto",
-      spaceBetween: 20,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      },
-      breakpoints: {
-        640: { slidesPerView: 2 },
-        768: { slidesPerView: 3 },
-        1024: { slidesPerView: 4 }
-      }
-    });
+  document.getElementById('recipient-type-select').addEventListener('change', function() {
+    const courseField = document.getElementById('course-select-field');
+    if (this.value === 'outros') {
+      courseField.style.display = 'block';
+    } else {
+      courseField.style.display = 'none';
+    }
+  });
+
+  document.querySelector('form').addEventListener('submit', function(event) {
+    const recipientType = document.getElementById('recipient-type-select').value;
+    const courseCheckboxes = document.querySelectorAll('input[name="course_ids[]"]:checked');
+
+    if (recipientType === 'outros' && courseCheckboxes.length === 0) {
+      alert('Selecione pelo menos um curso.');
+      event.preventDefault();
+    }
   });
 </script>

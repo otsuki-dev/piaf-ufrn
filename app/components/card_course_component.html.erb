@@ -4,7 +4,7 @@
       "Musculação" => "https://s2-oglobo.glbimg.com/tCi4YPIy6K0HBPMLGnt00WSvbrQ=/0x0:4000x2667/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2023/c/a/O7y1EGRAelLLVURwHeqQ/strong-man-training-gym.jpg",
       "Karate" => "https://jkabrasil.com.br/wp-content/uploads/2023/01/jka-brasil-karate-graduacao-1.jpg"
     } %>
-    <img class="card-img-top" src="<%= images[@course.modality] || 'https://via.placeholder.com/400x250?text=Curso' %>" alt="Imagem do curso" style="height: 180px; object-fit: cover;">
+    <img class="card-img-top" src="<%= images[@course.modality] || "https://placehold.co/400x250?text=#{@course.modality}" %>" alt="Imagem do curso" style="height: 180px; object-fit: cover;">
 
     <div class="card-body">
       <h5 class="card-title text-primary fw-bold"><%= @course.modality %></h5>
@@ -22,7 +22,11 @@
 
     <div class="card-footer bg-light d-flex justify-content-between align-items-center">
       <small class="text-muted"><%= time_left_in_words %></small>
-      <a href="<%= course_path(@course) %>" class="btn btn-sm btn-primary">Ver detalhes</a>
+      <% if helpers.current_user&.enrollments&.where(course_id: @course.id)&.exists? %>
+        <p class="text-warning">Você já está inscrito.</p>
+      <% else %>
+        <a href="<%= new_course_enrollment_path(@course) %>" class="btn btn-success">Inscrever-se</a>
+      <% end %>
     </div>
   <% end %>
 </div>
