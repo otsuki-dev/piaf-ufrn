@@ -7,6 +7,9 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -24,43 +27,121 @@
     <%= javascript_importmap_tags %>
 </head>
 
-<div class="page">
-    <div class="background-image"></div>
-    <div class="content">
-        <div class="container-xl">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div class="card shadow-sm sticky-card">
-                        <div class="card-body text-center">
-                            <h3 class="display-6">Deixe a energia fluir em cada movimento.</h3>
-                            <p class="lead">Transforme sua rotina com atividades físicas na UFRN. Inscreva-se e comece hoje mesmo!</p>
-                            <%= link_to "Criar conta agora", new_user_registration_path, class: "btn btn-primary btn-lg mt-3" %>
-                        </div>
-                    </div>
-                </div>
+<body>
+    <div class="pt-5 bg-white">
+        <nav class="mx-3 mx-md-5 navbar-white bg-white d-flex justify-content-between">
+            <div>
+                <a href="/">
+                    <%= image_tag 'piaf-bw.webp', alt: 'Logo da PIAF', class: 'img-fluid opacity-50 grayscale', style: 'max-height: 40px', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                </a>
+            </div>
+            <div>
+                <a href="https://www.ufrn.br/" target="_blank">
+                    <%= image_tag 'ufrn-logo-bw.webp', alt: 'Logo da UFRN', class: 'img-fluid opacity-50 grayscale', style: 'max-height: 40px', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="gradient-div d-flex flex-column flex-md-row align-items-center">
+        <div class="d-flex justify-content-start h-100 w-auto order-2 order-md-1">
+            <%= image_tag 'swimming-man-pexels.webp', alt: 'Homem nadando', class: 'img-fluid', style: 'max-height: 500px', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+        </div>
+        <div class="d-flex flex-column justify-content-center text-center order-1 order-md-2">
+            <h6 class="display-6">Deixe a energia fluir em cada movimento.</h6>
+            <p class="lead">Transforme sua rotina com atividades físicas na UFRN. Cadastre-se e comece a treinar!</p>
+        </div>
+    </div>
+
+    <div class="navbar navbar-expand-lg" id="navbar">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-center mx-auto gap-2">
+                <div class="vertical-divider"></div>
+                <li class="nav-item d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <a href="#" class="d-flex align-items-center gap-1 text-decoration-none">
+                        <%= image_tag 'icons/home.webp', alt: 'Símbolo de Casa', class: 'img-fluid nav-icon', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                        <span class="nav-link pl-0 text-white">Início</span>
+                    </a>
+                </li>
+                <div class="vertical-divider"></div>
+                <li class="nav-item d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <a href="#" class="d-flex align-items-center gap-1 text-decoration-none">
+                        <%= image_tag 'icons/result.webp', alt: 'Símbolo de Lápis', class: 'img-fluid nav-icon', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                        <span class="nav-link pl-0 text-white">Resultados</span>
+                    </a>
+                </li>
+                <div class="vertical-divider"></div>
+                <li class="nav-item d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <a href="#" class="d-flex align-items-center gap-1 text-decoration-none">
+                        <%= image_tag 'icons/man-run.webp', alt: 'Símbolo de Lápis', class: 'img-fluid nav-icon', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                        <span class="nav-link pl-0 text-white">Conheça os professores</span>
+                    </a>
+                </li>
+                <div class="vertical-divider"></div>
+                <li class="nav-item d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <%= link_to new_user_session_path, class: "d-flex align-items-center gap-1 text-decoration-none" do %>
+                    <%= image_tag 'icons/login.webp', alt: 'Símbolo de Login', class: 'img-fluid nav-icon', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                    <span class="nav-link pl-0 text-white">Entrar</span>
+                    <% end %>
+                </li>
+                <div class="vertical-divider"></div>
+                <li class="nav-item d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <%= link_to new_user_registration_path, class: "d-flex align-items-center gap-1 text-decoration-none" do %>
+                    <%= image_tag 'icons/new.webp', alt: 'Símbolo de Nova Conta', class: 'img-fluid nav-icon', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                    <span class="nav-link pl-0 text-white">Criar conta</span>
+                    <% end %>
+                </li>
+                <div class="vertical-divider"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="how-it-works py-5 bg-light fade-in">
+        <div class="container">
+            <h2 class="h2 text-center mb-4">Seja bem-vindo(a) ao Portal de Inscrições de Atividades Físicas da UFRN</h2>
+            <p class="lead text-center">A <a href="/" class="piaf">PIAF</a> é um sistema que permite que qualquer pessoa
+                possa praticar exercícios no setor de educação física da <a href="https://www.ufrn.br/" class="text-dark" target="_blank">
+                    Universidade Federal do Rio Grande do Norte</a>. Juntamente com a COESPE, oferecemos uma forma muito mais fácil
+                de poder realizar as matrículas, desta forma não haverá dificuldades ou burocracias durante as inscrições.
+            </p>
+            <hr />
+            <div class="d-flex justify-content-center">
+                <%= render ImageComponent.new(src: "couple-in-piaf-pexels.webp", alt: "Pessoas usando a PIAF no celular", class_name: "image") %>
             </div>
         </div>
     </div>
-</div>
 
-<div class="body">
-    <div class="features py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 text-center mb-4">
-                    <i class="fas fa-dumbbell fa-3x mb-3"></i>
-                    <h3 class="h3">Atividades Diversas</h3>
-                    <p>Oferecemos uma variedade de atividades físicas para todos os gostos e níveis.</p>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <i class="fas fa-chalkboard-teacher fa-3x mb-3"></i>
-                    <h3 class="h3">Instrutores Qualificados</h3>
-                    <p>Nossos instrutores são altamente qualificados e prontos para ajudar você a alcançar seus objetivos.</p>
-                </div>
-                <div class="col-md-4 text-center mb-4">
-                    <i class="fas fa-building fa-3x mb-3"></i>
-                    <h3 class="h3">Infraestrutura Completa</h3>
-                    <p>Contamos com uma infraestrutura completa para proporcionar a melhor experiência possível.</p>
+    <div style="background: linear-gradient(to bottom, #e2e5e9, #d5d8db);">
+        <div class="features py-5">
+            <div class="container">
+                <h1 class="h2 text-center mb-5">Dentro das nossas responsabilidades</h1>
+                <div class="row justify-content-between">
+                    <div class="col-md-4 text-center mb-4 position-relative">
+                        <%= image_tag 'icons/sports-check.webp', alt: 'Símbolo de Homem correndo, com um símbolo de confirmação', class: 'img-fluid symbols', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                        <h3 class="h3 mt-3">Atividades Diversas</h3>
+                        <p>Oferecemos uma grande gama de atividades físicas para todos os gostos e níveis.
+                            Para todas as pessoas maiores de 18 anos.<span class="tooltip" data-tooltip="Exceto para a modalidade de xadrez, que aceita menores de idade.">*</span>
+                        </p>
+                        <div class="vertical-line"></div>
+                    </div>
+                    <div class="col-md-4 text-center mb-4 position-relative">
+                        <%= image_tag 'icons/teachers.webp', alt: 'Símbolo de Três professores coloridos', class: 'img-fluid symbols', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                        <h3 class="h3 mt-3">Professores Qualificados</h3>
+                        <p>Nossos Professores são bolsistas altamente qualificados e prontos para contribuir
+                            para o seu melhor para o seu tipo de atividade.
+                        </p>
+                        <div class="vertical-line"></div>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <%= image_tag 'icons/infrastructure.webp', alt: 'Símbolo de duas formas geométrica, cone e cilindro', class: 'img-fluid symbols', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                        <h3 class="h3 mt-3">Infraestrutura Completa</h3>
+                        <p>Contamos com uma infraestrutura completa para proporcionar a melhor experiência
+                            possível para todas as modalidades.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,167 +149,341 @@
 
     <div class="how-it-works py-5 bg-light">
         <div class="container">
-            <h2 class="h2 text-center mb-4 body">Como funciona a PIAF?</h2>
-            <p class="lead text-center body">A PIAF funciona de uma maneira bastante simples. É basicamente um formulário de inscrição para as modalidades que os administradores liberaram. Para realizar inscrições basta clicar apenas um botão. Você não precisará inserir diversas informações todas as vezes que for se inscrever, basta apenas criar a sua conta e aproveitar. E também, os Bolsistas têm um trabalho mais facilitado, e sem burocracias.</p>
+            <div class="d-flex align-items-center mb-4">
+                <%= image_tag 'icons/last-forms.webp', alt: 'Ícone de bolinha amarela sorridente com um balão de fala de fundo', class: 'img-fluid mr-3', style: 'max-height: 50px;', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                <div class="flex-grow-1">
+                    <h2 class="h2 mb-1">Últimos Processos Seletivos</h2>
+                    <p class="lead mb-0">Confira os últimos processos seletivos que tivemos</p>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <% if @recent_courses.any? %>
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <% @recent_courses.each do |course| %>
+                        <%= render CardCourseComponent.new(course: course) %>
+                        <% end %>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <% else %>
+                <div class="d-flex align-items-center mb-4">
+                    <%= image_tag 'icons/issue.webp', alt: 'Ícone de dois pontos e uma contra barra, imitando uma carinha triste', class: 'img-fluid mr-3', style: 'max-height: 22px;', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                    <div class="flex-grow-1">
+                        <p class="lead mb-0">Opa! Ainda não tivemos processos seletivos...</p>
+                    </div>
+                </div>
+                <% end %>
+            </div>
         </div>
     </div>
 
-    <div class="faq py-5">
+    <div class="faq py-5" style="background: linear-gradient(to bottom, #d5d8db, #e2e5e9);">
         <div class="container">
             <h2 class="h2 text-center mb-4">Perguntas Frequentes</h2>
             <div class="accordion" id="faqAccordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
+
+                <div class="card rounded-3 mb-3 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="headingOne">
                         <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <button class="btn btn-link text-dark fw-semibold" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 O que é a PIAF?
                             </button>
                         </h5>
+                        <%= image_tag 'icons/question.webp', alt: 'Ícone de interrogação com um ponteiro de mouse', class: 'img-fluid', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
                     </div>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
                         <div class="card-body">
-                            A PIAF é o Portal de Inscrições de Atividades Físicas da UFRN, onde você pode se inscrever em diversas atividades físicas oferecidas pela universidade.
+                            A PIAF é o Portal de Inscrições de Atividades Físicas da UFRN, onde você pode se inscrever em diversas modalidades.
+                            A plataforma foi desenvolvida para realizar as inscrições oferecidas pela COESPE. Agora os você e os bolsistas terão uma maior facilidade.
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
+
+                <div class="card rounded-3 mb-3 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="headingTwo">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Como faço para me inscrever?
+                            <button class="btn btn-link collapsed text-dark fw-semibold" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Como faço para me inscrever em alguma modalidade?
                             </button>
                         </h5>
+                        <%= image_tag 'icons/question.webp', alt: 'Ícone de interrogação com um ponteiro de mouse', class: 'img-fluid', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
                         <div class="card-body">
-                            Para se inscrever, basta criar uma conta no portal e escolher a atividade física desejada. Clique no botão de inscrição e pronto!
+                            Para se inscrever, basta criar uma conta no portal, depois, quando estiver em período de inscrição, basta escolher a atividade física desejada. Clique no botão de inscrição e pronto!
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
+
+                <div class="card rounded-3 mb-3 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="headingThree">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <button class="btn btn-link collapsed text-dark fw-semibold" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                 Quais são os benefícios de participar das atividades?
                             </button>
                         </h5>
+                        <%= image_tag 'icons/question.webp', alt: 'Ícone de interrogação com um ponteiro de mouse', class: 'img-fluid', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
                     </div>
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
                         <div class="card-body">
-                            Participar das atividades físicas oferecidas pela PIAF traz diversos benefícios para a saúde física e mental, além de proporcionar momentos de lazer e socialização.
+                            Participar das atividades físicas oferecidas pela PIAF traz diversos benefícios para a saúde física e mental, além de proporcionar momentos de lazer e socialização. Não fique de fora!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card rounded-3 mb-3 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="headingFour">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed text-dark fw-semibold" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Qual a idade necessária para praticar as modalidades?
+                            </button>
+                        </h5>
+                        <%= image_tag 'icons/question.webp', alt: 'Ícone de interrogação com um ponteiro de mouse', class: 'img-fluid', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                        <div class="card-body">
+                            Para poder praticar as atividades ofertadas é necessário ter 18 ou mais anos de idade. Entretanto o <strong>xadrez</strong> é a única modalidade que permite menores de idade, aceitando até crianças de 5 anos.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<style>
-    .page {
-        position: relative;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        overflow: hidden;
-        padding: 2rem;
-    }
+    <div class="how-it-works py-5 bg-light">
+        <div class="container">
+            <div class="d-flex align-items-center mb-4">
+                <%= image_tag 'icons/start-sport.webp', alt: 'Ícone redondo de homem correndo com fundo verde', class: 'img-fluid mr-3', style: 'max-height: 50px;', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                <div class="flex-grow-1">
+                    <h2 class="h2 \mb-1">Crie sua conta agora</h2>
+                    <p class="lead mb-0">Caso você tenha se interessado em participar de
+                        alguma atividade, crie sua conta agora mesmo e comece a se inscrever!</p>
+                </div>
+            </div>
+            <hr style="border-top: 1px dotted #000;" />
+            <div class="d-flex justify-content-center">
+                <%= link_to new_user_registration_path, class: "custom-button" do %>
+                <%= image_tag 'icons/new.webp', alt: 'Símbolo de Nova Conta', class: 'img-fluid', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                <span class="text-white">Criar conta</span>
+                <% end %>
+            </div>
+        </div>
+    </div>
 
-    .background-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('<%= asset_path('background-pexels.webp') %>') no-repeat center center;
-        background-size: cover;
-        z-index: -1;
-    }
-
-    .content {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        width: 100%;
-    }
-
-    .card {
-        background: #fff;
-        border: none;
-        border-radius: 10px;
-        padding: 2rem;
-        max-width: 100%;
-    }
-
-    .card-body {
-        padding: 2rem;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-    }
-
-    .sticky-card {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 20px;
-    }
-
-    .features .fa-3x {
-        color: #007bff;
-    }
-
-    .faq .card-header {
-        background-color: #f8f9fa;
-    }
-
-    .faq .btn-link {
-        text-decoration: none;
-        color: #007bff;
-    }
-
-    .faq .btn-link:hover {
-        text-decoration: underline;
-    }
-
-    .container-xl,
-    .container {
-        max-width: 1000px;
-    }
-
-    .body {
-        font-size: 1.2rem;
-    }
-
-    @media (max-width: 767.98px) {
+    <style>
         .page {
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .gradient-div {
+            background: linear-gradient(to bottom, white, #dfdfdf);
+            height: 50vh;
+            position: relative;
+        }
+
+        #navbar {
+            background: linear-gradient(to bottom, #777777 0, #616161 10%, #232323 50%, #000000 51%, #000000 60%, #202020 100%);
+            padding: 2px 5px 4px 5px;
+            margin: 0 auto 0 auto;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            font-weight: 400;
+            color: white;
+            font-family: "Segoe UI Semilight", Tahoma, Geneva, Verdana, sans-serif, Arial, Helvetica, sans-serif;
+        }
+
+        .piaf {
+            font-family: 'Times new Roman', sans-serif;
+            color: #992712;
         }
 
         .content {
-            justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
         }
-    }
-</style>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var faqAccordion = document.getElementById('faqAccordion');
-        faqAccordion.addEventListener('show.bs.collapse', function(event) {
-            var openItems = faqAccordion.querySelectorAll('.collapse.show');
-            openItems.forEach(function(item) {
-                if (item !== event.target) {
-                    var collapseInstance = bootstrap.Collapse.getInstance(item);
-                    collapseInstance.hide();
+        .container-xl,
+        .container {
+            max-width: 1000px;
+        }
+
+        .vertical-line {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            height: 95%;
+            width: 1px;
+            border-right: 2px dotted #7F7F7F;
+            border-right-width: 1px;
+        }
+
+        .col-md-4:not(:last-child) .vertical-line {
+            display: block;
+        }
+
+        .symbols {
+            max-height: 110px;
+            width: auto;
+        }
+
+        .navbar {
+            background: linear-gradient(to bottom, #ffffff, #ffffff);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px #000000;
+        }
+
+        .vertical-divider {
+            width: 2px;
+            height: 56px;
+            background: linear-gradient(to bottom, #636363, #28282b);
+            margin: 0 10px;
+        }
+
+        .nav-icon {
+            max-height: 30px;
+            width: auto;
+            box-shadow: 0 4px 6px #ffffff;
+            border-radius: 100%;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .nav-icon {
+            max-height: 30px;
+            width: auto;
+        }
+
+        .swimming-man {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            max-width: 200px;
+            max-height: auto;
+            z-index: 1;
+        }
+
+        .faq {
+            background: linear-gradient(to bottom, #d5d8db, #e2e5e9);
+        }
+
+        .card {
+            border: none;
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+        .features {
+            background: linear-gradient(to bottom, #e2e5e9, #d5d8db);
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px #000000;
+        }
+
+        .features .col-md-4 {
+            background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px #000000;
+        }
+
+        .features .vertical-line {
+            display: none;
+        }
+
+        .custom-button {
+            background: linear-gradient(to bottom, #47c25b 0%, #3ca84e 10%,#237230 50%, #15441d 51%, #15441d 60%, #1e5e29 100%);
+            border: 1px solid #1c5a26;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 5px;
+            opacity: .95;
+            transition-duration: .3s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .custom-button:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .custom-button img {
+            padding-right: 10px;
+            max-height: 20px;
+            width: auto;
+            border-radius: 100%;
+            box-shadow: 0 4px 6px #103516;
+        }
+
+        @media (max-width: 767.98px) {
+            .page {
+                justify-content: center;
+            }
+
+            .content {
+                justify-content: center;
+            }
+
+            .gradient-div {
+                height: 100vh;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            new Swiper(".mySwiper", {
+                slidesPerView: "auto",
+                spaceBetween: 20,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2
+                    },
+                    768: {
+                        slidesPerView: 3
+                    },
+                    1024: {
+                        slidesPerView: 4
+                    }
                 }
             });
+
+            var faqAccordion = document.getElementById('faqAccordion');
+            faqAccordion.addEventListener('show.bs.collapse', function(event) {
+                var openItems = faqAccordion.querySelectorAll('.collapse.show');
+                openItems.forEach(function(item) {
+                    if (item !== event.target) {
+                        var collapseInstance = bootstrap.Collapse.getInstance(item);
+                        collapseInstance.hide();
+                    }
+                });
+            });
         });
-    });
-</script>
+    </script>
+</body>

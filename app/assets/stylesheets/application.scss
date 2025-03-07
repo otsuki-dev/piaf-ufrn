@@ -1,7 +1,13 @@
+// Importa as variáveis que personalizamos de tema antes do Bootstrap
 @import "custom_bootstrap";
+
+// Importa o Bootstrap com as modificações de tema
+@import "bootstrap";
+
+// Importa o componente  personalizado das imagens
+@import "image_component";
 
 /*
 *= require_self
 *= require admin-dashboard
 */
-

@@ -1,5 +1,5 @@
 $theme-colors: (
-  "primary": #28a745,
+  "primary": #7F7F7F,
   "success": #53ac21,
   "danger": #992712,
   "warning": #ffc107,
@@ -8,8 +8,8 @@ $theme-colors: (
   "dark": #343a40,
 );
 
-@import "bootstrap";
-
 .grayscale {
   filter: grayscale(100%);
 }
+
+@import "bootstrap";

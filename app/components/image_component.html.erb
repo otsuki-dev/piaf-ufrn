@@ -1,0 +1,21 @@
+<div class="image-container <%= @class_name %>">
+    <%= image_tag @src, alt: @alt, class: "rounded-image" %>
+</div>
+
+<!-- Importação temporária, como dito no arquivo persnalizado scss. -->
+
+<style>
+    .image-container {
+        padding: 1rem;
+        border: 2px dotted #cccccc;
+        border-spacing: 5px;
+        border-radius: 0.5rem;
+        display: inline-block;
+        max-width: 40rem;
+    }
+
+    .rounded-image {
+        border-radius: 0.5rem;
+        border: 1px solid #cccccc;
+    }
+</style>
