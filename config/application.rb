@@ -43,5 +43,7 @@ module PIAF
     config.time_zone = "Brasilia"
 
     config.active_record.default_timezone = :local
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end
