@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá, <%= @user.username %>!</h1>
+    <p>
+      As inscrições para o curso <strong><%= @course.modality %></strong> foram encerradas.
+    </p>
+    <p>
+      Acesse nossa plataforma para ver os resultados: <%= link_to 'Ver Resultados', @results_url %>.
+    </p>
+    <p>Obrigado por participar!</p>
+  </body>
+</html>

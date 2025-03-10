@@ -58,10 +58,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  gem "letter_opener"
-
-  # Hey James-san, the Guard Gem is for refreshing the page when the code changes
-  # but it doesn't worked well, and I removed. :-)
+  gem 'letter_opener_web'
 end
 
 gem "devise", "~> 4.9"
@@ -71,3 +68,5 @@ gem "jquery-rails"
 gem "importmap-rails", "~> 2.1"
 gem "prawn"
 gem "prawn-table"
+gem 'delayed_job_active_record'
+gem 'daemons'
