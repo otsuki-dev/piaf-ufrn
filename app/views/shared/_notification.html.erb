@@ -1,0 +1,7 @@
+<% if local_assigns[:open_courses] && open_courses.any? %>
+  <div class="alert alert-info text-center" role="alert">
+    <% open_courses.each do |course| %>
+      <strong>Inscrição Aberta!</strong> Restam <%= distance_of_time_in_words(Time.current, course.end_date) %> para o fim das inscrições.<br>
+    <% end %>
+  </div>
+<% end %>

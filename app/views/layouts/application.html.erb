@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+
+<head>
     <title><%= content_for(:title) || "Portal de Inscrições de Atividades Físicas da UFRN" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,33 +18,37 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-  </head>
+</head>
 
-  <body class="antialiased">
-  <div class="d-flex flex-column flex-md-row">
-    <% if user_signed_in? %>
-      <%= render "shared/sidebar" %>
-    <% end %>
-    <main class="container ml-md-3 mt-3 mt-md-0">
-     <% if notice || alert %>
-        <div id="flash-message" class="alert <%= notice ? 'alert-success' : 'alert-danger' %>">
-          <%= notice || alert %>
-        </div>
-      <% end %>
+<body class="antialiased d-flex flex-column min-vh-100">
+    <header class="shadow-sm">
+        <%= render 'shared/header' %>
+    </header>
+    <div class="d-flex flex-column flex-md-row flex-grow-1 justify-content-center align-items-center">
+        <% if user_signed_in? %>
+        <%= render "shared/sidebar" %>
+        <% end %>
+        <main class="container ml-md-3 mt-3 mt-md-0 mx-auto">
+            <% if notice || alert %>
+            <div id="flash-message" class="alert <%= notice ? 'alert-success' : 'alert-danger' %>">
+                <%= notice || alert %>
+            </div>
+            <% end %>
 
-    <%= yield %>
-    </main>
-  </div>
-    <%= render "shared/footer" %>
-  </body>
+            <%= yield %>
+        </main>
+    </div>
+    <footer class="mt-auto text-center">
+        <%= render "shared/footer" %>
+    </footer>
+</body>
+
 </html>

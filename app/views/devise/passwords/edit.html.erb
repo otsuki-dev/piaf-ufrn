@@ -5,7 +5,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
-              <h2 class="card-title">Change your password</h2>
+              <h2 class="card-title">alterar senha</h2>
             </div>
             <div class="card-body">
               <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "form" }) do |f| %>
@@ -13,17 +13,17 @@
                 <%= f.hidden_field :reset_password_token %>
 
                 <div class="mb-3">
-                  <%= f.label :password, "New password", class: "form-label" %>
+                  <%= f.label :password, "Nova senha", class: "form-label" %>
                   <% if @minimum_password_length %>
                     <small class="form-text text-muted">
-                      (<%= @minimum_password_length %> characters minimum)
+                      (<%= @minimum_password_length %> caracteres no mínimo)
                     </small>
                   <% end %>
                   <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
                 </div>
 
                 <div class="mb-3">
-                  <%= f.label :password_confirmation, "Confirm new password", class: "form-label" %>
+                  <%= f.label :password_confirmation, "Confirmar nova senha", class: "form-label" %>
                   <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
                 </div>
 
