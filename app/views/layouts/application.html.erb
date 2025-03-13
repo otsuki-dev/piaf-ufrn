@@ -29,9 +29,11 @@
 </head>
 
 <body class="antialiased d-flex flex-column min-vh-100">
+    <% unless user_signed_in? %>
     <header class="shadow-sm">
         <%= render 'shared/header' %>
     </header>
+    <% end %>
     <div class="d-flex flex-column flex-md-row flex-grow-1 justify-content-center align-items-center">
         <% if user_signed_in? %>
         <%= render "shared/sidebar" %>
