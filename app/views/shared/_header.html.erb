@@ -1,4 +1,4 @@
-<header class="header header-transparent d-print-none py-3 bg-white">
+<header class="header header-transparent d-print-none py-3 glassmorphism">
     <div class="container-xl">
         <div class="row text-center align-items-center">
             <div class="col-12 col-lg-auto mt-lg-0">
@@ -9,8 +9,8 @@
             <div class="col-lg-auto ms-lg-auto">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item"><a href="/" class="link-secondary" title="Voltar ao início">Início</a></li>
-                    <li class="list-inline-item"><a href="/results" class="link-secondary" title="Ver resultados de inscrições">Resultados</a></li>
-                    <li class="list-inline-item"><a href="/teachers" class="link-secondary" title="Ver professores cadastrados no sistema">Conheça os Professores</a></li>
+                    <li class="list-inline-item"><a href="/resultados" class="link-secondary" title="Ver resultados de inscrições">Resultados</a></li>
+                    <li class="list-inline-item"><a href="/professores" class="link-secondary" title="Ver professores cadastrados no sistema">Conheça os Professores</a></li>
                     <li class="list-inline-item">
                         <%= link_to new_user_session_path, class: "list-inline-item link-secondary",  title: "Entrar em conta já existente" do %>
                         <span class="link-secondary">Entrar</span>
@@ -27,3 +27,14 @@
         </div>
     </div>
 </header>
+
+<style>
+    .glassmorphism {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+</style>

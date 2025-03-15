@@ -39,10 +39,10 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index'
+    get "dashboard", to: "dashboard#index"
   end
-  
-  resources :emails, only: [:create]
+
+  resources :emails, only: [ :create ]
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

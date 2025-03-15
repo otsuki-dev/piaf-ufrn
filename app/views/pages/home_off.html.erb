@@ -1,44 +1,12 @@
-<head>
-    <title><%= content_for(:title) || "Portal de Inscrições de Atividades Físicas da UFRN" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-</head>
-
 <body>
-    <header class="shadow-sm">
-        <%= render 'shared/header' %>
-    </header>
+    <div class="background-image"></div>
     <div class="page">
-        <div class="background-image"></div>
         <div class="content">
             <div class="container-xl">
                 <div class="row justify-content-center">
                     <div class="col-12 col-xl-12 col-lg-9 pb-5">
-                        <div class="card shadow-md sticky-card rounded-3 shadow">
-                            <div class="card-body text-center">
+                        <div class="card shadow-md sticky-card rounded-3 shadow glassmorphism">
+                            <div class="card-body text-center glassmorphism">
                                 <h1 class="display-6">Deixe a energia fluir em cada movimento.</h1>
                                 <p class="lead">Transforme sua rotina com atividades físicas na UFRN. Inscreva-se e comece hoje mesmo!</p>
                                 <%= link_to "Criar conta agora", new_user_registration_path, class: "btn btn-danger btn-lg mt-3", title: "Crie sua conta na PIAF hoje mesmo!" %>
@@ -153,10 +121,6 @@
         </div>
     </div>
 
-    <footer>
-        <%= render 'shared/footer' %>
-    </footer>
-
     <style>
         .page {
             position: relative;
@@ -177,6 +141,15 @@
             background: url('<%= asset_path('pexels-olly-3763870.webp') %>') no-repeat center center;
             background-size: cover;
             z-index: -1;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
     </style>
 
