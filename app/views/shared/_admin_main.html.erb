@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-start">
+            <button class="btn btn-success mx-2" onclick="filterCourses('active')">Ativos</button>
+            <button class="btn btn-primary mx-2" onclick="filterCourses('future')">Futuros</button>
+            <button class="btn btn-warning mx-2" onclick="filterCourses('past')">Encerrados</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered bg-white shadow-sm rounded-4">
+                <thead>
+                    <tr>
+                        <th>Nome do Curso</th>
+                        <th>Modalidade</th>
+                        <th>Início</th>
+                        <th>Término</th>
+                        <th>Vagas</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="courses-table-body">
+                    <% @open_courses.each do |course| %>
+                    <tr class="course-row active">
+                        <td><%= course.modality %></td>
+                        <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
+                        <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
+                        <td><%= course.slots %></td>
+                        <td><%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %></td>
+                    </tr>
+                    <% end %>
+                    <% @future_courses.each do |course| %>
+                    <tr class="course-row future">
+                        <td><%= course.modality %></td>
+                        <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
+                        <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
+                        <td><%= course.slots %></td>
+                        <td><%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %></td>
+                    </tr>
+                    <% end %>
+                    <% @past_courses.each do |course| %>
+                    <tr class="course-row past">
+                        <td><%= course.modality %></td>
+                        <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
+                        <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
+                        <td><%= course.slots %></td>
+                        <td><%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterCourses(status) {
+        const rows = document.querySelectorAll('.course-row');
+        rows.forEach(row => {
+            if (row.classList.contains(status)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+    filterCourses('active');
+</script>

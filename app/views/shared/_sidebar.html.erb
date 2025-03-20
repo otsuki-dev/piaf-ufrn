@@ -1,64 +1,48 @@
-<div id="sidebar" class="d-flex flex-column p-3 collapsed">
+<div id="sidebar" class="d-flex flex-column p-3">
     <% @seed = rand(1..20) %>
-    <img src="https://api.dicebear.com/7.x/thumbs/png?seed=<%= @seed %>" class="rounded-3" style="width: 50px;" alt="Avatar" />
-    <div id="sidebar-toggler">
-        <i class="fas fa-bars"></i>
+    <div class="d-flex justify-content-center">
+        <a href="/" class="header-logo" title="PIAF - Plataforma de Inscrições de Atividades Físicas">
+            <%= image_tag 'piaf-icon.webp', alt: 'Logo da PIAF', class: 'img-fluid shadow-sm rounded-circle', style: 'max-height: 40px', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+        </a>
     </div>
     <hr>
     <ul class="nav flex-column">
-        <li class="nav-item mb-3">
+        <li class="nav-item mb-3" title="Voltar à página inicial">
             <a href="/" class="nav-link">
                 <i class="fas fa-home"></i> <span>Início</span>
             </a>
         </li>
-        <li class="nav-item mb-3">
+        <li class="nav-item mb-3" title="Editar perfil">
             <%= link_to edit_user_registration_path, class: "nav-link" do %>
-                <i class="fas fa-user"></i> <span>Perfil</span>
+            <i class="fas fa-user"></i> <span>Perfil</span>
             <% end %>
         </li>
-        <li class="nav-item mb-3">
+        <li class="nav-item mb-3" title="Turmas matriculadas">
             <%= link_to user_enrolled_courses_path, class: "nav-link" do %>
-                <i class="fas fa-user-check"></i> <span>Minhas Turmas</span>
+            <i class="fas fa-user-check"></i> <span>Minhas Turmas</span>
             <% end %>
         </li>
-        <li class="nav-item mb-3">
+        <li class="nav-item mb-3" title="Ver resultados">
             <%= link_to results_path, class: "nav-link" do %>
-                <i class="fas fa-download"></i> <span>Resultados</span>
+            <i class="fas fa-download"></i> <span>Resultados</span>
             <% end %>
         </li>
         <% if current_user.admin? %>
-        <li class="nav-item mb-3">
-        <%= link_to admin_dashboard_path, class: "nav-link" do %>
+        <li class="nav-item mb-3" title="Painel de controle">
+            <%= link_to admin_dashboard_path, class: "nav-link" do %>
             <i class="fas fa-users-cog"></i> <span>Dashboard</span>
-        <% end %>
+            <% end %>
         </li>
-        <li class="nav-item mb-3">
-        <%= link_to new_course_path, class: "nav-link" do %>
+        <li class="nav-item mb-3" title="Criar nova turma">
+            <%= link_to new_course_path, class: "nav-link" do %>
             <i class="fas fa-plus"></i> <span> Nova Turma</span>
-        <% end %>
+            <% end %>
         </li>
         <% end %>
-        <li class="nav-item mb-3">
-            <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "nav-link", style: 'border: none; background: none; margin: auto;' do %>
-                <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
+        <li class="nav-item mb-3" title="Sair do sistema">
+            <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "nav-link w-100 text-start" do %>
+            <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
             <% end %>
         </li>
     </ul>
 </div>
-
-<script>
-    document.getElementById("sidebar-toggler").addEventListener("click", function() {
-        let sidebar = document.getElementById("sidebar");
-        let icon = this.querySelector("i");
-
-        sidebar.classList.toggle("collapsed");
-        
-        if (sidebar.classList.contains("collapsed")) {
-            icon.classList.remove("fa-times");
-            icon.classList.add("fa-bars");
-        } else {
-            icon.classList.remove("fa-bars");
-            icon.classList.add("fa-times");
-        }
-    });
-</script>

@@ -1,0 +1,20 @@
+<header class="header d-print-none py-1">
+    <div class="container-xl">
+        <div class="row text-center align-items-center">
+            <div class="col-lg-auto ms-lg-auto">
+                <ul class="list-inline list-inline-dots mb-0">
+                    <li class="list-inline-item d-flex align-items-center">
+                        <h5 class="mr-2 mb-0 fw-light"><%= @greeting_message %> <%= current_user.username %>.</h5>
+                        <img src="https://api.dicebear.com/7.x/thumbs/png?seed=<%= @seed %>" class="rounded-3 ms-2" style="width: 50px;" alt="Avatar" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    header {
+        background-color: #F9FBFD;
+    }
+</style>

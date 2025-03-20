@@ -1,27 +1,31 @@
 <div class="container mt-5">
     <h1 class="mb-4">Detalhes do Curso</h1>
-    
-    <div class="card p-4 shadow-sm">
-        <p><strong>Modalidade:</strong> <%= @course.modality %>
-            <% if @course.custom_modality.present? %>
+
+    <div class="card p-4 shadow-sm d-flex flex-column flex-md-row align-items-center">
+        <div class="flex-shrink-0 mb-3 mb-md-0">
+            <img src="<%= course_image_url(@course.modality) %>" alt="Course Image" class="img-fluid" style="max-width: 150px;">
+        </div>
+        <div class="flex-grow-1 ms-md-4">
+            <p><strong>Modalidade:</strong> <%= @course.modality %>
+                <% if @course.custom_modality.present? %>
                 (<%= @course.custom_modality %>)
-            <% end %>
-        </p>
-        <p><strong>Início das inscrições:</strong> <%= @course.start_date %></p>
-        <p><strong>Término das inscrições:</strong> <%= @course.end_date %></p>
-        <p><strong>Dia e horário das aulas:</strong> <%= @course.class_time %></p>
-        <p><strong>Vagas disponíveis:</strong> <%= @course.slots %></p>
+                <% end %>
+            </p>
+            <p><strong>Início das inscrições:</strong> <%= @course.start_date %></p>
+            <p><strong>Término das inscrições:</strong> <%= @course.end_date %></p>
+            <p><strong>Dia e horário das aulas:</strong> <%= @course.class_time %></p>
+            <p><strong>Vagas disponíveis:</strong> <%= @course.slots %></p>
+        </div>
     </div>
-    
-    <div class="mt-4">
+
+    <div class="mt-4 d-flex flex-wrap">
+        <a href="<%= root_path %>" class="btn btn-outline-secondary m-1">Voltar</a>
         <% if current_user.admin? %>
-            <a href="<%= enrolled_users_course_path(@course) %>" class="btn btn-primary">Ver Inscritos</a>
-            <a href="<%= edit_course_path(@course) %>" class="btn btn-warning">Editar</a>
-            <%= button_to "Deletar", course_path(@course), method: :delete, class: "btn btn-danger" %>
+        <a href="<%= enrolled_users_course_path(@course) %>" class="btn btn-outline-primary m-1">Ver Inscritos</a>
+        <a href="<%= edit_course_path(@course) %>" class="btn btn-outline-warning m-1">Editar</a>
+        <%= button_to "Deletar", course_path(@course), method: :delete, class: "btn btn-outline-danger m-1" %>
         <% else %>
-            <a href="<%= new_course_enrollment_path(@course) %>" class="btn btn-success">Inscrever-se</a>
+        <a href="<%= new_course_enrollment_path(@course) %>" class="btn btn-outline-success m-1">Inscrever-se</a>
         <% end %>
-        
-        <a href="<%= root_path %>" class="btn btn-secondary">Voltar</a>
     </div>
 </div>

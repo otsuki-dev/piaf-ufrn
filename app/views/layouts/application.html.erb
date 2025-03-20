@@ -28,28 +28,37 @@
     <%= javascript_importmap_tags %>
 </head>
 
-<body class="antialiased d-flex flex-column min-vh-100">
+<body class="antialiased d-flex flex-column min-vh-100 fw-light">
     <% unless user_signed_in? %>
     <header class="shadow-sm">
         <%= render 'shared/header' %>
     </header>
     <% end %>
-    <div class="d-flex flex-column flex-md-row flex-grow-1 justify-content-center align-items-center">
+    <div class="d-flex flex-column flex-md-row flex-grow-1">
         <% if user_signed_in? %>
-        <%= render "shared/sidebar" %>
+        <div class="d-none d-md-block">
+            <%= render "shared/sidebar" %>
+        </div>
         <% end %>
-        <main class="container ml-md-3 mt-3 mt-md-0 mx-auto">
-            <% if notice || alert %>
-            <div id="flash-message" class="alert <%= notice ? 'alert-success' : 'alert-danger' %>">
-                <%= notice || alert %>
-            </div>
+        <div class="d-flex flex-column flex-grow-1">
+            <% if user_signed_in? %>
+            <header class="shadow-sm mb-5">
+                <%= render 'shared/secondary_header' %>
+            </header>
             <% end %>
-            <%= yield %>
-        </main>
+            <main class="container ml-md-3 mt-3 mt-md-0 mx-auto" style="max-width: 1300px; margin: 0 auto;">
+                <% if notice || alert %>
+                <div id="flash-message" class="alert <%= notice ? 'alert-success' : 'alert-danger' %>">
+                    <%= notice || alert %>
+                </div>
+                <% end %>
+                <%= yield %>
+            </main>
+            <footer class="mt-auto text-center">
+                <%= render "shared/footer" %>
+            </footer>
+        </div>
     </div>
-    <footer class="mt-auto text-center">
-        <%= render "shared/footer" %>
-    </footer>
 </body>
 
 </html>

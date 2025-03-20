@@ -1,12 +1,7 @@
 <div class="col-12 col-sm-6 col-md-4 col-lg-3 swiper-slide">
-  <%= link_to course_path(@course), class: "card shadow-sm border-0" do %>
-    <% images = {
-      "Musculação" => "https://s2-oglobo.glbimg.com/tCi4YPIy6K0HBPMLGnt00WSvbrQ=/0x0:4000x2667/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2023/c/a/O7y1EGRAelLLVURwHeqQ/strong-man-training-gym.jpg",
-      "Karate" => "https://jkabrasil.com.br/wp-content/uploads/2023/01/jka-brasil-karate-graduacao-1.jpg"
-    } %>
-    <img class="card-img-top" src="<%= images[@course.modality] || "https://placehold.co/400x250?text=#{@course.modality}" %>" alt="Imagem do curso" style="height: 180px; object-fit: cover;">
-
-    <div class="card-body">
+  <%= link_to course_path(@course), class: "card shadow-sm border-0 h-100" do %>
+    <img class="card-img-top" src="<%= helpers.course_image_url(@course.modality) %>" alt="Imagem do curso" style="height: 180px; object-fit: cover;">
+    <div class="card-body d-flex flex-column">
       <h5 class="card-title text-primary fw-bold"><%= @course.modality %></h5>
       <p class="card-text text-muted mb-2">
         <i class="bi bi-calendar-check"></i> Inscrições: <strong><%= @course.start_date.strftime("%d/%m/%Y às %H:%M") %></strong> - <strong><%= @course.end_date.strftime("%d/%m/%Y às %H:%M") %></strong>
@@ -19,13 +14,12 @@
         <i class="bi bi-clock"></i> Horário: <strong><%= @course.class_time %></strong>
       </p>
     </div>
-
     <div class="card-footer bg-light d-flex justify-content-between align-items-center">
       <small class="text-muted"><%= time_left_in_words %></small>
       <% if helpers.current_user&.enrollments&.where(course_id: @course.id)&.exists? %>
-        <p class="text-warning">Você já está inscrito.</p>
+        <p class="text-warning mb-0">Você já está inscrito.</p>
       <% else %>
-        <a href="<%= new_course_enrollment_path(@course) %>" class="btn btn-success">Inscrever-se</a>
+        <%= link_to "Inscrever-se", new_course_enrollment_path(@course), class: "btn btn-success btn-sm" %>
       <% end %>
     </div>
   <% end %>

@@ -1,10 +1,12 @@
 class CoursesController < ApplicationController
+    include CoursesHelper
     before_action :authenticate_user!
     before_action :require_admin, except: [ :index, :show, :results ]
     before_action :set_course, only: [ :show, :edit, :update, :destroy, :results ]
 
     def index
-      @courses = Course.all
+      @status = params[:status] || "active"
+      @courses = filter_courses(Course.all, @status)
     end
 
     def show
