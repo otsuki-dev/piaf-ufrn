@@ -70,10 +70,8 @@ Mesmo que todos estivessem de ônibus, ainda teríamos uma quantidade significat
 
 - **Ruby on Rails**: Framework principal para o desenvolvimento do backend.
 - **PostgreSQL**: Banco de dados utilizado para armazenar informações de usuários, turmas e inscrições.
-- **Bootstrap**: Framework CSS para estilização e responsividade.
-- **JavaScript**: Para funcionalidades dinâmicas, como filtros e interações.
-- **Font Awesome**: Ícones utilizados na interface do usuário.
-
+- **Bootstrap**: Framework CSS para estilização e responsividade. Quase que metade do frontend é baseado em Bootstrap.
+- **JavaScript**: Para funcionalidades dinâmicas do carrousel e do FAQ.
 
 ## 📂 Estrutura do Projeto
 
@@ -90,8 +88,6 @@ Mesmo que todos estivessem de ônibus, ainda teríamos uma quantidade significat
 1. **Ruby**: 3.2 ou superior.
 2. **Rails**: 8.0.1.
 3. **PostgreSQL**: Instalado e configurado.
-4. **Node.js e Yarn**: Para processamento de JavaScript e CSS.
-5. **Ferramentas adicionais**: Brakeman, Rubocop, etc.
 
 ### Passos para Configuração inicial
 1. Clone o repositório e acesse a pasta:
