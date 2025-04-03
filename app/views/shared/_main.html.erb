@@ -1,62 +1,58 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>Em Andamento</h1>
-    </div>
-    <% if @open_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @open_courses.each do |course| %>
-            <%= render CardCourseComponent.new(course: course) %>
-          <% end %>
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>Em Andamento</h1>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições abertas no momento.</p>
-    <% end %>
-  </div>
+        <% if @open_courses.any? %>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <% @open_courses.each do |course| %>
+                <%= render CardCourseComponent.new(course: course) %>
+                <% end %>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <% else %>
+        <p>Nenhum curso com inscrições abertas no momento.</p>
+        <% end %>
+    </div>
 
-  <div class="row mt-5">
-    <div class="col-12">
-      <h1>Próximas Turmas</h1>
-    </div>
-    <% if @future_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @future_courses.each do |course| %>
-            <%= render CardCourseComponent.new(course: course) %>
-          <% end %>
+    <div class="row mt-5">
+        <div class="col-12">
+            <h1>Próximas Turmas</h1>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições futuras.</p>
-    <% end %>
-  </div>
+        <% if @future_courses.any? %>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <% @future_courses.each do |course| %>
+                <%= render CardCourseComponent.new(course: course) %>
+                <% end %>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <% else %>
+        <p>Nenhum curso com inscrições futuras.</p>
+        <% end %>
+    </div>
 
-  <div class="row mt-5">
-    <div class="col-12">
-      <h1>Finalizadas</h1>
-    </div>
-    <% if @past_courses.any? %>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @past_courses.each do |course| %>
-              <%= render CardCourseComponent.new(course: course) %>
-          <% end %>
+    <div class="row mt-5">
+        <div class="col-12">
+            <h1>Finalizadas</h1>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    <% else %>
-      <p>Nenhum curso com inscrições encerradas.</p>
-    <% end %>
-  </div>
+        <% if @past_courses.any? %>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <% @past_courses.each do |course| %>
+                <%= render CardCourseComponent.new(course: course) %>
+                <% end %>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <% else %>
+        <p>Nenhum curso com inscrições encerradas.</p>
+        <% end %>
+    </div>
 </div>
-
-<script>
-
-</script>

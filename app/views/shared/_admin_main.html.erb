@@ -1,9 +1,16 @@
 <div class="container">
     <div class="row mb-3">
-        <div class="col-12 d-flex justify-content-start">
-            <button class="btn btn-success mx-2" onclick="filterCourses('active')">Ativos</button>
-            <button class="btn btn-primary mx-2" onclick="filterCourses('future')">Futuros</button>
-            <button class="btn btn-warning mx-2" onclick="filterCourses('past')">Encerrados</button>
+        <div class="col-12 d-flex justify-content-start align-items-center">
+            <div class="btn-group shadow-sm" role="group" aria-label="Filtro de Cursos">
+                <input type="radio" class="btn-check" name="courseFilter" id="filterActive" autocomplete="off" checked onclick="filterCourses('active')">
+                <label class="btn btn-outline-success" for="filterActive">Ativos</label>
+
+                <input type="radio" class="btn-check" name="courseFilter" id="filterFuture" autocomplete="off" onclick="filterCourses('future')">
+                <label class="btn btn-outline-primary" for="filterFuture">Futuros</label>
+
+                <input type="radio" class="btn-check" name="courseFilter" id="filterPast" autocomplete="off" onclick="filterCourses('past')">
+                <label class="btn btn-outline-warning" for="filterPast">Encerrados</label>
+            </div>
         </div>
     </div>
 
@@ -53,6 +60,23 @@
         </div>
     </div>
 </div>
+
+<style>
+    .btn-check:checked+.btn-outline-success {
+        border-color: #198754;
+        color: white;
+    }
+
+    .btn-check:checked+.btn-outline-primary {
+        border-color: #1a5cad;
+        color: white;
+    }
+
+    .btn-check:checked+.btn-outline-warning {
+        border-color: #dd5e23;
+        color: white;
+    }
+</style>
 
 <script>
     function filterCourses(status) {

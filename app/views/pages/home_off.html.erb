@@ -4,9 +4,9 @@
         <div class="content">
             <div class="container-xl">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-xl-12 col-lg-9 pb-5">
-                        <div class="card shadow-md sticky-card rounded-3 shadow glassmorphism">
-                            <div class="card-body text-center glassmorphism">
+                    <div class="col-12 col-xl-12 col-lg-9 mb-5">
+                        <div class="mb-5 card shadow-md sticky-card rounded-3 shadow glassmorphism">
+                            <div class="card-body text-center glassmorphism" style="background: rgba(255, 255, 255, 0.5);">
                                 <h1 class="display-6">Deixe a energia fluir em cada movimento.</h1>
                                 <p class="lead">Transforme sua rotina com atividades físicas na UFRN. Inscreva-se e comece hoje mesmo!</p>
                                 <%= link_to "Criar conta agora", new_user_registration_path, class: "btn btn-danger btn-lg mt-3", title: "Crie sua conta na PIAF hoje mesmo!" %>
@@ -21,22 +21,22 @@
     <div class="body">
         <div class="features py-5">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4 text-center mb-4">
+                <div class="row glassmorphism mb-4 pt-4">
+                    <div class="col-md-4 text-center">
                         <i class="fas fa-dumbbell fa-3x mb-3"></i>
                         <h3 class="h3 mt-3">Atividades Diversas</h3>
                         <p>Oferecemos uma grande gama de atividades físicas para todos os gostos e níveis.
                             Para todas as pessoas maiores de 18 anos.<span class="tooltip" data-tooltip="Exceto para a modalidade de xadrez, que aceita menores de idade.">*</span>
                         </p>
                     </div>
-                    <div class="col-md-4 text-center mb-4">
+                    <div class="col-md-4 text-center">
                         <i class="fas fa-chalkboard-teacher fa-3x mb-3"></i>
                         <h3 class="h3 mt-3">Professores Qualificados</h3>
                         <p>Nossos Professores são bolsistas altamente qualificados e prontos para contribuir
                             para o seu melhor para o seu tipo de atividade.
                         </p>
                     </div>
-                    <div class="col-md-4 text-center mb-4">
+                    <div class="col-md-4 text-center">
                         <i class="fas fa-building fa-3x mb-3"></i>
                         <h3 class="h3 mt-3">Infraestrutura Completa</h3>
                         <p>Contamos com uma infraestrutura completa para proporcionar a melhor experiência
@@ -54,64 +54,55 @@
             </div>
         </div>
 
-        <div class="faq py-5 glassmorphism">
+        <div class="faq py-5">
             <div class="container">
                 <h2 class="h2 text-center mb-4">Perguntas Frequentes</h2>
-                <div class="accordion" id="faqAccordion">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    O que é a PIAF?
-                                </button>
-                            </h5>
-                        </div>
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                            <div class="card-body">
+                <div class="accordion glassmorphism" id="faqAccordion" style="background: rgba(255, 255, 255, 0.8);">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                O que é a PIAF?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
                                 A PIAF é o Portal de Inscrições de Atividades Físicas da UFRN, onde você pode se inscrever em diversas modalidades.
-                                A plataforma foi desenvolvida para realizar as inscrições oferecidas pela COESPE. Agora os você e os bolsistas terão uma maior facilidade.
+                                A plataforma foi desenvolvida para realizar as inscrições oferecidas pela COESPE. Agora você e os bolsistas terão uma maior facilidade.
                             </div>
-
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header" id="headingTwo">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Como faço para me inscrever em alguma atividade?
-                                </button>
-                            </h5>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                            <div class="card-body">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Como faço para me inscrever em alguma atividade?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
                                 Para se inscrever, basta criar uma conta no portal, depois, quando estiver em período de inscrição, basta escolher a atividade física desejada. Clique no botão de inscrição e pronto!
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Quais são os benefícios de participar das atividades?
-                                </button>
-                            </h5>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                            <div class="card-body">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Quais são os benefícios de participar das atividades?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
                                 Participar das atividades físicas oferecidas pela PIAF traz diversos benefícios para a saúde física e mental, além de proporcionar momentos de lazer e socialização. Não fique de fora!
                             </div>
                         </div>
                     </div>
-                    <div class="card rounded-3 mb-3 shadow-sm">
-                        <div class="card-header d-flex justify-content-between align-items-center" id="headingFour">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    Qual a idade necessária para praticar as modalidades?
-                                </button>
-                            </h5>
-                        </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                            <div class="card-body">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Qual a idade necessária para praticar as modalidades?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
                                 Para poder praticar as atividades ofertadas é necessário ter 18 ou mais anos de idade. Entretanto o <strong>xadrez</strong> é a única modalidade que permite menores de idade, aceitando até crianças de 5 anos.
                             </div>
                         </div>
@@ -165,7 +156,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var faqAccordion = document.getElementById('faqAccordion');
             faqAccordion.addEventListener('show.bs.collapse', function(event) {
-                var openItems = faqAccordion.querySelectorAll('.collapse.show');
+                var openItems = faqAccordion.querySelectorAll('.accordion-collapse.show');
                 openItems.forEach(function(item) {
                     if (item !== event.target) {
                         var collapseInstance = bootstrap.Collapse.getInstance(item);

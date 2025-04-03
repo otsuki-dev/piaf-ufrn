@@ -26,7 +26,7 @@
                             <div class="col-sm-12 mb-3">
                                 <div class="form-check">
                                     <%= f.check_box :ufrn_student, class: "form-check-input", id: "ufrn_student_checkbox" %>
-                                    <%= f.label :ufrn_student, "É estudante da UFRN?", class: "form-check-label" %>
+                                    <%= f.label :ufrn_student, "Tem vínculo com a UFRN?", class: "form-check-label" %>
                                 </div>
                             </div>
                             <div class="col-sm-6 mb-3">
@@ -34,8 +34,8 @@
                                 <%= f.text_field :phone_number, class: "form-control form-control-user", placeholder: "(88) 98888-8888", required: true %>
                             </div>
                             <div class="col-sm-6" id="ufrn_registration_field">
-                                <%= f.label :ufrn_registration_number, "Matrícula da UFRN", class: "form-control-label" %>
-                                <%= f.text_field :ufrn_registration_number, class: "form-control form-control-user", placeholder: "Matrícula da UFRN" %>
+                                <%= f.label :ufrn_registration_number, "Número da matrícula da UFRN", class: "form-control-label" %>
+                                <%= f.text_field :ufrn_registration_number, class: "form-control form-control-user", placeholder: "Número da matrícula da UFRN" %>
                             </div>
                         </div>
                         <div class="form-group">

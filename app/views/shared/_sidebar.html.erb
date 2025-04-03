@@ -40,7 +40,7 @@
         </li>
         <% end %>
         <li class="nav-item mb-3" title="Sair do sistema">
-            <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "nav-link w-100 text-start" do %>
+            <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "Quer mesmo sair?" }, class: "nav-link w-100 text-start" do %>
             <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
             <% end %>
         </li>
