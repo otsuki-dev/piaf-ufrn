@@ -56,7 +56,7 @@ class CoursesController < ApplicationController
         format.pdf do
           pdf = Prawn::Document.new
           pdf.image "app/assets/images/piaf.webp", width: 100, position: :left
-          pdf.image "app/assets/images/logo-ufrn.webp", width: 100, position: :right
+          pdf.image "app/assets/images/ufrn-logo.webp", width: 100, position: :right
           pdf.move_down 20
           pdf.text "Lista de Aprovados", size: 24, align: :center
           # Cabeçalho da tabela
