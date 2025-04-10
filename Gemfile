@@ -70,3 +70,4 @@ gem "prawn"
 gem "prawn-table"
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem 'cpf_cnpj'
