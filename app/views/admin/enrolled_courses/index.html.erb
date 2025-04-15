@@ -1,11 +1,30 @@
 <div class="container">
-  <h2>Cursos inscritos por <%= @user.username %></h2>
+  <h2>Informções sobre <%= @user.username %></h2>
 
+  <h3>Dados</h3>
+  <table class="table">
+    <thead>
+      <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Data de Nascimento</th>
+      <th>CPF</th>
+      <th>Numero</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td><%= @user.username %></td>
+      <td><%= @user.email %></td>
+      <td><%= l(@user.birthdate, format: :long) %></td>
+      <td><%= @user.cpf %></td>
+      <td><%= @user.phone_number %>
+    </tbody>
+  </table>
+  <h3>Cursos inscritos</h3>
   <table class="table">
     <thead>
       <tr>
         <th>Curso</th>
-        <th>Modalidade</th>
         <th>Data de Início</th>
         <th>Ações</th>
       </tr>
@@ -13,7 +32,6 @@
     <tbody>
       <% @enrollments.each do |enrollment| %>
         <tr>
-          <td><%= enrollment.course.modality %></td>
           <td><%= enrollment.course.modality %></td>
           <td><%= l(enrollment.course.start_date, format: :short) %></td>
           <td>
