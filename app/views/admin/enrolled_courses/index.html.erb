@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Cursos inscritos por <%= @user.username %></h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Curso</th>
+        <th>Modalidade</th>
+        <th>Data de Início</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @enrollments.each do |enrollment| %>
+        <tr>
+          <td><%= enrollment.course.modality %></td>
+          <td><%= enrollment.course.modality %></td>
+          <td><%= l(enrollment.course.start_date, format: :short) %></td>
+          <td>
+            <%= button_to 'Remover', 
+                remove_enrollment_admin_enrolled_courses_path(@user, enrollment_id: enrollment.id), 
+                method: :delete,
+                class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Voltar', :back, class: 'btn btn-secondary' %>
+</div>

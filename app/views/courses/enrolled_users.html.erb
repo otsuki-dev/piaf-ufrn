@@ -9,6 +9,7 @@
         <th>Data de Nascimento</th>
         <th>E-mail</th>
         <th>CPF</th>
+        <th>Remover</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,14 @@
           <td><%= enrollment.user.birthdate.strftime("%d/%m/%Y") %></td>
           <td><%= enrollment.user.email %></td>
           <td><%= enrollment.user.cpf %></td>
+          <td>
+            <%= button_to 'Remover', remove_enrollment_course_path(@course, user_id: enrollment.user.id), 
+                method: :delete, 
+                class: 'btn' %>
+            <%= link_to 'Ver Cursos', 
+          admin_enrolled_courses_path(user_id: enrollment.user.id), 
+          class: 'btn btn-info btn-sm' %>
+          </td>
         </tr>
       <% end %>
     </tbody>

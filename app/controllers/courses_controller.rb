@@ -47,6 +47,17 @@ class CoursesController < ApplicationController
         @enrollments = @course.enrollments.includes(:user)
     end
 
+    def remove_enrollment
+      @course = Course.find(params[:id])
+      enrollment = @course.enrollments.find_by(user_id: params[:user_id])
+      
+      if enrollment&.destroy
+        redirect_to enrolled_users_course_path(@course), notice: "Usuário removido do curso com sucesso!"
+      else
+        redirect_to enrolled_users_course_path(@course), alert: "Não foi possível remover o usuário do curso."
+      end
+    end
+
     # Método para gerar PDF com os resultados do curso
     def results
       @enrollments = @course.enrollments.includes(:user)

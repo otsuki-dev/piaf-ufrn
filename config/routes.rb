@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "dashboard", to: "dashboard#index"
+    resources :enrolled_courses, only: [:index], param: :user_id do
+      collection do
+        delete ':user_id/remove_enrollment/:enrollment_id', action: :remove_enrollment, as: :remove_enrollment
+      end
+    end
   end
 
   devise_scope :user do
@@ -27,10 +32,12 @@ Rails.application.routes.draw do
 
   resources :courses do
     member do
-      get "results" => "courses#results"
+      get "results"
+      get "enrolled_users"
+      delete "remove_enrollment"
     end
-    resources :enrollments, only: [ :new, :create ]
-    get "enrolled_users", on: :member
+    
+    resources :enrollments, only: [:new, :create]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
