@@ -72,3 +72,4 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'cpf_cnpj'
 gem 'phony_rails'
+gem "uri", ">= 1.0.3"
