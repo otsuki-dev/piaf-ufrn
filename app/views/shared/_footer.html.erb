@@ -1,6 +1,7 @@
 <footer class="footer footer-transparent d-print-none">
     <div class="container-xl">
         <div class="row text-center align-items-center flex-row-reverse">
+
             <div class="col-lg-auto ms-lg-auto">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item"><a href="https://github.com/otsuki-dev/piaf-ufrn" class="link-secondary">Documentação</a></li>
@@ -9,6 +10,7 @@
                     <li class="list-inline-item"><a href="/policy" class="link-secondary">Política de Privacidade</a></li>
                 </ul>
             </div>
+
             <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item">
@@ -16,9 +18,18 @@
                     </li>
                 </ul>
             </div>
+
             <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <%= image_tag 'piaf-bw.webp', alt: 'Logo da PIAF', class: 'img-fluid opacity-50 grayscale', style: 'max-height: 40px', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
             </div>
+
+            <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                <span class="text-muted me-1">Desenvolvido por</span>
+                <%= link_to 'https://www.otsuki.dev', target: '_blank', rel: 'noopener noreferrer' do %>
+                    <%= image_tag 'otsuki-logo.svg', alt: 'Logo Otsuki', style: 'max-height: 30px; vertical-align: middle;', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                <% end %>
+            </div>
+
         </div>
     </div>
 </footer>
