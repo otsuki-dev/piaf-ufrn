@@ -1,6 +1,16 @@
-<h1>Olá, <%= @user.username %>!</h1>
-
-<p><%= @message %></p>
-
-<p>Atenciosamente,</p>
-<p>Equipe da PIAF</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Mensagem do Sistema PIAF-UFRN</h1>
+    <p>Olá <%= @user.username %>,</p>
+    
+    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px;">
+      <%= simple_format(@message) %>
+    </div>
+    
+    <p>Atenciosamente,<br>Equipe PIAF-UFRN</p>
+  </body>
+</html>

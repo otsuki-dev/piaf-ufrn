@@ -5,6 +5,7 @@ class Enrollment < ApplicationRecord
   validates :user_id, uniqueness: { scope: :course_id, message: 'Você já está inscrito neste curso.' }
   validate :course_registration_period_open
   validate :course_has_available_slots
+  
 
   private
   

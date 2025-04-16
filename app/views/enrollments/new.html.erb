@@ -8,7 +8,7 @@
   
   <div class="mb-3">
     <%= f.label :phone_number, "Telefone", class: "form-label fw-bold" %>
-    <%= f.text_field :phone_number, value: current_user.phone_number, readonly: true, class: "form-control" %>
+    <%= f.text_field :phone_number, value: current_user.phone_number, readonly: true, class: "form-control", data: { mask: "(00) 00000-0000" } %>
   </div>
   
   <div class="mb-3">

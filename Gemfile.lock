@@ -221,6 +221,10 @@ GEM
       racc
     pdf-core (0.10.0)
     pg (1.5.9)
+    phony (2.22.1)
+    phony_rails (0.15.0)
+      activesupport (>= 3.0)
+      phony (>= 2.18.12)
     popper_js (2.11.8)
     pp (0.6.2)
       prettyprint
@@ -407,6 +411,7 @@ DEPENDENCIES
   kamal
   letter_opener_web
   pg (~> 1.1)
+  phony_rails
   prawn
   prawn-table
   propshaft

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :enrolled_courses, only: [:index], param: :user_id do
       collection do
         delete ':user_id/remove_enrollment/:enrollment_id', action: :remove_enrollment, as: :remove_enrollment
+        post ':user_id/send_email', action: :send_email, as: :send_email
       end
     end
   end

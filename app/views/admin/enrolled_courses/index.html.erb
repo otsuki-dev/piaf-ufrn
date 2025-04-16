@@ -1,49 +1,93 @@
-<div class="container">
-  <h2>Informções sobre <%= @user.username %></h2>
+<div class="container my-5">
+  <h2 class="text-center mb-4 text-primary fw-semibold">
+    Informações sobre <%= @user.username %>
+  </h2>
 
-  <h3>Dados</h3>
-  <table class="table">
-    <thead>
-      <tr>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Data de Nascimento</th>
-      <th>CPF</th>
-      <th>Numero</th>
-      </tr>
-    </thead>
-    <tbody>
-      <td><%= @user.username %></td>
-      <td><%= @user.email %></td>
-      <td><%= l(@user.birthdate, format: :long) %></td>
-      <td><%= @user.cpf %></td>
-      <td><%= @user.phone_number %>
-    </tbody>
-  </table>
-  <h3>Cursos inscritos</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Curso</th>
-        <th>Data de Início</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @enrollments.each do |enrollment| %>
-        <tr>
-          <td><%= enrollment.course.modality %></td>
-          <td><%= l(enrollment.course.start_date, format: :short) %></td>
-          <td>
-            <%= button_to 'Remover', 
-                remove_enrollment_admin_enrolled_courses_path(@user, enrollment_id: enrollment.id), 
-                method: :delete,
-                class: 'btn btn-danger btn-sm' %>
-          </td>
-        </tr>
+  <!-- Dados Pessoais -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-light fw-bold">Dados</div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-bordered mb-0 text-nowrap">
+          <thead class="table-secondary text-center">
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Data de Nascimento</th>
+              <th>CPF</th>
+              <th>Telefone</th>
+            </tr>
+          </thead>
+          <tbody class="text-center align-middle">
+            <tr>
+              <td><%= @user.username %></td>
+              <td class="text-break"><%= @user.email %></td>
+              <td><%= l(@user.birthdate, format: :long) %></td>
+              <td><%= CPF.format(@user.cpf) %></td>
+              <td><%= format_brazilian_phone(@user.phone_number) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cursos Inscritos -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-light fw-bold">Cursos Inscritos</div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-bordered mb-0 text-nowrap">
+          <thead class="table-primary text-center">
+            <tr>
+              <th>Curso</th>
+              <th>Data de Início</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody class="text-center align-middle">
+            <% @enrollments.each do |enrollment| %>
+              <tr>
+                <td><%= enrollment.course.modality %></td>
+                <td><%= l(enrollment.course.start_date, format: :short) %></td>
+                <td>
+                  <%= button_to 'Remover', 
+                      remove_enrollment_admin_enrolled_courses_path(@user, enrollment_id: enrollment.id), 
+                      method: :delete,
+                      class: 'btn btn-outline-danger btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulário de Mensagem -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-light fw-bold">
+      Enviar Mensagem para <%= @user.username %>
+    </div>
+    <div class="card-body">
+      <%= form_with(url: send_email_admin_enrolled_courses_path(user_id: @user.id), method: :post, class: "needs-validation", local: true) do |form| %>
+        <div class="mb-3">
+          <%= form.label :subject, "Assunto", class: "form-label" %>
+          <%= form.text_field :subject, class: 'form-control', required: true %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :message, "Mensagem", class: "form-label" %>
+          <%= form.text_area :message, class: 'form-control', rows: 5, required: true %>
+        </div>
+        
+        <%= form.submit "Enviar Email", class: 'btn btn-primary' %>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  </div>
 
-  <%= link_to 'Voltar', :back, class: 'btn btn-secondary' %>
+  <!-- Botão Voltar -->
+  <div class="text-center">
+    <%= link_to 'Voltar', :back, class: 'btn btn-secondary' %>
+  </div>
 </div>

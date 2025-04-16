@@ -1,32 +1,40 @@
-<h1 class="mb-4 text-center">Inscritos no Curso: <%= @course.modality %></h1>
+<h1 class="mb-5 text-center display-6 fw-semibold text-primary">
+  Inscritos no Curso: <%= @course.modality %>
+</h1>
 
-<div class="table-responsive">
-  <table class="table table-bordered table-hover shadow-sm">
-    <thead class="table-primary text-center">
+<div class="table-responsive rounded shadow-sm">
+  <table class="table table-bordered table-hover mb-0">
+    <thead class="table-primary text-center align-middle">
       <tr>
-        <th>Nome</th>
-        <th>Telefone</th>
-        <th>Data de Nascimento</th>
-        <th>E-mail</th>
-        <th>CPF</th>
-        <th>Remover</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Nascimento</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
       <% @enrollments.each do |enrollment| %>
-        <tr>
+        <tr class="align-middle text-nowrap">
           <td><%= enrollment.user.username %></td>
-          <td><%= enrollment.user.phone_number %></td>
+          <td><%= format_brazilian_phone(enrollment.user.phone_number) %></td>
           <td><%= enrollment.user.birthdate.strftime("%d/%m/%Y") %></td>
-          <td><%= enrollment.user.email %></td>
-          <td><%= enrollment.user.cpf %></td>
-          <td>
-            <%= button_to 'Remover', remove_enrollment_course_path(@course, user_id: enrollment.user.id), 
-                method: :delete, 
-                class: 'btn' %>
-            <%= link_to 'Ver Cursos', 
-          admin_enrolled_courses_path(user_id: enrollment.user.id), 
-          class: 'btn btn-info btn-sm' %>
+          <td class="text-break"><%= enrollment.user.email %></td>
+          <td><%= CPF.format(enrollment.user.cpf) %></td>
+          <td class="text-center">
+            <div class="d-flex flex-column flex-md-row gap-2 justify-content-center">
+              <%= button_to remove_enrollment_course_path(@course, user_id: enrollment.user.id),
+                  method: :delete,
+                  class: 'btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center' do %>
+                <i class="bi bi-trash me-1"></i> Remover
+              <% end %>
+
+              <%= link_to admin_enrolled_courses_path(user_id: enrollment.user.id),
+                  class: 'btn btn-info btn-sm text-white d-flex align-items-center justify-content-center' do %>
+                <i class="bi bi-person-lines-fill me-1"></i> Ver usuário
+              <% end %>
+            </div>
           </td>
         </tr>
       <% end %>

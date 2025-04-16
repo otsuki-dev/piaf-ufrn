@@ -2,6 +2,9 @@
 //= require jquery
 //= require jquery_ujs
 
+$(document).ready(function() {
+  $('[data-mask]').inputmask(); 
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
