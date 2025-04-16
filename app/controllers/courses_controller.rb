@@ -61,43 +61,78 @@ class CoursesController < ApplicationController
     # Método para gerar PDF com os resultados do curso
     def results
       @enrollments = @course.enrollments.includes(:user)
-
+    
       respond_to do |format|
         format.html
+    
         format.pdf do
           pdf = Prawn::Document.new
-          pdf.image "app/assets/images/piaf.webp", width: 100, position: :left
-          pdf.image "app/assets/images/ufrn-logo.webp", width: 100, position: :right
+        
+          # Cabeçalho com logos centralizadas horizontalmente
+          logo_piaf = "app/assets/images/piaf.webp"
+          logo_ufrn = "app/assets/images/ufrn-logo.webp"
+        
+          pdf.table(
+            [[
+              { image: logo_piaf, fit: [100, 100], position: :left },
+              '',
+              { image: logo_ufrn, fit: [100, 100], position: :right }
+            ]],
+            width: pdf.bounds.width,
+            cell_style: { borders: [], padding: [0, 0, 10, 0] },
+            column_widths: [pdf.bounds.width / 3, pdf.bounds.width / 3, pdf.bounds.width / 3]
+          )
+        
+          pdf.move_down 10
+        
+          # Título centralizado
+          pdf.text "Lista de Aprovados", size: 24, style: :bold, align: :center
+          pdf.move_down 10
+        
+          # Subtítulo com modalidade do curso
+          pdf.text "Resultados do Curso: #{@course.modality}", size: 18, style: :bold, align: :center
           pdf.move_down 20
-          pdf.text "Lista de Aprovados", size: 24, align: :center
+    
           # Cabeçalho da tabela
-          headers = [ "Nome", "CPF" ]
+          headers = ["Nome", "CPF"]
+    
+          # Dados dos alunos
           data = @enrollments.map do |enrollment|
             [
               enrollment.user.username,
-              enrollment.user.cpf.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
+              CPF.format(enrollment.user.cpf)
             ]
           end
-
-          # Adicionar tabela ao PDF
-          pdf.text "Resultados do Curso: #{@course.modality}", size: 18, style: :bold
-          pdf.move_down 20
-          pdf.table([ headers ] + data, header: true, width: pdf.bounds.width * 0.9, cell_style: { padding: 5 }) do
+    
+          # Renderização da tabela
+          pdf.table([headers] + data, 
+                    header: true, 
+                    width: pdf.bounds.width * 0.9, 
+                    cell_style: { padding: 8 }) do
             row(0).font_style = :bold
             row(0).background_color = "DDDDDD"
-            self.row_colors = [ "FFFFFF", "F0F0F0" ]
+            self.row_colors = ["FFFFFF", "F0F0F0"]
             self.header = true
-            cells.borders = [ :top, :bottom, :left, :right ]
+            cells.borders = [:top, :bottom, :left, :right]
           end
-          pdf.number_pages "Página <page> de <total>", at: [ pdf.bounds.right - 150, 0 ]
-
-          # Enviar o PDF como resposta
-          send_data pdf.render, filename: "resultados_curso_#{@course.modality.parameterize}.pdf",
-                                type: "application/pdf",
-                                disposition: "inline"
+    
+          pdf.move_down 10
+    
+          # Numeração de página
+          pdf.number_pages "Página <page> de <total>", 
+                           at: [pdf.bounds.right - 150, 0],
+                           align: :right,
+                           size: 10
+    
+          # Envio do PDF como resposta
+          send_data pdf.render,
+                    filename: "resultados_curso_#{@course.modality.parameterize}.pdf",
+                    type: "application/pdf",
+                    disposition: "inline"
         end
       end
     end
+    
 
     private
 
