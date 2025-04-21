@@ -63,7 +63,7 @@ end
 
 gem "devise", "~> 4.9"
 gem "view_component", "~> 3.21"
-gem "bootstrap", "~> 5.3.0"
+gem "bootstrap", "~> 5.3.5"
 gem "jquery-rails"
 gem "importmap-rails", "~> 2.1"
 gem "prawn"
