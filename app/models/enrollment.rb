@@ -3,6 +3,8 @@ class Enrollment < ApplicationRecord
   belongs_to :course
 
   validates :user_id, uniqueness: { scope: :course_id, message: 'Você já está inscrito neste curso.' }
+  validates :terms_accepted, acceptance: { message: 'Você deve aceitar os termos para se inscrever.' }
+  
   validate :course_registration_period_open
   validate :course_has_available_slots
   

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get "/policy" => "pages#policy", as: :policy
 
+  get "/consent_form" => "pages#consent_form", as: :consent_form
+
   devise_for :users, controllers: { sessions: "users/sessions" }
 
   authenticated :user do

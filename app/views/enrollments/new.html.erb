@@ -1,29 +1,47 @@
 <h1 class="mb-4 text-center">Inscrever-se no Curso</h1>
 
-<%= form_with model: [@course, @enrollment], local: true, html: { class: "card p-4 shadow-lg mx-auto", style: "max-width: 500px;" } do |f| %>
-  <div class="mb-3">
-    <%= f.label :name, "Nome", class: "form-label fw-bold" %>
-    <%= f.text_field :name, value: current_user.username, readonly: true, class: "form-control" %>
-  </div>
-  
-  <div class="mb-3">
-    <%= f.label :phone_number, "Telefone", class: "form-label fw-bold" %>
-    <%= f.text_field :phone_number, value: current_user.phone_number, readonly: true, class: "form-control", data: { mask: "(00) 00000-0000" } %>
-  </div>
-  
-  <div class="mb-3">
-    <%= f.label :birthdate, "Data de Nascimento", class: "form-label fw-bold" %>
-    <%= f.date_field :birthdate, value: current_user.birthdate, readonly: true, class: "form-control" %>
-  </div>
-  
-  <div class="mb-3">
-    <%= f.label :email, "E-mail", class: "form-label fw-bold" %>
-    <%= f.email_field :email, value: current_user.email, readonly: true, class: "form-control" %>
-  </div>
-  
-  <div class="mb-3">
-    <%= f.label :cpf, "CPF", class: "form-label fw-bold" %>
-    <%= f.text_field :cpf, value: current_user.cpf, readonly: true, class: "form-control" %>
+<%= form_with model: [@course, @enrollment], local: true, html: { class: "card p-4 shadow-lg mx-auto", style: "max-width: 600px;" } do |f| %>
+  <fieldset>
+    <legend class="mb-3 fs-5 fw-semibold">Seus dados</legend>
+
+    <%# Nome %>
+    <div class="form-floating mb-3">
+      <%= f.text_field :name, value: current_user.username, readonly: true, class: "form-control", id: "floatingName" %>
+      <%= f.label :name, "Nome", class: "form-label" %>
+    </div>
+
+    <%# Telefone %>
+    <div class="form-floating mb-3">
+      <%= f.text_field :phone_number, value: current_user.phone_number, readonly: true, class: "form-control", data: { mask: "(00) 00000-0000" }, id: "floatingPhone" %>
+      <%= f.label :phone_number, "Telefone", class: "form-label" %>
+    </div>
+
+    <%# Data de nascimento %>
+    <div class="form-floating mb-3">
+      <%= f.date_field :birthdate, value: current_user.birthdate, readonly: true, class: "form-control", id: "floatingBirthdate" %>
+      <%= f.label :birthdate, "Data de Nascimento", class: "form-label" %>
+    </div>
+
+    <%# Email %>
+    <div class="form-floating mb-3">
+      <%= f.email_field :email, value: current_user.email, readonly: true, class: "form-control", id: "floatingEmail" %>
+      <%= f.label :email, "E-mail", class: "form-label" %>
+    </div>
+
+    <%# CPF %>
+    <div class="form-floating mb-3">
+      <%= f.text_field :cpf, value: current_user.cpf, readonly: true, class: "form-control", id: "floatingCPF" %>
+      <%= f.label :cpf, "CPF", class: "form-label" %>
+    </div>
+  </fieldset>
+
+  <%# Termos de consentimento %>
+  <div class="form-check mb-4">
+    <%= f.check_box :terms_accepted, class: "form-check-input", required: true, id: "termsAccepted" %>
+    <%= f.label :terms_accepted, class: "form-check-label", for: "termsAccepted" do %>
+      Eu li e aceito os 
+      <%= link_to "TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO - TCLE (Res.510/2016-CNS)", consent_form_path, target: "_blank", rel: "noopener" %>.
+    <% end %>
   </div>
 
   <div class="text-center">

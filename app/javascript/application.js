@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
         prevEl: ".swiper-button-prev"
       },
       breakpoints: {
-        640: { slidesPerView: 2 },
-        768: { slidesPerView: 3 },
-        1024: { slidesPerView: 4 }
+        640: { slidesPerView: 1.5 },
+        768: { slidesPerView: 2.5 },
+        1024: { slidesPerView: 3.5 }
       }
     });
   });

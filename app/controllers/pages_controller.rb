@@ -14,6 +14,9 @@ class PagesController < ApplicationController
   def policy
   end
 
+  def consent_form
+  end
+
   def home_on
     now = Time.current
     @open_courses = Course.where("start_date <= ? AND end_date >= ?", now, now).order(:start_date)
