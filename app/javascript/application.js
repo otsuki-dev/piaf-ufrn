@@ -17,18 +17,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 3000); // Remove após 3s
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    new Swiper(".mySwiper", {
-      slidesPerView: "auto",
-      spaceBetween: 20,
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      },
-      breakpoints: {
-        640: { slidesPerView: 1.5 },
-        768: { slidesPerView: 2.5 },
-        1024: { slidesPerView: 3.5 }
+document.addEventListener("DOMContentLoaded", function () {
+  new Swiper(".mySwiper", {
+    slidesPerView: "auto",
+    spaceBetween: 20,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    },
+    breakpoints: {
+      640: { slidesPerView: 1.5 },
+      768: { slidesPerView: 2.5 },
+      1024: { slidesPerView: 3.5 }
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  const radioButtons = document.querySelectorAll('input[type="radio"][value="true"]');
+  const responsibilityCheckbox = document.querySelector('#enrollment_physical_activity_responsibility');
+
+  radioButtons.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (this.checked) {
+        alert("Você respondeu 'SIM' a uma pergunta. Recomendamos consultar um médico antes de prosseguir.");
       }
     });
   });
+});  

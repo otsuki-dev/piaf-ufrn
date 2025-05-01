@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_01_150228) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_01_152848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_01_150228) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "terms_accepted"
+    t.boolean "heart_problem"
+    t.boolean "chest_pain"
+    t.boolean "recent_chest_pain"
+    t.boolean "dizziness"
+    t.boolean "bone_problem"
+    t.boolean "blood_pressure_meds"
+    t.boolean "other_reasons"
+    t.boolean "physical_activity_responsibility"
     t.index ["course_id"], name: "index_enrollments_on_course_id"
     t.index ["user_id"], name: "index_enrollments_on_user_id"
   end

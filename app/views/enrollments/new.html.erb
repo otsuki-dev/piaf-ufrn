@@ -1,50 +1,96 @@
 <h1 class="mb-4 text-center">Inscrever-se no Curso</h1>
 
-<%= form_with model: [@course, @enrollment], local: true, html: { class: "card p-4 shadow-lg mx-auto", style: "max-width: 600px;" } do |f| %>
-  <fieldset>
-    <legend class="mb-3 fs-5 fw-semibold">Seus dados</legend>
+<%= form_with model: [@course, @enrollment], local: true, html: { class: "card p-3 p-md-4 shadow-lg mx-auto", style: "" } do |f| %>
+  <div class="container-fluid">
+    <fieldset>
+      <legend class="mb-3 fs-5 fw-semibold">Seus dados</legend>
 
-    <%# Nome %>
-    <div class="form-floating mb-3">
-      <%= f.text_field :name, value: current_user.username, readonly: true, class: "form-control", id: "floatingName" %>
-      <%= f.label :name, "Nome", class: "form-label" %>
+      <%# Nome %>
+      <div class="form-floating mb-3">
+        <%= f.text_field :name, value: current_user.username, readonly: true, class: "form-control", id: "floatingName" %>
+        <%= f.label :name, "Nome" %>
+      </div>
+
+      <%# Telefone %>
+      <div class="form-floating mb-3">
+        <%= f.text_field :phone_number, value: current_user.phone_number, readonly: true, class: "form-control", data: { mask: "(00) 00000-0000" }, id: "floatingPhone" %>
+        <%= f.label :phone_number, "Telefone" %>
+      </div>
+
+      <%# Data de nascimento %>
+      <div class="form-floating mb-3">
+        <%= f.date_field :birthdate, value: current_user.birthdate, readonly: true, class: "form-control", id: "floatingBirthdate" %>
+        <%= f.label :birthdate, "Data de Nascimento" %>
+      </div>
+
+      <%# Email %>
+      <div class="form-floating mb-3">
+        <%= f.email_field :email, value: current_user.email, readonly: true, class: "form-control", id: "floatingEmail" %>
+        <%= f.label :email, "E-mail" %>
+      </div>
+
+      <%# CPF %>
+      <div class="form-floating mb-3">
+        <%= f.text_field :cpf, value: current_user.cpf, readonly: true, class: "form-control", id: "floatingCPF" %>
+        <%= f.label :cpf, "CPF" %>
+      </div>
+    </fieldset>
+
+    <fieldset class="mb-4">
+      <legend class="mb-3 fs-5 fw-semibold">Questionário de Prontidão para Atividade Física (PAR-Q)</legend>
+      <p class="text-muted mb-3">
+        Este questionário tem o objetivo de identificar a necessidade de avaliação por um médico antes do início da atividade física.
+        <strong>Caso você responda "SIM" a uma ou mais perguntas, converse com seu médico ANTES de aumentar seu nível atual de atividade física.</strong>
+      </p>
+
+      <% questions = [
+        ["1. Algum médico já disse que você possui algum problema de coração e que só deveria realizar atividade física supervisionado por profissionais de saúde?", :heart_problem],
+        ["2. Você sente dores no peito quando pratica uma atividade física?", :chest_pain],
+        ["3. No último mês, você sentiu dores no peito quando praticou atividade física?", :recent_chest_pain],
+        ["4. Você apresenta desequilíbrio devido à tontura e/ou perda de consciência?", :dizziness],
+        ["5. Você possui algum problema ósseo ou articular que poderia ser piorado pela atividade física?", :bone_problem],
+        ["6. Você toma atualmente algum medicamento para pressão arterial e/ou problema de coração?", :blood_pressure_meds],
+        ["7. Sabe de alguma outra razão pela qual você não deve praticar atividade física?", :other_reasons]
+      ] %>
+
+      <% questions.each do |text, attribute| %>
+        <div class="mb-3">
+          <p class="fw-semibold"><%= text %></p>
+          <div class="row">
+            <div class="col-6 col-sm-4">
+              <div class="form-check">
+                <%= f.radio_button attribute, true, class: "form-check-input", required: true, id: "#{attribute}_true" %>
+                <%= f.label "#{attribute}_true", "SIM", class: "form-check-label", for: "#{attribute}_true" %>
+              </div>
+            </div>
+            <div class="col-6 col-sm-4">
+              <div class="form-check">
+                <%= f.radio_button attribute, false, class: "form-check-input", required: true, id: "#{attribute}_false" %>
+                <%= f.label "#{attribute}_false", "NÃO", class: "form-check-label", for: "#{attribute}_false" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+
+    <div class="form-check mb-4">
+      <%= f.check_box :physical_activity_responsibility, class: "form-check-input", required: true, id: "responsibilityCheck" %>
+      <%= f.label :physical_activity_responsibility, class: "form-check-label", for: "responsibilityCheck" do %>
+        <strong>Termo de Responsabilidade:</strong> Estou ciente de que é recomendável conversar com um médico antes de aumentar meu nível atual de atividade física, por ter respondido "SIM" a uma ou mais perguntas do PAR-Q. Assumo plena responsabilidade por qualquer atividade física praticada sem o atendimento a essa recomendação.
+      <% end %>
     </div>
 
-    <%# Telefone %>
-    <div class="form-floating mb-3">
-      <%= f.text_field :phone_number, value: current_user.phone_number, readonly: true, class: "form-control", data: { mask: "(00) 00000-0000" }, id: "floatingPhone" %>
-      <%= f.label :phone_number, "Telefone", class: "form-label" %>
+    <div class="form-check mb-4">
+      <%= f.check_box :terms_accepted, class: "form-check-input", required: true, id: "termsAccepted" %>
+      <%= f.label :terms_accepted, class: "form-check-label", for: "termsAccepted" do %>
+        Eu li e aceito os 
+        <%= link_to "TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO - TCLE (Res.510/2016-CNS)", consent_form_path, target: "_blank", rel: "noopener" %>.
+      <% end %>
     </div>
 
-    <%# Data de nascimento %>
-    <div class="form-floating mb-3">
-      <%= f.date_field :birthdate, value: current_user.birthdate, readonly: true, class: "form-control", id: "floatingBirthdate" %>
-      <%= f.label :birthdate, "Data de Nascimento", class: "form-label" %>
+    <div class="text-center">
+      <%= f.submit "Confirmar Inscrição", class: "btn btn-primary btn-lg w-100" %>
     </div>
-
-    <%# Email %>
-    <div class="form-floating mb-3">
-      <%= f.email_field :email, value: current_user.email, readonly: true, class: "form-control", id: "floatingEmail" %>
-      <%= f.label :email, "E-mail", class: "form-label" %>
-    </div>
-
-    <%# CPF %>
-    <div class="form-floating mb-3">
-      <%= f.text_field :cpf, value: current_user.cpf, readonly: true, class: "form-control", id: "floatingCPF" %>
-      <%= f.label :cpf, "CPF", class: "form-label" %>
-    </div>
-  </fieldset>
-
-  <%# Termos de consentimento %>
-  <div class="form-check mb-4">
-    <%= f.check_box :terms_accepted, class: "form-check-input", required: true, id: "termsAccepted" %>
-    <%= f.label :terms_accepted, class: "form-check-label", for: "termsAccepted" do %>
-      Eu li e aceito os 
-      <%= link_to "TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO - TCLE (Res.510/2016-CNS)", consent_form_path, target: "_blank", rel: "noopener" %>.
-    <% end %>
-  </div>
-
-  <div class="text-center">
-    <%= f.submit "Confirmar Inscrição", class: "btn btn-primary btn-lg w-100" %>
   </div>
 <% end %>

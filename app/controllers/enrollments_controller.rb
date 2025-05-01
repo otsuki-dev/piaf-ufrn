@@ -13,7 +13,11 @@ class EnrollmentsController < ApplicationController
 
   def create
     if @course.registration_period_open?
-      @enrollment = @course.enrollments.build(user: current_user)
+      @enrollment = @course.enrollments.build(
+        user: current_user,
+        **enrollment_params
+      )
+      
       if @enrollment.save
         redirect_to @course, notice: 'Inscrição realizada com sucesso!'
       else
@@ -42,5 +46,19 @@ class EnrollmentsController < ApplicationController
 
   def set_enrollment
     @enrollment = current_user.enrollments.find(params[:id])
+  end
+
+  def enrollment_params
+    params.require(:enrollment).permit(
+      :terms_accepted,
+      :physical_activity_responsibility,
+      :heart_problem,
+      :chest_pain,
+      :recent_chest_pain,
+      :dizziness,
+      :bone_problem,
+      :blood_pressure_meds,
+      :other_reasons
+    )
   end
 end

@@ -7,6 +7,14 @@ class Enrollment < ApplicationRecord
   
   validate :course_registration_period_open
   validate :course_has_available_slots
+
+  validates :heart_problem, :chest_pain, :recent_chest_pain, :dizziness, 
+            :bone_problem, :blood_pressure_meds, :other_reasons,
+            inclusion: { in: [true, false], message: "é obrigatório responder SIM ou NÃO" }
+  
+  validates :physical_activity_responsibility, acceptance: { 
+    message: "Você deve assumir a responsabilidade pela prática de atividade física." 
+  }
   
 
   private
