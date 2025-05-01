@@ -14,7 +14,7 @@
             <p><strong>Início das inscrições:</strong> <%= l(@course.start_date, format: :long) %></p>
             <p><strong>Término das inscrições:</strong> <%= l(@course.end_date, format: :long) %></p>
             <p><strong>Dia e horário das aulas:</strong> <%= @course.class_time %></p>
-            <p><strong>Vagas disponíveis:</strong> <%= @course.slots %></p>
+            <p><strong>Vagas disponíveis:</strong> <%= @course.slots - @course.enrollments.count %></p>
         </div>
     </div>
 

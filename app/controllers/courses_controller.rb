@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
     include CoursesHelper
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: [:results]
     before_action :require_admin, except: [ :index, :show, :results ]
     before_action :set_course, only: [ :show, :edit, :update, :destroy, :results ]
 
@@ -60,18 +60,18 @@ class CoursesController < ApplicationController
 
     # Método para gerar PDF com os resultados do curso
     def results
-      @enrollments = @course.enrollments.includes(:user)
+      @enrollments = @course.enrollments.includes(:user).order(:created_at)
     
       respond_to do |format|
         format.html
     
         format.pdf do
           pdf = Prawn::Document.new
-        
-          # Cabeçalho com logos centralizadas horizontalmente
+    
+          # Cabeçalho com logos centralizadas
           logo_piaf = "app/assets/images/piaf.webp"
           logo_ufrn = "app/assets/images/ufrn-logo.webp"
-        
+    
           pdf.table(
             [[
               { image: logo_piaf, fit: [100, 100], position: :left },
@@ -80,34 +80,41 @@ class CoursesController < ApplicationController
             ]],
             width: pdf.bounds.width,
             cell_style: { borders: [], padding: [0, 0, 10, 0] },
-            column_widths: [pdf.bounds.width / 3, pdf.bounds.width / 3, pdf.bounds.width / 3]
+            column_widths: Array.new(3, pdf.bounds.width / 3.0)
           )
-        
+    
           pdf.move_down 10
-        
-          # Título centralizado
+    
+          # Título principal
           pdf.text "Lista de Aprovados", size: 24, style: :bold, align: :center
           pdf.move_down 10
-        
-          # Subtítulo com modalidade do curso
+    
+          # Modalidade do curso
           pdf.text "Resultados do Curso: #{@course.modality}", size: 18, style: :bold, align: :center
+          pdf.move_down 10
+    
+          # Informações adicionais do curso
+          pdf.text "DIAS E HORÁRIOS: #{@course.class_time}", size: 12, align: :center
           pdf.move_down 20
     
           # Cabeçalho da tabela
-          headers = ["Nome", "CPF"]
+          headers = ["#", "UFRN", "Nome", "E-mail"]
     
           # Dados dos alunos
-          data = @enrollments.map do |enrollment|
+          data = @enrollments.each_with_index.map do |enrollment, index|
             [
-              enrollment.user.username,
-              CPF.format(enrollment.user.cpf)
+              index + 1,  
+              enrollment.user.ufrn_student ? "Sim" : "Não",
+              enrollment.user.username.to_s,
+              enrollment.user.email.to_s
             ]
           end
     
           # Renderização da tabela
-          pdf.table([headers] + data, 
-                    header: true, 
-                    width: pdf.bounds.width * 0.9, 
+          pdf.table([headers] + data,
+                    header: true,
+                    width: pdf.bounds.width * 0.9,
+                    position: :center,
                     cell_style: { padding: 8 }) do
             row(0).font_style = :bold
             row(0).background_color = "DDDDDD"
@@ -118,13 +125,13 @@ class CoursesController < ApplicationController
     
           pdf.move_down 10
     
-          # Numeração de página
-          pdf.number_pages "Página <page> de <total>", 
+          # Numeração das páginas
+          pdf.number_pages "Página <page> de <total>",
                            at: [pdf.bounds.right - 150, 0],
                            align: :right,
                            size: 10
     
-          # Envio do PDF como resposta
+          # Envia o PDF como resposta
           send_data pdf.render,
                     filename: "resultados_curso_#{@course.modality.parameterize}.pdf",
                     type: "application/pdf",
@@ -132,6 +139,7 @@ class CoursesController < ApplicationController
         end
       end
     end
+    
     
 
     private
