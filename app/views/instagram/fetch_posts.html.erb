@@ -1,0 +1,9 @@
+<div class="instagram-posts">
+  <% @posts.each do |post| %>
+    <% if post["media_type"] == "IMAGE" || post["media_type"] == "CAROUSEL_ALBUM" %>
+      <a href="<%= post["permalink"] %>" target="_blank" rel="noopener noreferrer">
+        <img src="<%= post["media_url"] %>" alt="<%= post["caption"] %>" class="img-fluid" />
+      </a>
+    <% end %>
+  <% end %>
+</div>

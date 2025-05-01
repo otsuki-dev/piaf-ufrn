@@ -6,22 +6,17 @@ class User < ApplicationRecord
   # Validações
   validates :username, presence: true, uniqueness: true
   validates :cpf, presence: true, uniqueness: true
-  validate :cpf_must_be_valid 
+  validate :cpf_must_be_valid
   validates :birthdate, presence: true
   validates :ufrn_registration_number, presence: true, if: -> { ufrn_student? }
-  validates :phone_number, format: { 
-    with: /\A\d{10,15}\z/, 
-    message: "deve conter apenas números e ter entre 10 e 15 dígitos" 
-  }
-
   # Callback para formatar o telefone antes de salvar
   before_save :format_brazilian_phone
 
   # Associações
-  has_many :courses, foreign_key: 'user_id', dependent: :destroy
+  has_many :courses, foreign_key: "user_id", dependent: :destroy
   has_many :enrollments, dependent: :destroy
   has_many :enrolled_courses, through: :enrollments, source: :course
-  
+
   def admin?
     self.admin
   end
@@ -31,7 +26,7 @@ class User < ApplicationRecord
   # Validação de CPF
   def cpf_must_be_valid
     unless CPF.valid?(cpf)
-      errors.add(:cpf, 'inválido')
+      errors.add(:cpf, "inválido")
     end
   end
 
@@ -40,7 +35,7 @@ class User < ApplicationRecord
     return if phone_number.blank?
 
     # Remove tudo que não é dígito
-    digits = phone_number.to_s.gsub(/\D/, '')
+    digits = phone_number.to_s.gsub(/\D/, "")
 
     # Aplica a formatação se tiver 11 dígitos (DDD + 9 dígitos)
     if digits.match?(/^(\d{2})(\d{5})(\d{4})$/)

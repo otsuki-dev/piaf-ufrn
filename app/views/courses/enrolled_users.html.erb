@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       <% @enrollments.each do |enrollment| %>
-        <tr class="align-middle text-nowrap">
+        <tr class="bg-light align-middle text-nowrap">
           <td><%= enrollment.user.username %></td>
           <td><%= format_brazilian_phone(enrollment.user.phone_number) %></td>
           <td><%= enrollment.user.birthdate.strftime("%d/%m/%Y") %></td>
