@@ -30,6 +30,17 @@ module CoursesHelper
     "https://placehold.co/400x250?text=#{modality}"
   end
 
+  def enrollment_progress_class(course)
+    percentage = (course.enrollments.count.to_f / course.slots.to_f) * 100
+    if percentage < 50
+      'success'
+    elsif percentage < 80
+      'warning'
+    else
+      'danger'
+    end
+  end
+
   def filter_courses(courses, status)
     case status
     when "active"

@@ -1,31 +1,111 @@
 <div class="container mt-5">
-    <h1 class="mb-4">Detalhes do Curso</h1>
+  <!-- Cabeçalho com ícone e breadcrumb -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to 'Página Inicial', root_path %></li>
+      <li class="breadcrumb-item active" aria-current="page">Detalhes do Curso</li>
+    </ol>
+  </nav>
 
-    <div class="card p-4 shadow-sm d-flex flex-column flex-md-row align-items-center">
-        <div class="flex-shrink-0 mb-3 mb-md-0">
-            <img src="<%= course_image_url(@course.modality) %>" alt="Course Image" class="img-fluid" style="max-width: 150px;">
-        </div>
-        <div class="flex-grow-1 ms-md-4">
-            <p><strong>Modalidade:</strong> <%= @course.modality %>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">
+      <i class="bi bi-book me-2 text-primary"></i>Detalhes do Curso
+    </h1>
+    <% if current_user.admin? %>
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="courseActionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-gear"></i> Ações
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="courseActionsDropdown">
+          <li><%= link_to '<i class="bi bi-pencil"></i> Editar Curso'.html_safe, edit_course_path(@course), class: "dropdown-item" %></li>
+          <li><%= link_to '<i class="bi bi-people"></i> Ver Inscritos'.html_safe, enrolled_users_course_path(@course), class: "dropdown-item" %></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><%= button_to '<i class="bi bi-trash"></i> Deletar Curso'.html_safe, course_path(@course), method: :delete, 
+                data: { confirm: 'Tem certeza que deseja deletar este curso? Esta ação não pode ser desfeita.' }, 
+                class: "dropdown-item text-danger" %></li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Card principal do curso -->
+  <div class="card shadow-sm mb-4 border-0">
+    <div class="row g-0">
+      <!-- Imagem do curso -->
+      <div class="col-md-3 d-flex align-items-center justify-content-center p-4 bg-light">
+        <img src="<%= course_image_url(@course.modality) %>" alt="<%= @course.modality %>" class="img-fluid rounded" style="max-height: 200px;">
+      </div>
+      
+      <!-- Detalhes do curso -->
+      <div class="col-md-9">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h2 class="card-title mb-2">
+                <%= @course.modality %>
                 <% if @course.custom_modality.present? %>
-                (<%= @course.custom_modality %>)
+                  <small class="text-muted">(<%= @course.custom_modality %>)</small>
                 <% end %>
-            </p>
-            <p><strong>Início das inscrições:</strong> <%= l(@course.start_date, format: :long) %></p>
-            <p><strong>Término das inscrições:</strong> <%= l(@course.end_date, format: :long) %></p>
-            <p><strong>Dia e horário das aulas:</strong> <%= @course.class_time %></p>
-            <p><strong>Vagas disponíveis:</strong> <%= @course.slots - @course.enrollments.count %></p>
-        </div>
-    </div>
+              </h2>
+              <p class="card-text text-muted"><%= @course.class_time %></p>
+            </div>
+            <span class="badge bg-<%= @course.registration_period_open? ? 'success' : 'secondary' %>">
+              <%= @course.registration_period_open? ? 'Inscrições Abertas' : 'Inscrições Encerradas' %>
+            </span>
+          </div>
 
-    <div class="mt-4 d-flex flex-wrap">
-        <a href="<%= root_path %>" class="btn btn-outline-secondary m-1">Voltar</a>
-        <% if current_user.admin? %>
-        <a href="<%= enrolled_users_course_path(@course) %>" class="btn btn-outline-primary m-1">Ver Inscritos</a>
-        <a href="<%= edit_course_path(@course) %>" class="btn btn-outline-warning m-1">Editar</a>
-        <%= button_to "Deletar", course_path(@course), method: :delete, class: "btn btn-outline-danger m-1" %>
-        <% else %>
-        <a href="<%= new_course_enrollment_path(@course) %>" class="btn btn-outline-success m-1">Inscrever-se</a>
-        <% end %>
+          <hr class="my-3">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <h5 class="fw-bold text-primary"><i class="bi bi-calendar-check me-2"></i>Período de Inscrição</h5>
+                <p class="mb-1"><strong>Início:</strong> <%= l(@course.start_date, format: :long) %></p>
+                <p><strong>Término:</strong> <%= l(@course.end_date, format: :long) %></p>
+              </div>
+
+              <div class="mb-3">
+                <h5 class="fw-bold text-primary"><i class="bi bi-clock me-2"></i>Horário das Aulas</h5>
+                <p><%= @course.class_time %></p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <h5 class="fw-bold text-primary"><i class="bi bi-people me-2"></i>Vagas</h5>
+                <div class="progress mb-2" style="height: 20px;">
+                  <div class="progress-bar bg-<%= enrollment_progress_class(@course) %>" 
+                       role="progressbar" 
+                       style="width: <%= (@course.enrollments.count.to_f / @course.slots.to_f) * 100 %>%" 
+                       aria-valuenow="<%= @course.enrollments.count %>" 
+                       aria-valuemin="0" 
+                       aria-valuemax="<%= @course.slots %>">
+                  </div>
+                </div>
+                <p class="mb-0">
+                  <strong>Disponíveis:</strong> 
+                  <span class="<%= @course.slots - @course.enrollments.count == 0 ? 'text-danger' : 'text-success' %>">
+                    <%= @course.slots - @course.enrollments.count %> / <%= @course.slots %>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Botões de ação -->
+  <div class="d-flex justify-content-between">
+    <%= link_to root_path, class: "btn btn-outline-secondary" do %>
+      <i class="bi bi-arrow-left"></i> Voltar
+    <% end %>
+
+    <% unless current_user.admin? %>
+      <%= link_to new_course_enrollment_path(@course), class: "btn btn-primary #{'disabled' unless @course.active?}" do %>
+        <i class="bi bi-pencil-square"></i> Inscrever-se
+      <% end %>
+    <% end %>
+  </div>
 </div>
