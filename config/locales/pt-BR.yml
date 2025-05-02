@@ -65,6 +65,7 @@ pt-BR:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      record_invalid: "A validação falhou: %{errors}"
       accepted: "deve ser aceito"
       blank: "não pode ficar em branco"
       confirmation: "não coincide com %{attribute}"

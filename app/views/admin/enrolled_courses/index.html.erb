@@ -1,93 +1,145 @@
 <div class="container my-5">
-  <h2 class="text-center mb-4 text-primary fw-semibold">
-    Informações sobre <%= @user.username %>
-  </h2>
-
-  <!-- Dados Pessoais -->
-  <div class="card shadow-sm mb-4">
-    <div class="card-header bg-light fw-bold">Dados</div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-bordered mb-0 text-nowrap">
-          <thead class="table-secondary text-center">
-            <tr>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Data de Nascimento</th>
-              <th>CPF</th>
-              <th>Telefone</th>
-            </tr>
-          </thead>
-          <tbody class="text-center align-middle">
-            <tr>
-              <td><%= @user.username %></td>
-              <td class="text-break"><%= @user.email %></td>
-              <td><%= l(@user.birthdate, format: :long) %></td>
-              <td><%= CPF.format(@user.cpf) %></td>
-              <td><%= format_brazilian_phone(@user.phone_number) %></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <!-- Cabeçalho com ícone -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="text-primary fw-semibold mb-0">
+      <i class="bi bi-person-badge me-2"></i>Informações sobre <%= @user.username %>
+    </h2>
+    <%= link_to 'Voltar', :back, class: 'btn btn-outline-secondary' %>
   </div>
 
-  <!-- Cursos Inscritos -->
-  <div class="card shadow-sm mb-4">
-    <div class="card-header bg-light fw-bold">Cursos Inscritos</div>
-    <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-bordered mb-0 text-nowrap">
-          <thead class="table-primary text-center">
-            <tr>
-              <th>Curso</th>
-              <th>Data de Início</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody class="text-center align-middle">
-            <% @enrollments.each do |enrollment| %>
-              <tr>
-                <td><%= enrollment.course.modality %></td>
-                <td><%= l(enrollment.course.start_date, format: :short) %></td>
-                <td>
-                  <%= button_to 'Remover', 
-                      remove_enrollment_admin_enrolled_courses_path(@user, enrollment_id: enrollment.id), 
-                      method: :delete,
-                      class: 'btn btn-outline-danger btn-sm' %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- Formulário de Mensagem -->
-  <div class="card shadow-sm mb-4">
-    <div class="card-header bg-light fw-bold">
-      Enviar Mensagem para <%= @user.username %>
+  <!-- Dados Pessoais - Card melhorado -->
+  <div class="card shadow-sm mb-4 border-primary">
+    <div class="card-header bg-primary text-white fw-bold">
+      <i class="bi bi-person-lines-fill me-2"></i>Dados do Usuário
     </div>
     <div class="card-body">
-      <%= form_with(url: send_email_admin_enrolled_courses_path(user_id: @user.id), method: :post, class: "needs-validation", local: true) do |form| %>
-        <div class="mb-3">
-          <%= form.label :subject, "Assunto", class: "form-label" %>
-          <%= form.text_field :subject, class: 'form-control', required: true %>
+      <div class="row g-3">
+        <!-- Coluna 1 -->
+        <div class="col-md-6">
+          <div class="border-bottom pb-2 mb-2">
+            <small class="text-muted">Status UFRN</small>
+            <div class="d-flex align-items-center">
+              <%= @user.ufrn_student ? '<span class="badge bg-success me-2">Sim</span>'.html_safe : '<span class="badge bg-secondary me-2">Não</span>'.html_safe %>
+              <%= @user.ufrn_registration_number.present? ? @user.ufrn_registration_number : "Não vinculado" %>
+            </div>
+          </div>
+          
+          <div class="border-bottom pb-2 mb-2">
+            <small class="text-muted">Nome Completo</small>
+            <div><%= @user.username %></div>
+          </div>
+          
+          <div class="border-bottom pb-2 mb-2">
+            <small class="text-muted">Data de Nascimento</small>
+            <div><%= l(@user.birthdate, format: :long) %></div>
+          </div>
+          
+          <div class="border-bottom pb-2 mb-2">
+            <small class="text-muted">RG</small>
+            <div><%= @user.rg_user %></div>
+          </div>
         </div>
         
-        <div class="mb-3">
-          <%= form.label :message, "Mensagem", class: "form-label" %>
-          <%= form.text_area :message, class: 'form-control', rows: 5, required: true %>
+        <!-- Coluna 2 -->
+        <div class="col-md-6">
+          <div class="border-bottom pb-2 mb-2">
+            <small class="text-muted">E-mail</small>
+            <div><%= @user.email %></div>
+          </div>
+          
+          <div class="border-bottom pb-2 mb-2">
+            <small class="text-muted">CPF</small>
+            <div><%= CPF.format(@user.cpf) %></div>
+          </div>
+          
+          <div class="border-bottom pb-2 mb-2">
+            <small class="text-muted">Telefone</small>
+            <div><%= format_brazilian_phone(@user.phone_number) %></div>
+          </div>
+          
+          <div class="border-bottom pb-2 mb-2">
+            <small class="text-muted">Endereço</small>
+            <div>
+              <%= @user.address %><br>
+              <%= @user.district %> - <%= @user.cep %>
+            </div>
+          </div>
         </div>
-        
-        <%= form.submit "Enviar Email", class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cursos Inscritos - Tabela melhorada -->
+  <div class="card shadow-sm mb-4 border-info">
+    <div class="card-header bg-info text-white fw-bold">
+      <i class="bi bi-book me-2"></i>Cursos Inscritos
+    </div>
+    <div class="card-body p-0">
+      <% if @enrollments.any? %>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th class="text-start">Curso</th>
+                <th class="text-center">Data de Início</th>
+                <th class="text-center">Status</th>
+                <th class="text-end">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @enrollments.each do |enrollment| %>
+                <tr>
+                  <td class="text-start fw-medium"><%= enrollment.course.modality %></td>
+                  <td class="text-center"><%= l(enrollment.course.start_date, format: :short) %></td>
+                  <td class="text-center">
+                    <span class="badge bg-<%= enrollment.active? ? 'success' : 'secondary' %>">
+                      <%= enrollment.active? ? 'Inscrições em Andamento' : 'Inscrições Encerradas' %>
+                    </span>
+                  </td>
+                  <td class="text-end">
+                    <%= button_to 'Remover', 
+                        remove_enrollment_admin_enrolled_courses_path(@user, enrollment_id: enrollment.id), 
+                        method: :delete,
+                        data: { confirm: 'Tem certeza que deseja remover este curso?' },
+                        class: 'btn btn-sm btn-outline-danger' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="text-center py-4 text-muted">
+          <i class="bi bi-info-circle fs-4"></i>
+          <p class="mb-0">Nenhum curso inscrito</p>
+        </div>
       <% end %>
     </div>
   </div>
 
-  <!-- Botão Voltar -->
-  <div class="text-center">
-    <%= link_to 'Voltar', :back, class: 'btn btn-secondary' %>
+  <!-- Formulário de Mensagem - Estilo melhorado -->
+  <div class="card shadow-sm border-success">
+    <div class="card-header bg-success text-white fw-bold">
+      <i class="bi bi-envelope me-2"></i>Enviar Mensagem para <%= @user.username %>
+    </div>
+    <div class="card-body">
+      <%= form_with(url: send_email_admin_enrolled_courses_path(user_id: @user.id), method: :post, class: "needs-validation", novalidate: true) do |form| %>
+        <div class="mb-3">
+          <%= form.label :subject, "Assunto", class: "form-label fw-medium" %>
+          <%= form.text_field :subject, class: 'form-control', required: true %>
+          <div class="invalid-feedback">Por favor, insira um assunto.</div>
+        </div>
+        
+        <div class="mb-4">
+          <%= form.label :message, "Mensagem", class: "form-label fw-medium" %>
+          <%= form.text_area :message, class: 'form-control', rows: 5, required: true %>
+          <div class="invalid-feedback">Por favor, escreva uma mensagem.</div>
+        </div>
+        
+        <div class="d-flex justify-content-end">
+          <%= form.submit "Enviar Mensagem", class: 'btn btn-primary px-4' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

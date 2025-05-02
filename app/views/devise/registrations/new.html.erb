@@ -38,6 +38,25 @@
                                 <%= f.text_field :ufrn_registration_number, class: "form-control form-control-user", placeholder: "Curso ou Setor" %>
                             </div>
                         </div>
+                        <!-- endereço -->
+                        <div class="form-group row">
+                            <div class="col-sm-6 mb-3">
+                                <%= f.label :rg_user, "RG", class: "form-control-label" %>
+                                <%= f.text_field :rg_user, class: "form-control form-control-user", id: "exampleFirstName", placeholder: "Seu RG" %>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <%= f.label :address, "Endereço", class: "form-control-label" %>
+                                <%= f.text_field :address, class: "form-control form-control-user", id: "exampleLastName", placeholder: "Endereço" %>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <%= f.label :cep, "CEP", class: "form-control-label" %>
+                                <%= f.text_field :cep, class: "form-control form-control-user", placeholder: "00000-000", required: true %>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <%= f.label :district, "Bairro", class: "form-control-label" %>
+                                <%= f.text_field :district, class: "form-control form-control-user", placeholder: "Seu Bairro", required: true %>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <%= f.label :birthdate, "Data de Nascimento", class: "form-control-label" %>
                             <%= f.date_field :birthdate, class: "form-control form-control-user", id: "exampleInputEmail", placeholder: "Data de Nascimento", order: [:day, :month, :year] %>

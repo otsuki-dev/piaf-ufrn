@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :distance_of_time_in_words
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :username, :cpf, :birthdate, :ufrn_student, :ufrn_registration_number, :phone_number ])
-    devise_parameter_sanitizer.permit(:account_update, keys: [ :username, :cpf, :birthdate, :ufrn_student, :ufrn_registration_number, :phone_number ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :username, :cpf, :birthdate, :ufrn_student, :ufrn_registration_number, :phone_number, :rg_user, :address, :cep, :district ])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :username, :cpf, :birthdate, :ufrn_student, :ufrn_registration_number, :phone_number, :rg_user, :address, :cep, :district ])
   end
 end

@@ -15,7 +15,11 @@ class Enrollment < ApplicationRecord
   validates :physical_activity_responsibility, acceptance: { 
     message: "Você deve assumir a responsabilidade pela prática de atividade física." 
   }
-  
+
+  def active?
+    now = Time.current
+    course.start_date <= now && course.end_date >= now
+  end
 
   private
   
