@@ -140,6 +140,99 @@ class CoursesController < ApplicationController
       end
     end
     
+    def attendance_list
+      @course = Course.find(params[:id])
+      @enrollments = @course.enrollments.includes(:user).order(:created_at)
+    
+      respond_to do |format|
+        format.pdf do
+          pdf = Prawn::Document.new(page_size: 'A3', page_layout: :landscape)
+    
+          # Cabeçalho com logos
+          logo_piaf = "app/assets/images/piaf.webp"
+          logo_ufrn = "app/assets/images/ufrn-logo.webp"
+    
+          pdf.table(
+            [[
+              { image: logo_piaf, fit: [100, 100], position: :left },
+              '',
+              { image: logo_ufrn, fit: [100, 100], position: :right }
+            ]],
+            width: pdf.bounds.width,
+            cell_style: { borders: [], padding: [0, 0, 10, 0] },
+            column_widths: Array.new(3, pdf.bounds.width / 3.0)
+          )
+    
+          pdf.move_down 10
+    
+          # Título principal
+          pdf.text "Lista de Chamada", size: 24, style: :bold, align: :center
+          pdf.move_down 10
+    
+          # Informações do curso
+          pdf.text "Curso: #{@course.modality}", size: 18, style: :bold, align: :center
+          pdf.move_down 5
+          pdf.text "Período: #{@course.start_date} a #{@course.end_date}", size: 12, align: :center
+          pdf.move_down 5
+          pdf.text "Horário: #{@course.class_time}", size: 12, align: :center
+          pdf.move_down 20
+    
+          # Cabeçalho da tabela
+          headers = ["#", "UFRN", "Nome"]
+          (1..31).each { |n| headers << n }
+    
+          # Dados dos alunos
+          data = @enrollments.each_with_index.map do |enrollment, index|
+            row = [
+              index + 1,
+              enrollment.user.ufrn_student ? "Sim" : "Não",
+              enrollment.user.username.to_s
+            ]
+            31.times { row << "" }
+            row
+          end
+    
+          # Define as larguras das colunas
+          column_widths = [30, 40, 150] + Array.new(31, 27)
+    
+          # Cria a tabela de presença
+          pdf.table([headers] + data,
+                    header: true,
+                    column_widths: column_widths,
+                    position: :center) do |table|
+    
+            table.row(0).font_style = :bold
+            table.row(0).background_color = "DDDDDD"
+    
+            # Estilização das colunas de aula
+            (3..33).each do |col|
+              table.column(col).align = :center
+              table.row(0).column(col).align = :center
+              table.row(0).column(col).valign = :center
+            end
+    
+            # Estilo das colunas iniciais
+            table.column(0).align = :center
+            table.column(1).align = :center
+    
+            # Alternância de cores nas linhas
+            table.row_colors = ["FFFFFF", "F0F0F0"]
+            table.cells.borders = [:top, :bottom, :left, :right]
+          end
+    
+          # Numeração das páginas
+          pdf.number_pages "Página <page> de <total>",
+                           at: [pdf.bounds.right - 150, 0],
+                           align: :right,
+                           size: 10
+    
+          send_data pdf.render,
+                    filename: "lista_chamada_#{@course.modality.parameterize}.pdf",
+                    type: "application/pdf",
+                    disposition: "inline"
+        end
+      end
+    end
     
 
     private

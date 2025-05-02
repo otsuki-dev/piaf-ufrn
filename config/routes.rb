@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       get "results"
       get "enrolled_users"
       delete "remove_enrollment"
+      get 'attendance_list'
     end
 
     resources :enrollments, only: [ :new, :create ]
