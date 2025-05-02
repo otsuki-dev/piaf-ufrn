@@ -103,7 +103,7 @@
     <% end %>
 
     <% unless current_user.admin? %>
-      <%= link_to new_course_enrollment_path(@course), class: "btn btn-primary #{'disabled' unless @course.active?}" do %>
+      <%= link_to new_course_enrollment_path(@course), class: "btn btn-primary #{'disabled' unless @course.registration_period_open?}" do %>
         <i class="bi bi-pencil-square"></i> Inscrever-se
       <% end %>
     <% end %>
