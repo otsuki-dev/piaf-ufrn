@@ -10,9 +10,9 @@ class Admin::DashboardController < ApplicationController
       @past_courses = Course.where('end_date < ?', now).order(end_date: :desc)
       @future_courses = Course.where('start_date > ?', now).order(:start_date)
       @users = if params[:query].present?
-                User.where("username ILIKE ?", "%#{params[:query]}%").page(params[:page]).per(1)
+                User.where("username ILIKE ?", "%#{params[:query]}%").page(params[:page]).per(10)
               else
-                (User.all).page(params[:page]).per(1)
+                (User.all).page(params[:page]).per(10)
               end
 
       respond_to do |format|
