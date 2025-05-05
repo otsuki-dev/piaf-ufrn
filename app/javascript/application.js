@@ -44,4 +44,19 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   });
-});  
+}); 
+
+document.getElementById('recipient-type-select').addEventListener('change', function() {
+  const courseField = document.getElementById('course-select-field');
+  courseField.style.display = this.value === 'outros' ? 'block' : 'none';
+});
+
+document.querySelector('form').addEventListener('submit', function(event) {
+  const recipientType = document.getElementById('recipient-type-select').value;
+  const courseCheckboxes = document.querySelectorAll('input[name="course_ids[]"]:checked');
+
+  if (recipientType === 'outros' && courseCheckboxes.length === 0) {
+      alert('Selecione pelo menos um curso.');
+      event.preventDefault();
+  }
+});

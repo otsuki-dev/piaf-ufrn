@@ -178,7 +178,7 @@ class CoursesController < ApplicationController
           pdf.move_down 20
     
           # Cabeçalho da tabela
-          headers = ["#", "UFRN", "Nome"]
+          headers = ["#", "UF", "Nome"]
           (1..31).each { |n| headers << n }
     
           # Dados dos alunos

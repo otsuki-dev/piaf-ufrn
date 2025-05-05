@@ -73,3 +73,4 @@ gem 'daemons'
 gem 'cpf_cnpj'
 gem 'phony_rails'
 gem "uri", ">= 1.0.3"
+gem 'kaminari'
