@@ -1,34 +1,53 @@
 <div class="container">
-    <div class="card o-hidden border-0 rounded-lg shadow-lg my-5 mx-auto" style="max-width: 700px;">
+    <div class="card o-hidden border-0 rounded-lg shadow-lg my-3 mx-auto glassmorphism" style="max-width: 700px;">
         <div class="card-body p-0">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <div class="p-5">
-                        <div class="text-left">
-                            <%= link_to root_path, class: "btn btn-link" do %>
-                            <i class="fas fa-arrow-left"></i> Voltar
+                    <div class="m-5">
+                        <div class="text-left mb-4">
+                            <%= link_to root_path, class: "btn btn-outline-secondary" do %>
+                            <i class="fas fa-arrow-left"></i>&nbsp;Voltar
                             <% end %>
                         </div>
-                        <div class="text-center">
-                            <h2 class="h2 text-gray-900 mb-2">Esqueceu a senha?</h2>
-                            <p class="mb-4">Podemos te ajudar através do e-mail cadastrado na sua conta. Digite-o abaixo para prosseguir.</p>
+                        <div class="text-center my-4">
+                            <h2 class="h2 text-gray-900">Esqueceu a senha?</h2>
+                            <p class="mt-2">Podemos te ajudar através do e-mail cadastrado na sua conta. Digite-o abaixo para prosseguir.</p>
                         </div>
+
                         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { class: "user", method: :post }) do |f| %>
                         <%= render "devise/shared/error_messages", resource: resource %>
-                        <div class="form-group">
-                            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "exampleInputEmail", placeholder: "Enter Email Address..." %>
+
+                        <div class="form-group my-4">
+                            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "exampleInputEmail", placeholder: "Digite seu endereço de e-mail..." %>
                         </div>
-                        <div class="actions">
+                        <div class="actions text-center">
                             <%= f.submit "Trocar de senha", class: "btn btn-danger btn-block" %>
                         </div>
                         <% end %>
-                        <hr>
+                        <hr />
                         <div class="text-center">
                             <%= render "devise/shared/links" %>
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-lg-auto mb-4">
+                    <span class="text-muted me-1">Desenvolvido pela</span>
+                    <%= link_to 'https://www.otsuki.dev', target: '_blank', rel: 'noopener noreferrer' do %>
+                    <%= image_tag 'otsuki-logo.svg', alt: 'Logo Otsuki', style: 'max-height: 30px; vertical-align: middle;', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                    <% end %>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .glassmorphism {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+</style>

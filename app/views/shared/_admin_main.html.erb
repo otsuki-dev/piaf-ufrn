@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row mb-3">
-        <div class="col-12 d-flex justify-content-start align-items-center">
+        <div class="col-12 d-flex justify-content-center align-items-center">
             <div class="btn-group shadow-sm" role="group" aria-label="Filtro de Cursos">
                 <input type="radio" class="btn-check" name="courseFilter" id="filterActive" autocomplete="off" checked onclick="filterCourses('active')">
                 <label class="btn btn-outline-success" for="filterActive">Ativos</label>
@@ -14,53 +14,69 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <table class="table table-bordered bg-white shadow-sm rounded-4">
-                <thead>
-                    <tr>
-                        <th>Nome do Curso</th>
-                        <th>Início</th>
-                        <th>Término</th>
-                        <th>Vagas</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="courses-table-body">
-                    <% @open_courses.each do |course| %>
-                    <tr class="course-row active">
-                        <td><%= course.modality %></td>
-                        <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
-                        <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
-                        <td><%= course.slots %></td>
-                        <td><%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %></td>
-                    </tr>
-                    <% end %>
-                    <% @future_courses.each do |course| %>
-                    <tr class="course-row future">
-                        <td><%= course.modality %></td>
-                        <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
-                        <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
-                        <td><%= course.slots %></td>
-                        <td><%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %></td>
-                    </tr>
-                    <% end %>
-                    <% @past_courses.each do |course| %>
-                    <tr class="course-row past">
-                        <td><%= course.modality %></td>
-                        <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
-                        <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
-                        <td><%= course.slots %></td>
-                        <td><%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %></td>
-                    </tr>
-                    <% end %>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <table class="table table-bordered table-striped bg-white shadow-sm rounded-4">
+        <thead>
+            <tr>
+                <th>Modalidade</th>
+                <th>Início</th>
+                <th>Término</th>
+                <th>Vagas</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="courses-table-body">
+            <% if @open_courses.any? || @future_courses.any? || @past_courses.any? %>
+                <% @open_courses.each do |course| %>
+                <tr class="course-row active">
+                    <td><%= course.modality %></td>
+                    <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
+                    <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
+                    <td><%= course.slots %></td>
+                    <td class="d-flex justify-content-center">
+                        <%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %>
+                    </td>
+                </tr>
+                <% end %>
+                <% @future_courses.each do |course| %>
+                <tr class="course-row future">
+                    <td><%= course.modality %></td>
+                    <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
+                    <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
+                    <td><%= course.slots %></td>
+                    <td class="d-flex justify-content-center">
+                        <%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %>
+                    </td>
+                </tr>
+                <% end %>
+                <% @past_courses.each do |course| %>
+                <tr class="course-row past">
+                    <td><%= course.modality %></td>
+                    <td><%= course.start_date.strftime("%d/%m/%Y") %></td>
+                    <td><%= course.end_date.strftime("%d/%m/%Y") %></td>
+                    <td><%= course.slots %></td>
+                    <td class="d-flex justify-content-center">
+                        <%= link_to "Ver Detalhes", course_path(course), class: "btn btn-info btn-sm" %>
+                    </td>
+                </tr>
+                <% end %>
+            <% else %>
+            <tr>
+                <td colspan="5" class="text-center text-muted">Nenhum curso disponível no momento.</td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
 </div>
 
 <style>
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 0.25rem;
+        overflow: hidden;
+        border: 1px solid #9999998f;
+    }
+
     .btn-check:checked+.btn-outline-success {
         border-color: #198754;
         color: white;

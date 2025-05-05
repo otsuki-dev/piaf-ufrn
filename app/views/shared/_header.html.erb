@@ -1,3 +1,29 @@
+<% if user_signed_in? %>
+<header class="header secondary_header d-print-none py-1">
+    <div class="container-xl">
+        <div class="row text-center align-items-center">
+            <div class="col-lg-auto ms-lg-auto">
+                <ul class="list-inline list-inline-dots mb-0">
+                    <li class="list-inline-item d-flex align-items-center">
+                        <h5 class="mr-2 mb-0 fw-light">
+                            <% if (Time.now.hour < 12 and Time.now.hour <= 0 ) %>
+                            Bom dia,
+                            <% elsif (Time.now.hour >= 12 and Time.now.hour < 18) %>
+                            Boa tarde,
+                            <% else %>
+                            Boa noite,
+                            <% end %>
+                            <%= current_user.username %>.</h5>
+                        <img src="https://api.dicebear.com/7.x/thumbs/png?seed=<%= @seed %>" class="rounded-3 ms-2" style="width: 50px;" alt="Avatar" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<% end %>
+
+<% unless user_signed_in? %>
 <header class="header header-transparent d-print-none py-3 glassmorphism">
     <div class="container-xl">
         <div class="row text-center align-items-center">
@@ -18,6 +44,7 @@
                     </li>
                     <li class="btn btn-primary" title="Crie sua conta na PIAF hoje mesmo!">
                         <%= link_to new_user_registration_path, class: "list-inline-item" do %>
+                        <!-- image_tag 'imagem', alt: 'imagem', class: 'img-fluid nav-icon', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' -->
                         <span class="nav-link text-white">Criar conta</span>
                         <% end %>
                     </li>
@@ -26,14 +53,21 @@
         </div>
     </div>
 </header>
+<% end %>
 
 <style>
-    .glassmorphism {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
+    header {
+        .secondary_header {
+            background-color: #F9FBFD;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
     }
 </style>

@@ -1,16 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Olá, <%= @user.username %>!</h1>
-    <p>
-      As inscrições para o curso <strong><%= @course.modality %></strong> foram encerradas.
-    </p>
-    <p>
-      Acesse nossa plataforma para ver os resultados: <%= link_to 'Ver Resultados', @results_url %>.
-    </p>
-    <p>Obrigado por participar!</p>
-  </body>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .email-container {
+            max-width: 50rem;
+            margin: 20px auto;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .email-header {
+            background-color: #992712;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .email-body {
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .email-body h1 {
+            font-size: 22px;
+            color: #992712;
+        }
+
+        .email-body p {
+            margin: 10px 0;
+        }
+
+        .email-footer {
+            background-color: #f4f4f4;
+            color: #555;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            border-top: 1px solid #ddd;
+        }
+
+        .email-footer a {
+            color: #992712;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Notificação de Encerramento das Inscrições</h1>
+        </div>
+        <div class="email-body">
+            <h1>Olá, <%= @user.username %>!</h1>
+            <p>
+                As inscrições para o curso <strong><%= @course.modality %></strong> foram encerradas.
+            </p>
+            <p>
+                Acesse nossa plataforma para ver os resultados:
+                <%= link_to 'Ver Resultados', @results_url %>.
+            </p>
+            <p>Obrigado por participar!</p>
+            <h7>Equipe da COESPE</h7>
+        </div>
+        <div class="email-footer">
+            <p>
+                © <%= Time.now.year %> Portal de Inscrições de Atividades Físicas da UFRN. Todos os direitos reservados.
+            </p>
+            <p>
+                <i class="bi bi-instagram"></i>
+                Siga nosso instagram para ficar por dentro das notícias!
+                <a href="https://instagram.com/coespeufrn">@coespeufrn</a>
+            </p>
+        </div>
+    </div>
+</body>
+
 </html>

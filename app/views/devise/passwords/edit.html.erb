@@ -1,43 +1,63 @@
 <div class="container">
-  <div class="card o-hidden border-0 rounded-lg shadow-lg my-5 mx-auto" style="max-width: 700px;">
-    <div class="card-body p-0">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">
-              <h2 class="card-title">alterar senha</h2>
-            </div>
-            <div class="card-body">
-              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "form" }) do |f| %>
-                <%= render "devise/shared/error_messages", resource: resource %>
-                <%= f.hidden_field :reset_password_token %>
-
-                <div class="mb-3">
-                  <%= f.label :password, "Nova senha", class: "form-label" %>
-                  <% if @minimum_password_length %>
-                    <small class="form-text text-muted">
-                      (<%= @minimum_password_length %> caracteres no mínimo)
-                    </small>
-                  <% end %>
-                  <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
+    <div class="card o-hidden border-0 rounded-lg shadow-lg my-3 mx-auto glassmorphism" style="max-width: 700px;">
+        <div class="card-body p-0">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="m-5">
+                        <div class="text-left mb-4">
+                            <%= link_to root_path, class: "btn btn-outline-secondary" do %>
+                            <i class="fas fa-arrow-left"></i>&nbsp;Voltar
+                            <% end %>
+                        </div>
+                        <div class="text-center my-4">
+                            <h2 class="h2 text-gray-900 mb-2">Alterar Senha</h2>
+                            <p class="mt-2">Digite sua nova senha nos campos abaixo para prosseguir com a redefinição da senha.</p>
+                            <black class="fw-bold">Crie uma senha segura e única, não compartilhe com terceiros. <br /> Não pedimos sua senha por e-mail ou WhatsApp!</black>
+                        </div>
+                        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "user" }) do |f| %>
+                        <%= render "devise/shared/error_messages", resource: resource %>
+                        <%= f.hidden_field :reset_password_token %>
+                        <div class="form-group mb-3">
+                            <div class="d-flex align-items-center">
+                                <%= f.label :password, "Nova senha", class: "form-label mb-0" %>
+                                <% if @minimum_password_length %>
+                                <small class="form-text text-muted ms-2">
+                                    (<%= @minimum_password_length %> caracteres no mínimo)
+                                </small>
+                                <% end %>
+                            </div>
+                            <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
+                        </div>
+                        <div class="form-group mb-4">
+                            <%= f.label :password_confirmation, "Confirmar nova senha", class: "form-label" %>
+                            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+                        </div>
+                        <div class="actions text-center">
+                            <%= f.submit "Alterar minha senha", class: "btn btn-danger btn-block" %>
+                            <% end %>
+                            <hr />
+                            <%= render "devise/shared/links" %>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="mb-3">
-                  <%= f.label :password_confirmation, "Confirmar nova senha", class: "form-label" %>
-                  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+                <div class="col-12 col-lg-auto mb-4">
+                    <span class="text-muted me-1">Desenvolvido pela</span>
+                    <%= link_to 'https://www.otsuki.dev', target: '_blank', rel: 'noopener noreferrer' do %>
+                    <%= image_tag 'otsuki-logo.svg', alt: 'Logo Otsuki', style: 'max-height: 30px; vertical-align: middle;', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                    <% end %>
                 </div>
-
-                <div class="actions">
-                  <%= f.submit "Change my password", class: "btn btn-primary w-100" %>
-                </div>
-              <% end %>
             </div>
-            <div class="card-footer">
-              <%= render "devise/shared/links" %>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
+
+<style>
+    .glassmorphism {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+</style>

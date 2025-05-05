@@ -30,11 +30,6 @@
 </head>
 
 <body class="antialiased d-flex flex-column min-vh-100 fw-light">
-    <% unless user_signed_in? %>
-    <header class="shadow-sm">
-        <%= render 'shared/header' %>
-    </header>
-    <% end %>
     <div class="d-flex flex-column flex-md-row flex-grow-1">
         <% if user_signed_in? %>
         <div class="d-none d-md-block">
@@ -42,11 +37,9 @@
         </div>
         <% end %>
         <div class="d-flex flex-column flex-grow-1">
-            <% if user_signed_in? %>
             <header class="shadow-sm mb-5">
-                <%= render 'shared/secondary_header' %>
+                <%= render 'shared/header' %>
             </header>
-            <% end %>
             <main class="container ml-md-3 mt-3 mt-md-0 mx-auto" style="max-width: 1300px; margin: 0 auto;">
                 <% if notice || alert %>
                 <div id="flash-message" class="alert <%= notice ? 'alert-success' : 'alert-danger' %>">

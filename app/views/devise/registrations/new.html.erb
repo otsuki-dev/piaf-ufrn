@@ -1,11 +1,11 @@
 <div class="container">
-    <div class="card o-hidden border-0 rounded-lg shadow-lg my-5 mx-auto" style="max-width: 700px;">
+    <div class="card o-hidden border-0 rounded-lg shadow-lg my-3 mx-auto glassmorphism" style="max-width: 700px;">
         <div class="card-body p-0">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <div class="p-4">
+                    <div class="m-5">
                         <div class="text-left mb-4">
-                            <%= link_to root_path, class: "btn btn-outline-primary" do %>
+                            <%= link_to root_path, class: "btn btn-outline-secondary" do %>
                             <i class="fas fa-arrow-left"></i>&nbsp;Voltar
                             <% end %>
                         </div>
@@ -14,22 +14,22 @@
                         </div>
                         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "user" }) do |f| %>
                         <%= render "devise/shared/error_messages", resource: resource %>
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3">
+                        <div class="form-group row row-gap-3 mb-3">
+                            <div class="col-sm-6">
                                 <%= f.label :username, "Nome de Usuário", class: "form-control-label" %>
                                 <%= f.text_field :username, class: "form-control form-control-user", id: "exampleFirstName", placeholder: "Nome de Usuário" %>
                             </div>
-                            <div class="col-sm-6 mb-3">
+                            <div class="col-sm-6">
                                 <%= f.label :cpf, "CPF", class: "form-control-label" %>
                                 <%= f.text_field :cpf, class: "form-control form-control-user", id: "exampleLastName", placeholder: "123.456.789-00" %>
                             </div>
-                            <div class="form-check form-switch">
-                                <div class="form-check">
+                            <div class="col-sm-12">
+                                <div class="form-check form-switch">
                                     <%= f.check_box :ufrn_student, class: "form-check-input", id: "ufrn_student_checkbox" %>
                                     <%= f.label :ufrn_student, "Tem vínculo com a UFRN?", class: "form-check-label" %>
                                 </div>
                             </div>
-                            <div class="col-sm-6 mb-3">
+                            <div class="col-sm-6">
                                 <%= f.label :phone_number, "Número de Celular", class: "form-control-label" %>
                                 <%= f.text_field :phone_number, class: "form-control form-control-user", placeholder: "(88) 98888-8888", required: true %>
                             </div>
@@ -39,29 +39,29 @@
                             </div>
                         </div>
                         <!-- endereço -->
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3">
+                        <div class="form-group row row-gap-3 mb-3">
+                            <div class="col-sm-6">
                                 <%= f.label :rg_user, "RG", class: "form-control-label" %>
                                 <%= f.text_field :rg_user, class: "form-control form-control-user", id: "exampleFirstName", placeholder: "Seu RG" %>
                             </div>
-                            <div class="col-sm-6 mb-3">
+                            <div class="col-sm-6">
                                 <%= f.label :address, "Endereço", class: "form-control-label" %>
                                 <%= f.text_field :address, class: "form-control form-control-user", id: "exampleLastName", placeholder: "Endereço" %>
                             </div>
-                            <div class="col-sm-6 mb-3">
+                            <div class="col-sm-6">
                                 <%= f.label :cep, "CEP", class: "form-control-label" %>
                                 <%= f.text_field :cep, class: "form-control form-control-user", placeholder: "00000-000", required: true %>
                             </div>
-                            <div class="col-sm-6 mb-3">
+                            <div class="col-sm-6">
                                 <%= f.label :district, "Bairro", class: "form-control-label" %>
                                 <%= f.text_field :district, class: "form-control form-control-user", placeholder: "Seu Bairro", required: true %>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <%= f.label :birthdate, "Data de Nascimento", class: "form-control-label" %>
                             <%= f.date_field :birthdate, class: "form-control form-control-user", id: "exampleInputEmail", placeholder: "Data de Nascimento", order: [:day, :month, :year] %>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <%= f.label :email, "Endereço de E-mail", class: "form-control-label" %>
                             <%= f.email_field :email, class: "form-control form-control-user", id: "exampleInputEmail", placeholder: "Digite seu endereço de e-mail...", autofocus: true, autocomplete: "email" %>
                         </div>
@@ -79,14 +79,22 @@
                             </div>
                         </div>
                         <div class="actions">
-                            <%= f.submit "Registrar Conta", class: "btn btn-danger btn-block" %>
-                        </div>
-                        <% end %>
-                        <hr />
-                        <div class="text-center">
-                            <%= render "devise/shared/links" %>
+                            <div class="text-center my-3">
+                                <%= f.submit "Confirmar cadastro", class: "btn btn-danger" %>
+                            </div>
+                            <% end %>
+                            <hr />
+                            <div class="text-center">
+                                <%= render "devise/shared/links" %>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-12 col-lg-auto mb-4">
+                    <span class="text-muted me-1">Desenvolvido pela</span>
+                    <%= link_to 'https://www.otsuki.dev', target: '_blank', rel: 'noopener noreferrer' do %>
+                    <%= image_tag 'otsuki-logo.svg', alt: 'Logo Otsuki', style: 'max-height: 30px; vertical-align: middle;', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                    <% end %>
                 </div>
             </div>
         </div>
@@ -110,3 +118,14 @@
         toggleRegistrationField();
     });
 </script>
+
+<style>
+    .glassmorphism {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+</style>
