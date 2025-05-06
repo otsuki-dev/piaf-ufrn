@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+
   def results
     @past_courses = Course.where("end_date < ?", Time.current).order(end_date: :desc)
   end
@@ -6,6 +7,17 @@ class PagesController < ApplicationController
   def home_off
     @recent_courses = Course.where(status: [ "active", "finished" ]).order(end_date: :desc).limit(6)
     @open_courses = Course.where("start_date <= ? AND end_date >= ?", Time.current, Time.current).order(end_date: :asc)
+  end
+
+  def home_on
+    now = Time.current
+    @open_courses = Course.where("start_date <= ? AND end_date >= ?", now, now).order(:start_date)
+    @past_courses = Course.where("end_date < ?", now).order(end_date: :desc)
+    @future_courses = Course.where("start_date > ?", now).order(:start_date)
+  end
+
+  def instructor
+    @instrutores = User.where(instructor: true)
   end
 
   def about
@@ -17,23 +29,4 @@ class PagesController < ApplicationController
   def consent_form
   end
 
-  def home_on
-    now = Time.current
-    @open_courses = Course.where("start_date <= ? AND end_date >= ?", now, now).order(:start_date)
-    @past_courses = Course.where("end_date < ?", now).order(end_date: :desc)
-    @future_courses = Course.where("start_date > ?", now).order(:start_date)
-  end
-
-  private
-
-  def greeting_message
-    case Time.current.hour
-    when 5..11
-      "Bom dia"
-    when 12..17
-      "Boa tarde"
-    else
-      "Boa noite"
-    end
-  end
 end

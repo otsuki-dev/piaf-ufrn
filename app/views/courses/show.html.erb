@@ -11,19 +11,21 @@
     <h1 class="mb-0">
       <i class="bi bi-book me-2 text-primary"></i>Detalhes do Curso
     </h1>
-    <% if current_user.admin? %>
+    <% if current_user.admin? || current_user.instructor? %>
       <div class="dropdown">
         <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="courseActionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="bi bi-gear"></i> Ações
         </button>
         <ul class="dropdown-menu" aria-labelledby="courseActionsDropdown">
-          <li><%= link_to '<i class="bi bi-pencil"></i> Editar Curso'.html_safe, edit_course_path(@course), class: "dropdown-item" %></li>
           <li><%= link_to '<i class="bi bi-pencil"></i> Lista de chamada'.html_safe, attendance_list_course_path(@course, format: :pdf), class: "dropdown-item" %></li>
+          <% if current_user.admin? %>
+          <li><%= link_to '<i class="bi bi-pencil"></i> Editar Curso'.html_safe, edit_course_path(@course), class: "dropdown-item" %></li>
           <li><%= link_to '<i class="bi bi-people"></i> Ver Inscritos'.html_safe, enrolled_users_course_path(@course), class: "dropdown-item" %></li>
           <li><hr class="dropdown-divider"></li>
           <li><%= button_to '<i class="bi bi-trash"></i> Deletar Curso'.html_safe, course_path(@course), method: :delete, 
                 data: { confirm: 'Tem certeza que deseja deletar este curso? Esta ação não pode ser desfeita.' }, 
                 class: "dropdown-item text-danger" %></li>
+          <% end %>
         </ul>
       </div>
     <% end %>

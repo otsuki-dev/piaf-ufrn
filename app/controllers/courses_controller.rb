@@ -1,8 +1,9 @@
 class CoursesController < ApplicationController
     include CoursesHelper
     before_action :authenticate_user!, except: [:results]
-    before_action :require_admin, except: [ :index, :show, :results ]
-    before_action :set_course, only: [ :show, :edit, :update, :destroy, :results ]
+    before_action :require_admin, except: [ :index, :show, :results, :attendance_list ]
+    before_action :require_instructor, only: [ :attendance_list ]
+    before_action :set_course, only: [ :show, :edit, :update, :destroy, :results, :attendance_list ]
 
     def index
       @status = params[:status] || "active"
@@ -248,6 +249,12 @@ class CoursesController < ApplicationController
 
     def require_admin
       unless current_user.admin?
+        redirect_to root_path, alert: "Acesso negado."
+      end
+    end
+
+    def require_instructor
+      unless current_user.instructor?
         redirect_to root_path, alert: "Acesso negado."
       end
     end

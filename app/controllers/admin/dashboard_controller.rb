@@ -20,6 +20,7 @@ class Admin::DashboardController < ApplicationController
         format.turbo_stream
       end
     end
+    
   
     private
   

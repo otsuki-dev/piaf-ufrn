@@ -1,5 +1,6 @@
 User.create!(
   admin: true,
+  instructor: true,
   username: "admin oficial",
   cpf: "21515404056",
   ufrn_student: false,
