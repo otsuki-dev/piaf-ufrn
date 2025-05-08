@@ -3,24 +3,72 @@
     <div class="container-xl">
         <div class="row text-center align-items-center">
             <div class="col-lg-auto ms-lg-auto">
-                <ul class="list-inline list-inline-dots mb-0">
-                    <li class="list-inline-item d-flex align-items-center">
-                        <h5 class="mr-2 mb-0 fw-light">
-                            <% if (Time.now.hour < 12 and Time.now.hour <= 0 ) %>
-                            Bom dia,
-                            <% elsif (Time.now.hour >= 12 and Time.now.hour < 18) %>
-                            Boa tarde,
-                            <% else %>
-                            Boa noite,
-                            <% end %>
-                            <%= current_user.username %>.</h5>
-                        <img src="https://api.dicebear.com/7.x/thumbs/png?seed=<%= @seed %>" class="rounded-3 ms-2" style="width: 50px;" alt="Avatar" />
-                    </li>
-                </ul>
+                <div class="d-flex justify-content-center align-items-center">
+                    <h5 class="mb-0 fw-light me-2">
+                        <% if (Time.now.hour < 12 and Time.now.hour <= 0 ) %>
+                        Bom dia,
+                        <% elsif (Time.now.hour >= 12 and Time.now.hour < 18) %>
+                        Boa tarde,
+                        <% else %>
+                        Boa noite,
+                        <% end %>
+                        <%= current_user.username %>.
+                    </h5>
+                    <img src="https://api.dicebear.com/7.x/thumbs/png?seed=<%= @seed %>" class="rounded-3 ms-2" style="width: 50px;" alt="Avatar" />
+                </div>
+                <button id="mobileMenuButton" class="btn btn-primary d-lg-none m-2 ">Menu</button>
             </div>
         </div>
     </div>
 </header>
+
+
+<div id="mobileMenu" class="mobile-menu d-none">
+    <div class="mobile-menu-content">
+        <div>
+            <button id="closeMobileMenu" class="btn-close"></button>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item mb-3" title="Voltar à página inicial">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i> <span>Início</span>
+                </a>
+            </li>
+            <li class="nav-item mb-3" title="Editar perfil">
+                <%= link_to edit_user_registration_path, class: "nav-link" do %>
+                <i class="fas fa-user"></i> <span>Perfil</span>
+                <% end %>
+            </li>
+            <li class="nav-item mb-3" title="Turmas matriculadas">
+                <%= link_to user_enrolled_courses_path, class: "nav-link" do %>
+                <i class="fas fa-user-check"></i> <span>Minhas Turmas</span>
+                <% end %>
+            </li>
+            <li class="nav-item mb-3" title="Ver resultados">
+                <%= link_to results_path, class: "nav-link" do %>
+                <i class="fas fa-download"></i> <span>Resultados</span>
+                <% end %>
+            </li>
+            <% if current_user.admin? %>
+            <li class="nav-item mb-3" title="Painel de controle">
+                <%= link_to admin_dashboard_path, class: "nav-link" do %>
+                <i class="fas fa-users-cog"></i> <span>Dashboard</span>
+                <% end %>
+            </li>
+            <li class="nav-item mb-3" title="Criar nova turma">
+                <%= link_to new_course_path, class: "nav-link" do %>
+                <i class="fas fa-plus"></i> <span> Nova Turma</span>
+                <% end %>
+            </li>
+            <% end %>
+            <li class="nav-item mb-3" title="Sair do sistema">
+                <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "Quer mesmo sair?" }, class: "nav-link w-100 text-start" do %>
+                <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
+                <% end %>
+            </li>
+        </ul>
+    </div>
+</div>
 <% end %>
 
 <% unless user_signed_in? %>
@@ -70,4 +118,52 @@
             border-radius: 10px;
         }
     }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1050;
+    }
+
+    .mobile-menu-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .d-none {
+        display: none;
+    }
+
+    @media (min-width: 992px) {
+        #mobileMenuButton {
+            display: none;
+        }
+    }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileMenuButton = document.getElementById("mobileMenuButton");
+        const closeMobileMenu = document.getElementById("closeMobileMenu");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        mobileMenuButton.addEventListener("click", function() {
+            mobileMenu.classList.remove("d-none");
+        });
+
+        closeMobileMenu.addEventListener("click", function() {
+            mobileMenu.classList.add("d-none");
+        });
+    });
+</script>
