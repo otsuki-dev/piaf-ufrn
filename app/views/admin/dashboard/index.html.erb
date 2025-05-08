@@ -73,21 +73,26 @@
             </div>
         </div>
     </div>
+
+    <div class="container mb-4">
+    <h1 class="h4 mb-3">Buscar Usuários</h1>
+
+    <%= form_with url: admin_dashboard_path, method: :get, data: { turbo_frame: "users_results" }, html: { class: "row g-2 align-items-center" } do %>
+        <div class="col-auto">
+        <%= label_tag :query, "Nome:", class: "form-label" %>
+        </div>
+        <div class="col-auto">
+        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Digite o nome..." %>
+        </div>
+        <div class="col-auto">
+        <%= submit_tag "Buscar", class: "btn btn-primary" %>
+        </div>
+    <% end %>
+
+    <hr>
+
+    <turbo-frame id="users_results">
+        <%= render partial: "users_list", locals: { users: @users } %>
+    </turbo-frame>
+    </div>
 </div>
-
-<script>
-    document.getElementById('recipient-type-select').addEventListener('change', function() {
-        const courseField = document.getElementById('course-select-field');
-        courseField.style.display = this.value === 'outros' ? 'block' : 'none';
-    });
-
-    document.querySelector('form').addEventListener('submit', function(event) {
-        const recipientType = document.getElementById('recipient-type-select').value;
-        const courseCheckboxes = document.querySelectorAll('input[name="course_ids[]"]:checked');
-
-        if (recipientType === 'outros' && courseCheckboxes.length === 0) {
-            alert('Selecione pelo menos um curso.');
-            event.preventDefault();
-        }
-    });
-</script>

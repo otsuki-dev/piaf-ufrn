@@ -3,20 +3,20 @@
     <div class="container-xl">
         <div class="row text-center align-items-center">
             <div class="col-lg-auto ms-lg-auto">
-                <div class="d-flex justify-content-center align-items-center">
-                    <h5 class="mb-0 fw-light me-2">
-                        <% if (Time.now.hour < 12 and Time.now.hour <= 0 ) %>
-                        Bom dia,
-                        <% elsif (Time.now.hour >= 12 and Time.now.hour < 18) %>
-                        Boa tarde,
-                        <% else %>
-                        Boa noite,
-                        <% end %>
-                        <%= current_user.username %>.
-                    </h5>
-                    <img src="https://api.dicebear.com/7.x/thumbs/png?seed=<%= @seed %>" class="rounded-3 ms-2" style="width: 50px;" alt="Avatar" />
-                </div>
-                <button id="mobileMenuButton" class="btn btn-primary d-lg-none m-2 ">Menu</button>
+                <ul class="list-inline list-inline-dots mb-0">
+                    <li class="list-inline-item d-flex align-items-center">
+                        <h5 class="mr-2 mb-0 fw-light">
+                            <% if (Time.now.hour < 12 and Time.now.hour <= 0 ) %>
+                            Bom dia,
+                            <% elsif (Time.now.hour >= 12 and Time.now.hour < 18) %>
+                            Boa tarde,
+                            <% else %>
+                            Boa noite,
+                            <% end %>
+                            <%= current_user.username %>.</h5>
+                        <img src="https://api.dicebear.com/9.x/initials/svg?seed=<%= current_user.username %>" class="rounded-3 ms-2" style="width: 50px;" alt="Avatar" />
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

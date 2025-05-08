@@ -21,6 +21,10 @@ class User < ApplicationRecord
     self.admin
   end
 
+  def instructor?
+    self.instructor
+  end
+
   private
 
   # Validação de CPF

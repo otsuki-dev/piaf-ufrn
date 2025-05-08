@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get "/consent_form" => "pages#consent_form", as: :consent_form
 
+  get "/instrutores" => "pages#instructor", as: :instructor
+
   devise_for :users, controllers: { sessions: "users/sessions" }
 
   authenticated :user do
@@ -51,6 +53,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "dashboard", to: "dashboard#index"
+    patch '/users/:id/toggle_instructor', to: 'users#toggle_instructor', as: 'toggle_instructor_user'
   end
 
   resources :emails, only: [ :create ]
