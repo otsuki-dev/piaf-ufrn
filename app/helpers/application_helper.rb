@@ -10,4 +10,18 @@ module ApplicationHelper
       phone # Retorna original se não for válido
     end
   end
+
+  def greeting_for(user)
+    hour = Time.zone.now.hour
+    greeting =
+      if hour < 12
+        "Bom dia"
+      elsif hour < 18
+        "Boa tarde"
+      else
+        "Boa noite"
+      end
+
+    "#{greeting}, #{user.username}."
+  end
 end

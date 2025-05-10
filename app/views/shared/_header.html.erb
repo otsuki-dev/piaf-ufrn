@@ -1,69 +1,92 @@
 <% if user_signed_in? %>
+<!-- Header para usuários logados -->
 <header class="header secondary_header d-print-none py-1">
     <div class="container-xl">
-        <div class="row text-center align-items-center">
-            <div class="col-lg-auto ms-lg-auto">
-                <ul class="list-inline list-inline-dots mb-0">
-                    <li class="list-inline-item d-flex align-items-center">
-                        <h5 class="mr-2 mb-0 fw-light">
-                            <% if (Time.now.hour < 12 and Time.now.hour <= 0 ) %>
-                            Bom dia,
-                            <% elsif (Time.now.hour >= 12 and Time.now.hour < 18) %>
-                            Boa tarde,
-                            <% else %>
-                            Boa noite,
-                            <% end %>
-                            <%= current_user.username %>.</h5>
-                        <img src="https://api.dicebear.com/9.x/initials/svg?seed=<%= current_user.username %>" class="rounded-3 ms-2" style="width: 50px;" alt="Avatar" />
-                    </li>
-                </ul>
+        <div class="row align-items-center">
+            <!-- Botão do menu mobile -->
+            <div class="col-auto d-lg-none">
+                <button id="mobileMenuButton" class="btn btn-link p-0" aria-label="Abrir menu">
+                    <i class="fas fa-bars fa-lg"></i>
+                </button>
+            </div>
+            
+            <!-- Saudação e avatar -->
+            <div class="col text-center text-lg-end">
+                <div class="d-inline-flex align-items-center">
+                    <h5 class="mb-0 me-2 fw-light"><%= greeting_for(current_user) %></h5>
+                    <img src="https://api.dicebear.com/9.x/initials/svg?seed=<%= current_user.username %>" 
+                         class="rounded-3" 
+                         style="width: 40px; height: 40px;" 
+                         alt="Avatar" />
+                </div>
             </div>
         </div>
     </div>
 </header>
 
-
-<div id="mobileMenu" class="mobile-menu d-none">
-    <div class="mobile-menu-content">
-        <div>
-            <button id="closeMobileMenu" class="btn-close"></button>
+<!-- Menu Mobile -->
+<div id="mobileMenu" class="mobile-menu">
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu-drawer">
+        <!-- Cabeçalho do menu -->
+        <div class="mobile-menu-header">
+            <div class="d-flex align-items-center">
+                <img src="https://api.dicebear.com/9.x/initials/svg?seed=<%= current_user.username %>" 
+                     class="rounded-3 me-2" 
+                     style="width: 40px; height: 40px;" 
+                     alt="Avatar" />
+                <div>
+                    <h6 class="mb-0"><%= current_user.username %></h6>
+                    <small class="text-muted"><%= current_user.email %></small>
+                </div>
+            </div>
+            <button id="closeMobileMenu" class="btn-close" aria-label="Fechar menu"></button>
         </div>
+        
+        <!-- Itens do menu -->
         <ul class="nav flex-column">
-            <li class="nav-item mb-3" title="Voltar à página inicial">
-                <a href="/" class="nav-link">
-                    <i class="fas fa-home"></i> <span>Início</span>
+            <li class="nav-item">
+                <a href="/" class="nav-link" title="Voltar à página inicial">
+                    <i class="fas fa-home fa-fw me-2"></i> Início
                 </a>
             </li>
-            <li class="nav-item mb-3" title="Editar perfil">
-                <%= link_to edit_user_registration_path, class: "nav-link" do %>
-                <i class="fas fa-user"></i> <span>Perfil</span>
+            <li class="nav-item">
+                <%= link_to edit_user_registration_path, class: "nav-link", title: "Editar perfil" do %>
+                    <i class="fas fa-user fa-fw me-2"></i> Perfil
                 <% end %>
             </li>
-            <li class="nav-item mb-3" title="Turmas matriculadas">
-                <%= link_to user_enrolled_courses_path, class: "nav-link" do %>
-                <i class="fas fa-user-check"></i> <span>Minhas Turmas</span>
+            <li class="nav-item">
+                <%= link_to user_enrolled_courses_path, class: "nav-link", title: "Turmas matriculadas" do %>
+                    <i class="fas fa-user-check fa-fw me-2"></i> Minhas Turmas
                 <% end %>
             </li>
-            <li class="nav-item mb-3" title="Ver resultados">
-                <%= link_to results_path, class: "nav-link" do %>
-                <i class="fas fa-download"></i> <span>Resultados</span>
+            <li class="nav-item">
+                <%= link_to results_path, class: "nav-link", title: "Ver resultados" do %>
+                    <i class="fas fa-download fa-fw me-2"></i> Resultados
                 <% end %>
             </li>
+            
             <% if current_user.admin? %>
-            <li class="nav-item mb-3" title="Painel de controle">
-                <%= link_to admin_dashboard_path, class: "nav-link" do %>
-                <i class="fas fa-users-cog"></i> <span>Dashboard</span>
+            <li class="nav-divider">Administração</li>
+            <li class="nav-item">
+                <%= link_to admin_dashboard_path, class: "nav-link", title: "Painel de controle" do %>
+                    <i class="fas fa-users-cog fa-fw me-2"></i> Dashboard
                 <% end %>
             </li>
-            <li class="nav-item mb-3" title="Criar nova turma">
-                <%= link_to new_course_path, class: "nav-link" do %>
-                <i class="fas fa-plus"></i> <span> Nova Turma</span>
+            <li class="nav-item">
+                <%= link_to new_course_path, class: "nav-link", title: "Criar nova turma" do %>
+                    <i class="fas fa-plus fa-fw me-2"></i> Nova Turma
                 <% end %>
             </li>
             <% end %>
-            <li class="nav-item mb-3" title="Sair do sistema">
-                <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "Quer mesmo sair?" }, class: "nav-link w-100 text-start" do %>
-                <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
+            
+            <li class="nav-divider">Sessão</li>
+            <li class="nav-item">
+                <%= button_to destroy_user_session_path, method: :delete, 
+                    data: { turbo_confirm: "Quer mesmo sair?" }, 
+                    class: "nav-link text-start w-100", 
+                    title: "Sair do sistema" do %>
+                    <i class="fas fa-sign-out-alt fa-fw me-2"></i> Sair
                 <% end %>
             </li>
         </ul>
@@ -72,98 +95,244 @@
 <% end %>
 
 <% unless user_signed_in? %>
+<!-- Header para visitantes não logados -->
 <header class="header header-transparent d-print-none py-3 glassmorphism">
     <div class="container-xl">
-        <div class="row text-center align-items-center">
-            <div class="col-12 col-lg-auto mt-lg-0">
+        <div class="row align-items-center">
+            <!-- Logo -->
+            <div class="col-auto">
                 <a href="/" class="header-logo" title="PIAF - Plataforma de Inscrições de Atividades Físicas">
-                    <%= image_tag 'piaf.webp', alt: 'Logo da PIAF', class: 'img-fluid', style: 'max-height: 40px', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' %>
+                    <%= image_tag 'piaf.webp', alt: 'Logo da PIAF', class: 'img-fluid', style: 'max-height: 40px', draggable: 'false' %>
                 </a>
             </div>
-            <div class="col-lg-auto ms-lg-auto">
+            
+            <!-- Menu desktop -->
+            <div class="col d-none d-lg-block text-end">
                 <ul class="list-inline list-inline-dots mb-0">
                     <li class="list-inline-item"><a href="/" class="link-secondary" title="Voltar ao início">Início</a></li>
                     <li class="list-inline-item"><a href="/resultados" class="link-secondary" title="Ver resultados de inscrições">Resultados</a></li>
-                    <li class="list-inline-item"><a href="/professores" class="link-secondary" title="Ver professores cadastrados no sistema">Conheça os Professores</a></li>
+                    <li class="list-inline-item"><a href="/instrutores" class="link-secondary" title="Ver professores cadastrados">Conheça os Professores</a></li>
                     <li class="list-inline-item">
-                        <%= link_to new_user_session_path, class: "list-inline-item link-secondary",  title: "Entrar em conta já existente" do %>
-                        <span class="link-secondary">Entrar</span>
+                        <%= link_to new_user_session_path, class: "link-secondary", title: "Entrar em conta já existente" do %>
+                            Entrar
                         <% end %>
                     </li>
-                    <li class="btn btn-primary" title="Crie sua conta na PIAF hoje mesmo!">
-                        <%= link_to new_user_registration_path, class: "list-inline-item" do %>
-                        <!-- image_tag 'imagem', alt: 'imagem', class: 'img-fluid nav-icon', draggable: 'false', ondragstart: 'return false;', oncontextmenu: 'return false;' -->
-                        <span class="nav-link text-white">Criar conta</span>
+                    <li class="list-inline-item">
+                        <%= link_to new_user_registration_path, class: "btn btn-primary", title: "Crie sua conta na PIAF hoje mesmo!" do %>
+                            Criar conta
                         <% end %>
                     </li>
                 </ul>
             </div>
+            
+            <!-- Menu mobile (hamburger para não logados) -->
+            <div class="col-auto d-lg-none ms-auto">
+                <button id="guestMobileMenuButton" class="btn btn-link p-0" aria-label="Abrir menu">
+                    <i class="fas fa-bars fa-lg"></i>
+                </button>
+            </div>
         </div>
     </div>
 </header>
+
+<!-- Menu Mobile para visitantes -->
+<div id="guestMobileMenu" class="mobile-menu">
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu-drawer">
+        <div class="mobile-menu-header">
+            <a href="/" class="d-flex align-items-center text-decoration-none">
+                <%= image_tag 'piaf.webp', alt: 'Logo da PIAF', style: 'height: 30px', class: 'me-2' %>
+            </a>
+            <button id="closeGuestMobileMenu" class="btn-close" aria-label="Fechar menu"></button>
+        </div>
+        
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a href="/" class="nav-link" title="Voltar ao início">
+                    <i class="fas fa-home fa-fw me-2"></i> Início
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/resultados" class="nav-link" title="Ver resultados de inscrições">
+                    <i class="fas fa-chart-bar fa-fw me-2"></i> Resultados
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/instrutores" class="nav-link" title="Ver professores cadastrados">
+                    <i class="fas fa-chalkboard-teacher fa-fw me-2"></i> Professores
+                </a>
+            </li>
+            
+            <li class="nav-divider">Conta</li>
+            
+            <li class="nav-item">
+                <%= link_to new_user_session_path, class: "nav-link", title: "Entrar em conta já existente" do %>
+                    <i class="fas fa-sign-in-alt fa-fw me-2"></i> Entrar
+                <% end %>
+            </li>
+            <li class="nav-item">
+                <%= link_to new_user_registration_path, class: "nav-link", title: "Crie sua conta na PIAF hoje mesmo!" do %>
+                    <i class="fas fa-user-plus fa-fw me-2"></i> Criar conta
+                <% end %>
+            </li>
+        </ul>
+    </div>
+</div>
 <% end %>
 
 <style>
+    /* Estilos base para o header */
     header {
+        position: relative;
+        z-index: 100;
+        
         .secondary_header {
             background-color: #F9FBFD;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-
+        
         .glassmorphism {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
         }
     }
-
+    
+    /* Estilos para o menu mobile */
     .mobile-menu {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
         z-index: 1050;
-    }
-
-    .mobile-menu-content {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        width: 90%;
-        max-width: 400px;
-        text-align: center;
-    }
-
-    .d-none {
         display: none;
     }
-
-    @media (min-width: 992px) {
-        #mobileMenuButton {
-            display: none;
+    
+    .mobile-menu.show {
+        display: block;
+    }
+    
+    .mobile-menu-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+    }
+    
+    .mobile-menu-drawer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 85%;
+        max-width: 320px;
+        height: 100%;
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .mobile-menu.show .mobile-menu-drawer {
+        transform: translateX(0);
+    }
+    
+    .mobile-menu-header {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .nav-item {
+        padding: 0.5rem 1rem;
+    }
+    
+    .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        color: #333;
+        transition: all 0.2s;
+        
+        &:hover {
+            background: #f5f5f5;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+        
+        i {
+            width: 24px;
+            text-align: center;
+        }
+    }
+    
+    .nav-divider {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #6c757d;
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 991.98px) {
+        #mobileMenuButton, #guestMobileMenuButton {
+            display: inline-block;
         }
     }
 </style>
 
 <script>
+    // Função para inicializar o menu mobile
+    function initializeMobileMenu(buttonId, menuId, closeButtonId) {
+        const button = document.getElementById(buttonId);
+        const menu = document.getElementById(menuId);
+        const closeButton = document.getElementById(closeButtonId);
+        
+        if (button && menu) {
+            button.addEventListener("click", function(e) {
+                e.preventDefault();
+                menu.classList.add("show");
+                document.body.style.overflow = "hidden";
+            });
+        }
+        
+        if (closeButton && menu) {
+            closeButton.addEventListener("click", function(e) {
+                e.preventDefault();
+                menu.classList.remove("show");
+                document.body.style.overflow = "";
+            });
+        }
+        
+        // Fechar menu ao clicar no overlay
+        const overlay = menu ? menu.querySelector(".mobile-menu-overlay") : null;
+        if (overlay) {
+            overlay.addEventListener("click", function(e) {
+                e.preventDefault();
+                menu.classList.remove("show");
+                document.body.style.overflow = "";
+            });
+        }
+    }
+    
+    // Inicializar quando o DOM estiver pronto
     document.addEventListener("DOMContentLoaded", function() {
-        const mobileMenuButton = document.getElementById("mobileMenuButton");
-        const closeMobileMenu = document.getElementById("closeMobileMenu");
-        const mobileMenu = document.getElementById("mobileMenu");
-
-        mobileMenuButton.addEventListener("click", function() {
-            mobileMenu.classList.remove("d-none");
-        });
-
-        closeMobileMenu.addEventListener("click", function() {
-            mobileMenu.classList.add("d-none");
-        });
+        initializeMobileMenu("mobileMenuButton", "mobileMenu", "closeMobileMenu");
+        initializeMobileMenu("guestMobileMenuButton", "guestMobileMenu", "closeGuestMobileMenu");
+    });
+    
+    // Inicializar também quando o Turbo faz um carregamento
+    document.addEventListener("turbo:load", function() {
+        initializeMobileMenu("mobileMenuButton", "mobileMenu", "closeMobileMenu");
+        initializeMobileMenu("guestMobileMenuButton", "guestMobileMenu", "closeGuestMobileMenu");
     });
 </script>
