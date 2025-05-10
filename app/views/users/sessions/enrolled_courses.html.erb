@@ -1,48 +1,63 @@
-<div class="container">
-    <h1 class="text-center">Minhas inscrições</h1>
-    <p class="mb-5 text-center">
-        Aqui você pode visualizar os cursos em que você está inscrito.
-        Caso deseje cancelar a inscrição em algum curso, basta clicar no botão "Cancelar Inscrição".
-        Caso você cancele, não será possível recuperar a inscrição e você perderá o direito desta vaga.
-    </p>
-    <table class="table table-bordered bg-white shadow-sm rounded-4">
-        <thead>
-            <tr>
-                <th>Modalidade</th>
-                <th>Início das inscrições</th>
-                <th>Término das inscrições</th>
-                <th>Dia e horário das aulas</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% if @enrollments.any? %>
-            <% @enrollments.each do |enrollment| %>
-            <tr>
-                <td><%= enrollment.course.modality %></td>
-                <td><%= enrollment.course.start_date %></td>
-                <td><%= enrollment.course.end_date %></td>
-                <td><%= enrollment.course.class_time %></td>
-                <td class="d-flex justify-content-center">
-                    <%= button_to 'Cancelar Inscrição', enrollment_path(enrollment), method: :delete, class: 'btn btn-outline-danger btn-block' %>
-                </td>
-            </tr>
-            <% end %>
-            <% else %>
-            <tr>
-                <td colspan="5" class="text-center text-muted">Você ainda não se inscreveu em nenhum curso.</td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
-</div>
+<div class="container my-5">
+  <h1 class="text-center">Minhas inscrições</h1>
+  <p class="mb-4 text-center">
+    Aqui você pode visualizar os cursos em que você está inscrito.
+    Caso deseje cancelar a inscrição em algum curso, basta clicar no botão "Cancelar Inscrição".
+    Caso você cancele, não será possível recuperar a inscrição e você perderá o direito desta vaga.
+  </p>
 
-<style>
-    .table {
-        border-collapse: separate;
-        border-spacing: 0;
-        border-radius: 0.25rem;
-        overflow: hidden;
-        border: 1px solid #9999998f;
-    }
-</style>
+  <!-- Tabela para telas grandes -->
+  <div class="d-none d-md-block">
+    <table class="table table-bordered bg-white shadow-sm rounded-4">
+      <thead class="table-light">
+        <tr>
+          <th>Modalidade</th>
+          <th>Início das inscrições</th>
+          <th>Término das inscrições</th>
+          <th>Dia e horário das aulas</th>
+          <th class="text-center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @enrollments.any? %>
+          <% @enrollments.each do |enrollment| %>
+            <tr>
+              <td><%= enrollment.course.modality %></td>
+              <td><%= l(enrollment.course.start_date, format: :long) %></td>
+              <td><%= l(enrollment.course.end_date, format: :long) %></td>
+              <td><%= enrollment.course.class_time %></td>
+              <td class="text-center">
+                <%= button_to 'Cancelar Inscrição', enrollment_path(enrollment), method: :delete, class: 'btn btn-outline-danger btn-sm' %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="5" class="text-center text-muted">Você ainda não se inscreveu em nenhum curso.</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cards para telas pequenas -->
+  <div class="d-md-none">
+    <% if @enrollments.any? %>
+      <% @enrollments.each do |enrollment| %>
+        <div class="card mb-3 shadow-sm rounded-4">
+          <div class="card-body">
+            <p><strong>Modalidade:</strong> <%= enrollment.course.modality %></p>
+            <p><strong>Início das inscrições:</strong> <%= l(enrollment.course.start_date, format: :long) %></p>
+            <p><strong>Término das inscrições:</strong> <%= l(enrollment.course.end_date, format: :long) %></p>
+            <p><strong>Dia e horário das aulas:</strong> <%= enrollment.course.class_time %></p>
+            <div class="text-center mt-3">
+              <%= button_to 'Cancelar Inscrição', enrollment_path(enrollment), method: :delete, class: 'btn btn-outline-danger btn-sm w-100' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="text-center text-muted">Você ainda não se inscreveu em nenhum curso.</div>
+    <% end %>
+  </div>
+</div>
