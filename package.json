@@ -1,0 +1,24 @@
+{
+  "name": "piaf-ufrn",
+  "version": "1.0.0",
+  "description": "Bem-vindo ao repositório oficial da **PIAF**, o **Portal de Inscrições de Atividades Físicas da UFRN**. Este projeto foi desenvolvido para facilitar a inscrição em atividades físicas oferecidas pela COESPE na UFRN, proporcionando uma experiência simples e eficiente tanto para os usuários quanto para os administradores (bolsistas).",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otsuki-dev/piaf-ufrn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/otsuki-dev/piaf-ufrn/issues"
+  },
+  "homepage": "https://github.com/otsuki-dev/piaf-ufrn#readme"
+}

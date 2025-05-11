@@ -10,7 +10,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled.
-  config.consider_all_requests_local = false
+  config.consider_all_requests_local = true
 
   # Turn on fragment caching in view templates.
   config.action_controller.perform_caching = true
@@ -50,14 +50,15 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
-  # config.active_job.queue_adapter = :resque
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = { host: "piaf-ufrn.fly.dev" }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -67,6 +68,23 @@ Rails.application.configure do
   #   port: 587,
   #   authentication: :plain
   # }
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.sendgrid.net",
+    port:                 587,
+    domain:               "piaf-ufrn.fly.dev", 
+    user_name:            ENV["SENDGRID_USERNAME"],
+    password:             ENV["SENDGRID_PASSWORD"],
+    authentication:       :plain,
+    enable_starttls_auto: true
+  }
+
+  config.action_mailer.default_url_options = {
+    host: "piaf-ufrn.fly.dev", 
+    protocol: "https"
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

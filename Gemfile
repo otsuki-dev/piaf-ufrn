@@ -9,13 +9,11 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
-gem "jsbundling-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
-gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
@@ -63,7 +61,6 @@ end
 
 gem "devise", "~> 4.9"
 gem "view_component", "~> 3.21"
-gem "bootstrap", "~> 5.3.0"
 gem "jquery-rails"
 gem "importmap-rails", "~> 2.1"
 gem "prawn"
@@ -74,3 +71,5 @@ gem 'cpf_cnpj'
 gem 'phony_rails'
 gem "uri", ">= 1.0.3"
 gem 'kaminari'
+
+gem "dockerfile-rails", ">= 1.7", :group => :development
