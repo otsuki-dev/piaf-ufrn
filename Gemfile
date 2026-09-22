@@ -70,6 +70,9 @@ gem 'daemons'
 gem 'cpf_cnpj'
 gem 'phony_rails'
 gem "uri", ">= 1.0.3"
+gem "cgi"
 gem 'kaminari'
 
 gem "dockerfile-rails", ">= 1.7", :group => :development
+
+gem "tsort", "~> 0.2.0"
